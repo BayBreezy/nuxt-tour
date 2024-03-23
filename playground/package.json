@@ -12,6 +12,7 @@
     "@nuxt/content": "^2.12.1",
     "nuxt": "3.11.1",
     "nuxt-content-twoslash": "^0.0.10",
+    "nuxt-tour": "^0.0.2",
     "radix-vue": "^1.5.3",
     "tailwind-variants": "^0.2.1",
     "vue-sonner": "^1.1.2",
