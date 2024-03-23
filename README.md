@@ -14,6 +14,10 @@ Find and replace all on all files (CMD+SHIFT+F):
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
+<img alt="Docs Cover" src="./nuxt-tour.png" style="max-height: 250px; width: 100%; object-fit: cover; object-position: 0 20%"/>
+
+<br/>
+
 Empower your users with interactive guided tours of your Nuxt 3 applications using the `nuxt-tour` module.
 
 With this module, developers can seamlessly integrate step-by-step tooltips into their applications, providing clear instructions and highlighting key features.
@@ -22,9 +26,9 @@ Special thanks to [Vue Tour](https://github.com/GlobalHive/vuejs-tour/tree/maste
 
 Thank you https://github.com/GlobalHive
 
+- [📖 &nbsp;Documentation](https://nuxt-tour.behonbaker.com/)
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
   <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-tour?file=playground%2Fapp.vue) -->
-  <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Features
 
