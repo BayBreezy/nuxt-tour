@@ -5,7 +5,7 @@
       <UiContainer
         class="grid grid-cols-1 md:grid-cols-[230px,1fr] md:gap-5 lg:grid-cols-[260px,1fr] lg:gap-7 xl:grid-cols-[280px,1fr]"
       >
-        <aside class="sticky top-14 hidden h-[calc(100dvh-57px)] w-full border-r lg:block">
+        <aside class="sticky top-14 hidden h-[calc(100dvh-57px)] w-full border-r md:block">
           <DocsNavlink />
         </aside>
         <div class="grid xl:grid-cols-[1fr,280px] xl:gap-7">
@@ -27,16 +27,10 @@
           <aside
             class="sticky top-14 hidden h-[calc(100dvh-57px)] overflow-y-auto px-3 py-5 xl:block"
           >
-            <p class="mb-4 flex items-center gap-3 text-sm font-semibold">
-              On this page
-            </p>
+            <p class="mb-4 flex items-center gap-3 text-sm font-semibold">On this page</p>
 
             <nav>
-              <DocsToc
-                :set-active="setActive"
-                :active-id="activeId"
-                :links="toc.links"
-              />
+              <DocsToc :set-active="setActive" :active-id="activeId" :links="toc.links" />
             </nav>
           </aside>
         </div>
