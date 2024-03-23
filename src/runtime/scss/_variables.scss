@@ -1,0 +1,88 @@
+$ntBorderColor: #e2e8f0 !default;
+$ntWhite: #ffffff !default;
+$ntTextColor: #0f172a !default;
+$ntSubTextColor: #64748b !default;
+$ntHighlightColor: #0ea5e9 !default;
+
+// Tooltip base
+$ntTooltipPosition: relative !default;
+$ntTooltipBackgroundColor: $ntWhite !default;
+$ntTooltipBorder: 1px solid $ntBorderColor !default;
+$ntTooltipPadding: 10px 15px !default;
+$ntTooltipBoxShadow:
+  0 2px 10px 0 rgba(0, 0, 0, 0.05),
+  0 2px 5px 0 rgba(0, 0, 0, 0.06) !default;
+$ntTooltipBorderRadius: 6px !default;
+$ntTooltipZIndex: 9999 !default;
+$ntTooltipMaxWidth: 370px !default;
+$ntTooltipDisplay: flex !default;
+$ntTooltipFlexDirection: column !default;
+$ntTooltipGap: 5px !default;
+
+// Tooltip Header
+$ntTooltipHeaderDisplay: flex !default;
+$ntTooltipHeaderFlexDirection: column !default;
+$ntTooltipHeaderGap: 6px !default;
+
+// Tooltip Title
+$ntTooltipTitleFontSize: 16px !default;
+$ntTooltipTitleLineHeight: normal !default;
+$ntTooltipTitleFontWeight: 600 !default;
+$ntTooltipTitleColor: $ntTextColor !default;
+
+// Tooltip subtext
+$ntTooltipSubTextFontSize: 14px !default;
+$ntTooltipSubTextLineHeight: normal !default;
+$ntTooltipSubTextColor: $ntSubTextColor !default;
+
+// Tooltip body
+$ntTooltipBodyFontSize: 14px !default;
+$ntTooltipBodyColor: $ntTextColor !default;
+
+// Tooltip arrow
+$ntTooltipArrowSize: 12px !default;
+$ntTooltipArrowBorder: 1px solid $ntBorderColor !default;
+$ntTooltipArrowBackgroundColor: $ntWhite !default;
+
+// Highlight
+$ntHighlightOffset: 8px !default;
+$ntHighlightOutlineRadius: 4px !default;
+$ntHighlightOutline: 1px solid $ntHighlightColor !default;
+
+// Action - Button container
+$ntActionDisplay: flex !default;
+$ntActionGap: 8px !default;
+$ntActionAlignItems: center !default;
+$ntActionGap: 8px !default;
+$ntActionMarginTop: 14px !default;
+
+// Action - Button
+$ntButtonDisplay: inline-flex !default;
+$ntButtonAlignItems: center !default;
+$ntButtonJustifyContent: center !default;
+$ntButtonLineHeight: 0 !default;
+$ntButtonGap: 10px !default;
+$ntButtonHeight: 32px !default;
+$ntButtonPadding: 4px 14px !default;
+$ntButtonBorderRadius: 5px !default;
+$ntButtonFontSize: 14px !default;
+$ntButtonFontWeight: 500 !default;
+$ntButtonTransition: all 0.2s ease-in-out !default;
+
+// Next - Finish button
+$ntButtonBackgroundColor: #020617 !default;
+$ntButtonColor: $ntWhite !default;
+
+// Skip button
+$ntButtonSkipBackgroundColor: transparent !default;
+$ntButtonSkipColor: $ntButtonBackgroundColor !default;
+$ntButtonSkipBorder: 1px solid $ntButtonSkipBackgroundColor !default;
+$ntButtonSkipHoverBackgroundColor: $ntBorderColor !default;
+
+// Prev button
+$ntButtonPrevBackgroundColor: $ntBorderColor !default;
+$ntButtonPrevColor: $ntButtonBackgroundColor !default;
+$ntButtonPrevBorder: 1px solid $ntBorderColor !default;
+$ntButtonPrevHoverBackgroundColor: $ntButtonBackgroundColor !default;
+$ntButtonPrevHoverBorderColor: $ntButtonPrevBackgroundColor !default;
+$ntButtonPrevHoverColor: $ntWhite !default;

@@ -1,0 +1,168 @@
+@use "sass:math";
+@import "variables";
+
+[data-hidden] {
+  display: none !important;
+}
+
+#nt-tooltip {
+  position: $ntTooltipPosition;
+  background-color: $ntTooltipBackgroundColor;
+  border: $ntTooltipBorder;
+  padding: $ntTooltipPadding;
+  box-shadow: $ntTooltipBoxShadow;
+  border-radius: $ntTooltipBorderRadius;
+  z-index: $ntTooltipZIndex;
+  max-width: $ntTooltipMaxWidth;
+  display: $ntTooltipDisplay;
+  flex-direction: $ntTooltipFlexDirection;
+  gap: $ntTooltipGap;
+}
+
+.nt-center {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+#nt-tooltip-header {
+  display: $ntTooltipHeaderDisplay;
+  flex-direction: $ntTooltipHeaderFlexDirection;
+  gap: $ntTooltipHeaderGap;
+
+  #nt-tooltip-title {
+    font-size: $ntTooltipTitleFontSize;
+    line-height: $ntTooltipTitleLineHeight;
+    font-weight: $ntTooltipTitleFontWeight;
+    color: $ntTooltipTitleColor;
+  }
+
+  #nt-tooltip-sub-text {
+    line-height: $ntTooltipSubTextLineHeight;
+    font-size: $ntTooltipSubTextFontSize;
+    color: $ntTooltipSubTextColor;
+  }
+}
+
+#nt-tooltip-body {
+  font-size: $ntTooltipBodyFontSize;
+  color: $ntTooltipBodyColor;
+}
+
+#nt-tooltip[data-popper-placement^="top"] {
+  #nt-arrow {
+    bottom: math.div(-$ntTooltipArrowSize, 2);
+    &::before {
+      content: "";
+      border-bottom: $ntTooltipArrowBorder;
+      border-right: $ntTooltipArrowBorder;
+    }
+  }
+}
+
+#nt-tooltip[data-popper-placement^="bottom"] {
+  #nt-arrow {
+    top: math.div(-$ntTooltipArrowSize, 2);
+    &::before {
+      content: "";
+      border-top: $ntTooltipArrowBorder;
+      border-left: $ntTooltipArrowBorder;
+    }
+  }
+}
+
+#nt-tooltip[data-popper-placement^="left"] {
+  #nt-arrow {
+    right: math.div(-$ntTooltipArrowSize, 2);
+    &::before {
+      content: "";
+      border-top: $ntTooltipArrowBorder;
+      border-right: $ntTooltipArrowBorder;
+    }
+  }
+}
+
+#nt-tooltip[data-popper-placement^="right"] {
+  #nt-arrow {
+    left: math.div(-$ntTooltipArrowSize, 2);
+    &::before {
+      content: "";
+      border-bottom: $ntTooltipArrowBorder;
+      border-left: $ntTooltipArrowBorder;
+    }
+  }
+}
+
+#nt-arrow {
+  width: $ntTooltipArrowSize;
+  height: $ntTooltipArrowSize;
+  position: absolute;
+  z-index: -99;
+
+  &::before {
+    content: "";
+    width: $ntTooltipArrowSize;
+    height: $ntTooltipArrowSize;
+    background-color: $ntTooltipArrowBackgroundColor;
+    transform: rotate(45deg);
+    position: absolute;
+  }
+}
+
+.nt-highlight {
+  outline: $ntHighlightOutline;
+  outline-offset: $ntHighlightOffset;
+  border-radius: $ntHighlightOutlineRadius;
+}
+
+.nt-actions {
+  display: $ntActionDisplay;
+  gap: $ntActionGap;
+  align-items: $ntActionAlignItems;
+  gap: $ntActionGap;
+  margin-top: $ntActionMarginTop;
+
+  button {
+    display: $ntButtonDisplay;
+    align-items: $ntButtonAlignItems;
+    justify-content: $ntButtonJustifyContent;
+    line-height: $ntButtonLineHeight;
+    gap: $ntButtonGap;
+    height: $ntButtonHeight;
+    padding: $ntButtonPadding;
+    border-radius: $ntButtonBorderRadius;
+    background-color: $ntButtonBackgroundColor;
+    color: $ntButtonColor;
+    font-size: $ntButtonFontSize;
+    font-weight: $ntButtonFontWeight;
+    transition: $ntButtonTransition;
+    cursor: pointer;
+
+    &#nt-action-skip {
+      background-color: $ntButtonSkipBackgroundColor;
+      color: $ntButtonSkipColor;
+      border: $ntButtonSkipBorder;
+
+      &:hover {
+        background-color: $ntButtonSkipHoverBackgroundColor;
+      }
+    }
+
+    &#nt-action-prev {
+      background-color: $ntButtonPrevBackgroundColor;
+      color: $ntButtonPrevColor;
+      border: $ntButtonPrevBorder;
+
+      &:hover {
+        background-color: $ntButtonPrevHoverBackgroundColor;
+        border-color: $ntButtonPrevHoverBorderColor;
+        color: $ntButtonPrevHoverColor;
+      }
+    }
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
