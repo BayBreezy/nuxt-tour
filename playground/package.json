@@ -3,19 +3,22 @@
   "name": "my-module-playground",
   "type": "module",
   "scripts": {
-    "dev": "nuxi dev",
+    "dev": "nuxi dev --host",
     "build": "nuxi build",
-    "generate": "nuxi generate"
+    "generate": "nuxi generate",
+    "ui": "npx --yes ui-thing@latest add"
   },
   "dependencies": {
+    "@nuxt/content": "^2.12.1",
     "nuxt": "3.11.1",
     "radix-vue": "^1.5.3",
     "tailwind-variants": "^0.2.1"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "4.1.1",
+    "@ianvs/prettier-plugin-sort-imports": "4.2.1",
     "@nuxtjs/color-mode": "^3.3.3",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@tailwindcss/typography": "^0.5.10",
     "@vueuse/nuxt": "^10.9.0",
     "nuxt-icon": "^0.6.10",
     "prettier": "^3.2.5",
