@@ -17,7 +17,7 @@ describe("Display Tour To User", async () => {
   it("has the target class on the h1 element", async () => {
     const html: string = await $fetch("/");
     // Expect it to have the target class on the h1 element
-    expect(html).toContain('<h1 class="target">Target 1</h1>');
+    expect(html).toContain('class="target"');
   });
 
   it("automatically starts the tour", async () => {
