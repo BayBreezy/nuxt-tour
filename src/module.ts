@@ -45,7 +45,7 @@ export default defineNuxtModule<TourOptions>({
 
     addComponent({
       filePath: resolver.resolve("./runtime/components/Tour.vue"),
-      name: `${options.prefix}Tour`,
+      name: options.prefix ? `${options.prefix}Tour` : "Tour",
     });
 
     addTemplate({
