@@ -1,4 +1,5 @@
 @import url("https://rsms.me/inter/inter.css");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -26,6 +27,11 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    /* Twoslash stuff */
+    --vp-c-border: theme("colors.foreground / 30%");
+    --vp-code-font-size: theme("fontSize.sm");
+    --twoslash-error-color: theme("colors.destructive.DEFAULT");
+    --vp-c-bg: theme("colors.background");
   }
 
   .dark {
@@ -48,7 +54,12 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --vp-c-bg: theme("colors.muted.DEFAULT");
   }
+}
+
+.v-popper__arrow-inner {
+  color: theme("colors.foreground / 7%");
 }
 
 @layer base {
@@ -61,4 +72,21 @@
       "rlig" 1,
       "calt" 1;
   }
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+  @apply !font-bold !no-underline hover:!text-foreground hover:!decoration-wavy;
+}
+
+code {
+  @apply inline-block rounded bg-muted px-1 py-px font-mono;
+}
+
+a > code {
+  @apply inline-block border border-dashed border-primary/40 bg-primary/5 px-1  transition hover:border-primary;
 }

@@ -1,6 +1,7 @@
 <template>
   <div ref="target" :id="parentId" data-hidden role="tooltip">
     <slot
+      :name="`${getCurrentStep.slot}-header`"
       v-bind="{
         endTour,
         nextStep,
@@ -14,168 +15,159 @@
         isLastStep,
       }"
     >
-      <slot
-        :name="`${getCurrentStep.slot}-header`"
-        v-bind="{
-          endTour,
-          nextStep,
-          prevStep,
-          currentStep,
-          lastStep,
-          getCurrentStep,
-          getLastStep,
-          jump,
-          isLocked,
-          isLastStep,
-        }"
-      >
-        <div id="nt-tooltip-header">
-          <slot
-            :name="`${getCurrentStep.slot}-title`"
-            v-bind="{
-              endTour,
-              nextStep,
-              prevStep,
-              currentStep,
-              lastStep,
-              getCurrentStep,
-              getLastStep,
-              jump,
-              isLocked,
-              isLastStep,
-            }"
+      <div id="nt-tooltip-header">
+        <slot
+          :name="`${getCurrentStep.slot}-title`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+          }"
+        >
+          <h3 v-if="getCurrentStep.title" id="nt-tooltip-title">{{ getCurrentStep.title }}</h3>
+        </slot>
+        <slot
+          :name="`${getCurrentStep.slot}-sub-text`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+          }"
+        >
+          <p v-if="getCurrentStep.subText" id="nt-tooltip-sub-text">
+            {{ getCurrentStep.subText }}
+          </p>
+        </slot>
+      </div>
+    </slot>
+    <slot
+      :name="`${getCurrentStep.slot}-body`"
+      v-bind="{
+        endTour,
+        nextStep,
+        prevStep,
+        currentStep,
+        lastStep,
+        getCurrentStep,
+        getLastStep,
+        jump,
+        isLocked,
+        isLastStep,
+      }"
+    >
+      <div v-if="getCurrentStep.body" id="nt-tooltip-body">
+        <p>{{ getCurrentStep.body }}</p>
+      </div>
+    </slot>
+    <slot
+      :name="`${getCurrentStep.slot}-actions`"
+      v-bind="{
+        endTour,
+        nextStep,
+        prevStep,
+        currentStep,
+        lastStep,
+        getCurrentStep,
+        getLastStep,
+        jump,
+        isLocked,
+        isLastStep,
+      }"
+    >
+      <div class="nt-actions">
+        <slot
+          :name="`${getCurrentStep.slot}-skip-button`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+            skipButton,
+            nextButton,
+            prevButton,
+          }"
+        >
+          <button
+            type="button"
+            id="nt-action-skip"
+            @click.prevent="
+              endTour();
+              props.onSkip?.();
+            "
           >
-            <h3 v-if="getCurrentStep.title" id="nt-tooltip-title">{{ getCurrentStep.title }}</h3>
-          </slot>
-          <slot
-            :name="`${getCurrentStep.slot}-sub-text`"
-            v-bind="{
-              endTour,
-              nextStep,
-              prevStep,
-              currentStep,
-              lastStep,
-              getCurrentStep,
-              getLastStep,
-              jump,
-              isLocked,
-              isLastStep,
-            }"
+            {{ skipButton?.label || "Skip" }}
+          </button>
+        </slot>
+        <slot
+          :name="`${getCurrentStep.slot}-prev-button`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+            skipButton,
+            nextButton,
+            prevButton,
+          }"
+        >
+          <button
+            id="nt-action-prev"
+            v-if="currentStep > 0"
+            type="button"
+            @click.prevent="prevStep"
           >
-            <p v-if="getCurrentStep.subText" id="nt-tooltip-sub-text">
-              {{ getCurrentStep.subText }}
-            </p>
-          </slot>
-        </div>
-      </slot>
-      <slot
-        :name="`${getCurrentStep.slot}-body`"
-        v-bind="{
-          endTour,
-          nextStep,
-          prevStep,
-          currentStep,
-          lastStep,
-          getCurrentStep,
-          getLastStep,
-          jump,
-          isLocked,
-          isLastStep,
-        }"
-      >
-        <div v-if="getCurrentStep.body" id="nt-tooltip-body">
-          <p>{{ getCurrentStep.body }}</p>
-        </div>
-      </slot>
-      <slot
-        :name="`${getCurrentStep.slot}-actions`"
-        v-bind="{
-          endTour,
-          nextStep,
-          prevStep,
-          currentStep,
-          lastStep,
-          getCurrentStep,
-          getLastStep,
-          jump,
-          isLocked,
-          isLastStep,
-        }"
-      >
-        <div class="nt-actions">
-          <slot
-            :name="`${getCurrentStep.slot}-skip-button`"
-            v-bind="{
-              endTour,
-              nextStep,
-              prevStep,
-              currentStep,
-              lastStep,
-              getCurrentStep,
-              getLastStep,
-              jump,
-              isLocked,
-              isLastStep,
-              skipButton,
-              nextButton,
-              prevButton,
-            }"
-          >
-            <button type="button" id="nt-action-skip" @click.prevent="endTour">
-              {{ skipButton?.label || "Skip" }}
-            </button>
-          </slot>
-          <slot
-            :name="`${getCurrentStep.slot}-prev-button`"
-            v-bind="{
-              endTour,
-              nextStep,
-              prevStep,
-              currentStep,
-              lastStep,
-              getCurrentStep,
-              getLastStep,
-              jump,
-              isLocked,
-              isLastStep,
-              skipButton,
-              nextButton,
-              prevButton,
-            }"
-          >
-            <button
-              id="nt-action-prev"
-              v-if="currentStep > 0"
-              type="button"
-              @click.prevent="prevStep"
-            >
-              {{ prevButton?.label || "Prev" }}
-            </button>
-          </slot>
-          <slot
-            :name="`${getCurrentStep.slot}-next-button`"
-            v-bind="{
-              endTour,
-              nextStep,
-              prevStep,
-              currentStep,
-              lastStep,
-              getCurrentStep,
-              getLastStep,
-              jump,
-              isLocked,
-              isLastStep,
-              skipButton,
-              nextButton,
-              prevButton,
-            }"
-          >
-            <button id="nt-action-next" type="button" @click.prevent="nextStep">
-              {{ isLastStep ? finishButton?.label || "Done" : nextButton?.label || "Next" }}
-            </button>
-          </slot>
-        </div>
-      </slot>
+            {{ prevButton?.label || "Prev" }}
+          </button>
+        </slot>
+        <slot
+          :name="`${getCurrentStep.slot}-next-button`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+            skipButton,
+            nextButton,
+            prevButton,
+          }"
+        >
+          <button id="nt-action-next" type="button" @click.prevent="nextStep">
+            {{ isLastStep ? finishButton?.label || "Done" : nextButton?.label || "Next" }}
+          </button>
+        </slot>
+      </div>
     </slot>
     <slot
       :name="`${getCurrentStep.slot}-arrow`"
@@ -224,9 +216,9 @@
   /** The merged config to pass to jump */
   const jumpConfig = computed<Options>(() =>
     defu(props.jumpOptions, {
-      duration: 600,
+      duration: 300,
       offset: -100,
-    })
+    } as Options)
   );
 
   const popper = ref<Instance | null>(null);
@@ -296,12 +288,6 @@
         name: "flip",
         options: {
           fallbackPlacements: ["top", "bottom"],
-        },
-      },
-      {
-        name: "preventOverflow",
-        options: {
-          padding: 10,
         },
       },
     ],
@@ -404,12 +390,12 @@
         // remove the center class
         document.getElementById(parentId)?.classList.remove("nt-center");
       }
-      await recalculatePopper();
       if (props.trapFocus) {
         activateFocusTrap();
       }
       // check if scroll should be locked
       if (props.lockScroll) isLocked.value = true;
+      await recalculatePopper();
       return;
     }
     endTour();
@@ -436,12 +422,12 @@
         document.getElementById(parentId)?.classList.remove("nt-center");
       }
       // recalculate the popper
-      await recalculatePopper();
       if (props.trapFocus) {
         activateFocusTrap();
       }
       // check if scroll should be locked
       if (props.lockScroll) isLocked.value = true;
+      await recalculatePopper();
     }
   };
 
@@ -465,6 +451,8 @@
     emit("onTourEnd");
     // deactivate the focus trap
     deActivateFocusTrap();
+    // Call onComplete function if it exists
+    props.onComplete ? await props.onComplete() : null;
     isLocked.value = false;
   };
 
@@ -512,6 +500,8 @@
     deActivateFocusTrap();
     // unlock the scroll
     isLocked.value = false;
+    // destroy the popper instance
+    popper.value?.destroy();
     // if the tour has not started, start the tour
     await startTour();
   };
@@ -566,11 +556,11 @@
       );
       await popper.value?.update();
     }
+    props.highlight ? highlightTarget() : null;
     jump(
       document.querySelector(`${getCurrentStep.value.target}`) || document.body,
       jumpConfig.value
     );
-    props.highlight ? highlightTarget() : null;
     getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
   };
 

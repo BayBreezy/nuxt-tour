@@ -1,7 +1,16 @@
 <template>
   <UiNavbar id="main-nav" sticky>
     <UiContainer class="flex h-14 items-center justify-between">
-      <NuxtLink class="text-lg font-semibold" to="/">Nuxt Tour</NuxtLink>
+      <div class="flex items-center gap-3">
+        <UiButton
+          @click="mobileNav = true"
+          size="icon-sm"
+          variant="outline"
+          class="h-9 w-9 lg:hidden"
+          ><Icon name="heroicons:bars-2" class="size-4" />
+        </UiButton>
+        <NuxtLink class="text-lg font-semibold" to="/">Nuxt Tour</NuxtLink>
+      </div>
       <div class="flex items-center gap-3">
         <UiButton id="toggle-button" @click="toggleTheme" size="icon-sm" variant="ghost">
           <Icon class="size-4" name="lucide:sun-medium" />
@@ -9,6 +18,15 @@
       </div>
     </UiContainer>
   </UiNavbar>
+  <UiSheet v-model:open="mobileNav">
+    <UiSheetContent class="p-1">
+      <template #content>
+        <UiSheetTitle title="Mobile menu" class="sr-only" />
+        <UiSheetDescription description="A list of navigation items for mobile" class="sr-only" />
+        <DocsNavlink />
+      </template>
+    </UiSheetContent>
+  </UiSheet>
 </template>
 
 <script lang="ts" setup>
@@ -16,4 +34,6 @@
   const toggleTheme = () => {
     theme.preference = theme.value === "dark" ? "light" : "dark";
   };
+
+  const mobileNav = ref(false);
 </script>

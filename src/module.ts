@@ -38,19 +38,17 @@ export default defineNuxtModule<TourOptions>({
     nuxt.options.build.transpile.push("@popperjs/core");
     nuxt.options.alias["#nuxt-tour"] = runtimeDir;
 
+    const isDevelopment = runtimeDir.endsWith("src/runtime") || runtimeDir.endsWith("src\\runtime");
+
+    const extension = isDevelopment ? "scss" : "css";
     if (options.injectSass) {
       // add sass files to the top of the css array
-      nuxt.options.css.unshift(resolver.resolve("./runtime/scss/tour.scss"));
+      nuxt.options.css.unshift(resolver.resolve(`./runtime/scss/tour.${extension}`));
     }
 
     addComponent({
       filePath: resolver.resolve("./runtime/components/Tour.vue"),
       name: options.prefix ? `${options.prefix}Tour` : "Tour",
-    });
-
-    addTemplate({
-      filename: "nuxt-tour.d.ts",
-      src: resolver.resolve("./runtime/props.ts"),
     });
   },
 });

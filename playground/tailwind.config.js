@@ -2,6 +2,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /**@type {import('tailwindcss').Config} */
 module.exports = {
+  content: ["./content/**/*.md"],
   darkMode: "class",
   theme: {
     extend: {
@@ -13,11 +14,12 @@ module.exports = {
           lg: "4rem",
         },
         screens: {
-          "2xl": "1280px",
+          "2xl": "1300px",
         },
       },
       fontFamily: {
         sans: ["Inter var", "Inter", ...fontFamily.sans],
+        mono: ["JetBrains Mono", "ui-monospace", ...fontFamily.mono],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -93,6 +95,50 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": theme("colors.foreground"),
+            "--tw-prose-headings": theme("colors.foreground"),
+            "--tw-prose-lead": theme("colors.muted.foreground"),
+            "--tw-prose-links": theme("colors.foreground"),
+            "--tw-prose-bold": theme("colors.foreground"),
+            "--tw-prose-counters": theme("colors.muted.foreground"),
+            "--tw-prose-bullets": theme("colors.primary.DEFAULT / 50%"),
+            "--tw-prose-hr": theme("colors.border"),
+            "--tw-prose-quotes": theme("colors.foreground"),
+            "--tw-prose-quote-borders": theme("colors.border"),
+            "--tw-prose-captions": theme("colors.muted.foreground"),
+            "--tw-prose-kbd": theme("colors.foreground"),
+            "--tw-prose-kbd-shadows": theme("colors.foreground"),
+            "--tw-prose-pre-bg": theme("colors.background"),
+            "--tw-prose-th-borders": theme("colors.border"),
+            "--tw-prose-td-borders": theme("colors.border"),
+            "--tw-prose-invert-body": theme("colors.foreground"),
+            "--tw-prose-invert-headings": theme("colors.foreground"),
+            "--tw-prose-invert-lead": theme("colors.muted.foreground"),
+            "--tw-prose-invert-links": theme("colors.foreground"),
+            "--tw-prose-invert-bold": theme("colors.foreground"),
+            "--tw-prose-invert-counters": theme("colors.muted.foreground"),
+            "--tw-prose-invert-bullets": theme("colors.primary.DEFAULT / 50%"),
+            "--tw-prose-invert-hr": theme("colors.border"),
+            "--tw-prose-invert-quotes": theme("colors.foreground"),
+            "--tw-prose-invert-quote-borders": theme("colors.border"),
+            "--tw-prose-invert-captions": theme("colors.muted.foreground"),
+            "--tw-prose-invert-kbd": theme("colors.foreground"),
+            "--tw-prose-invert-kbd-shadows": theme("colors.foreground"),
+            "--tw-prose-invert-pre-bg": theme("colors.foreground / 10%"),
+            "--tw-prose-invert-th-borders": theme("colors.border"),
+            "--tw-prose-invert-td-borders": theme("colors.border"),
+            "code::before": {
+              content: "",
+            },
+            "code::after": {
+              content: "",
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],

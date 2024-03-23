@@ -1,6 +1,7 @@
 <template>
   <div>
     <NuxtPage />
+    <UiVueSonner />
   </div>
 </template>
 

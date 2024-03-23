@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   modules: [
-    "../src/module",
+    "nuxt-tour",
+    "nuxt-content-twoslash",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
@@ -10,13 +11,18 @@ export default defineNuxtConfig({
 
   tour: { prefix: "V" },
   devtools: { enabled: true },
-  tailwindcss: { exposeConfig: true },
+  tailwindcss: {
+    exposeConfig: true,
+    cssPath: ["~/assets/css/tailwind.css", { injectPosition: "last" }],
+  },
   colorMode: { classSuffix: "" },
   typescript: { shim: false },
+
   imports: {
     imports: [
       { from: "tailwind-variants", name: "tv" },
       { from: "tailwind-variants", name: "VariantProps", type: true },
+      { from: "vue-sonner", name: "toast", as: "useSonner" },
     ],
   },
 
@@ -26,14 +32,16 @@ export default defineNuxtConfig({
       toc: { depth: 3 },
     },
     highlight: {
-      langs: ["js", "ts", "html", "scss", "css", "json", "vue", "vue-html"],
+      langs: ["js", "ts", "html", "scss", "css", "json", "vue", "vue-html", "bash", "sh", "shell"],
       theme: {
-        default: "material-theme-lighter",
-        dark: "andromeeda",
+        default: "min-light",
+        dark: "night-owl",
       },
     },
     navigation: {
       fields: ["icon"],
     },
   },
+
+  build: { transpile: ["vue-sonner"] },
 });

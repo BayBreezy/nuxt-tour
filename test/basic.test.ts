@@ -1,15 +1,37 @@
-import { describe, it, expect } from 'vitest'
-import { fileURLToPath } from 'node:url'
-import { setup, $fetch } from '@nuxt/test-utils/e2e'
+import { fileURLToPath } from "node:url";
+import { $fetch, setup } from "@nuxt/test-utils/e2e";
+import { describe, expect, it } from "vitest";
 
-describe('ssr', async () => {
+describe("Display Tour To User", async () => {
   await setup({
-    rootDir: fileURLToPath(new URL('./fixtures/basic', import.meta.url)),
-  })
+    rootDir: fileURLToPath(new URL("./fixtures/basic", import.meta.url)),
+  });
 
-  it('renders the index page', async () => {
+  it("loads the page properly", async () => {
     // Get response to a server-rendered page with `$fetch`.
-    const html = await $fetch('/')
-    expect(html).toContain('<div>basic</div>')
-  })
-})
+    const html: string = await $fetch("/");
+    // Expect it to have the nt-tooltip id in the DOM
+    expect(html).toContain("<div>");
+  });
+
+  it("has the target class on the h1 element", async () => {
+    const html: string = await $fetch("/");
+    // Expect it to have the target class on the h1 element
+    expect(html).toContain('<h1 class="target">Target 1</h1>');
+  });
+
+  it("automatically starts the tour", async () => {
+    const html: string = await $fetch("/");
+    // Expect it to have the nt-tooltip id in the DOM
+    expect(html).toContain('<div id="nt-tooltip"');
+    expect(html).toContain('role="tooltip"');
+  });
+
+  it("has correct content inside the step", async () => {
+    const html: string = await $fetch("/");
+    // Expect it to have the nt-tooltip id in the DOM
+    expect(html).toContain("Welcome to the tour");
+    expect(html).toContain("This is the subtext");
+    expect(html).toContain("This is the first step");
+  });
+});
