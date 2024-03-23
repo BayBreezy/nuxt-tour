@@ -2,9 +2,12 @@
   <div>
     <UiScrollArea class="h-full">
       <nav class="flex flex-col gap-2 py-5 pr-2">
-        <template v-for="n in navigation" :key="n._path">
+        <template
+          v-for="n in navigation"
+          :key="n._path"
+        >
           <UiButton
-            exactActiveClass="bg-muted"
+            exact-active-class="bg-muted"
             :to="n._path"
             variant="ghost"
             size="sm"

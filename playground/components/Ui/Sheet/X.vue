@@ -4,7 +4,10 @@
     v-bind="reactiveOmit(props, 'srText', 'class', 'icon')"
   >
     <slot>
-      <Icon :name="icon" class="h-4 w-4" />
+      <Icon
+        :name="icon"
+        class="h-4 w-4"
+      />
       <span class="sr-only">{{ srText }}</span>
     </slot>
   </DialogClose>

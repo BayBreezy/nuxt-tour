@@ -11,15 +11,21 @@
         <slot name="header">
           <UiSheetHeader>
             <slot name="title">
-              <UiSheetTitle v-if="title" :title="title" />
+              <UiSheetTitle
+                v-if="title"
+                :title="title"
+              />
             </slot>
             <slot name="description">
-              <UiSheetDescription v-if="description" :description="description" />
+              <UiSheetDescription
+                v-if="description"
+                :description="description"
+              />
             </slot>
           </UiSheetHeader>
         </slot>
-        <slot name="content"></slot>
-        <slot name="footer"></slot>
+        <slot name="content" />
+        <slot name="footer" />
       </slot>
       <slot name="close">
         <UiSheetClose :icon="icon" />

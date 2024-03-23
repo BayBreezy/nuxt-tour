@@ -1,24 +1,43 @@
 <template>
-  <Primitive as="div" :class="base({ orientation, type, class: props.class })">
-    <Separator :orientation="orientation" :class="border({ orientation, type })" />
+  <Primitive
+    as="div"
+    :class="base({ orientation, type, class: props.class })"
+  >
+    <Separator
+      :orientation="orientation"
+      :class="border({ orientation, type })"
+    />
     <template v-if="label || icon || avatar || $slots.default">
       <div :class="container({ orientation, type })">
         <slot>
           <slot name="label">
-            <span v-if="label" :class="labelClass({ orientation, type })">
+            <span
+              v-if="label"
+              :class="labelClass({ orientation, type })"
+            >
               {{ label }}
             </span>
           </slot>
           <slot name="icon">
-            <Icon v-if="icon" :name="icon" :class="iconClass({ orientation, type })" />
+            <Icon
+              v-if="icon"
+              :name="icon"
+              :class="iconClass({ orientation, type })"
+            />
           </slot>
           <slot name="avatar">
-            <UiAvatar v-if="avatar" :src="avatar" />
+            <UiAvatar
+              v-if="avatar"
+              :src="avatar"
+            />
           </slot>
         </slot>
       </div>
     </template>
-    <Separator :orientation="orientation" :class="border({ orientation, type })" />
+    <Separator
+      :orientation="orientation"
+      :class="border({ orientation, type })"
+    />
   </Primitive>
 </template>
 

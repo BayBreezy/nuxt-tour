@@ -1,18 +1,26 @@
 <template>
   <div class="relative">
     <button
+      v-if="isSupported"
+      :disabled="copied"
+      class="absolute right-4 top-4 z-10 inline-flex items-center justify-center text-muted-foreground lg:right-6"
       @click="
         copy();
         useSonner('✨ Copied!', {
           description: 'The code has been copied to your clipboard.',
         });
       "
-      :disabled="copied"
-      v-if="isSupported"
-      class="absolute right-4 top-4 z-10 inline-flex items-center justify-center text-muted-foreground lg:right-6"
     >
-      <Icon class="size-4" v-if="!copied" name="lucide:copy" />
-      <Icon class="size-4" v-if="copied" name="lucide:copy-check" />
+      <Icon
+        v-if="!copied"
+        class="size-4"
+        name="lucide:copy"
+      />
+      <Icon
+        v-if="copied"
+        class="size-4"
+        name="lucide:copy-check"
+      />
     </button>
     <div class="max-h-[380px] overflow-auto rounded-md border">
       <div
@@ -23,7 +31,10 @@
           props.filename
         }}</span>
       </div>
-      <pre class="!m-0 !rounded-none" :class="props.class"><slot /></pre>
+      <pre
+        class="!m-0 !rounded-none"
+        :class="props.class"
+      ><slot /></pre>
     </div>
   </div>
 </template>

@@ -1,4 +1,4 @@
-import { addComponent, addTemplate, createResolver, defineNuxtModule } from "@nuxt/kit";
+import { addComponent, createResolver, defineNuxtModule } from "@nuxt/kit";
 
 export interface TourOptions {
   /**

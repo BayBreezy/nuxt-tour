@@ -1,9 +1,11 @@
 <template>
   <ul>
-    <li v-for="(t, k) in links" :key="k">
+    <li
+      v-for="(t, k) in links"
+      :key="k"
+    >
       <template v-if="!hasChildren(t)">
         <NuxtLink
-          @click="setActive(t.id)"
           :class="[
             marginPerDepth(t.depth),
             t.id === activeId
@@ -12,18 +14,18 @@
           ]"
           class="mb-2 inline-flex items-center text-sm transition"
           :to="`#${t.id}`"
+          @click="setActive(t.id)"
         >
           <span
             v-if="t.depth > 2"
             class="mr-2 size-1 rounded-full transition"
             :class="[t.id === activeId ? 'bg-primary' : 'bg-muted-foreground/50']"
-          ></span>
-          {{ t.text }}</NuxtLink
-        >
+          />
+          {{ t.text }}
+        </NuxtLink>
       </template>
       <template v-else>
         <NuxtLink
-          @click="setActive(t.id)"
           :class="[
             t.id === activeId
               ? 'text-primary underline underline-offset-2 dark:text-white'
@@ -31,16 +33,22 @@
           ]"
           class="mb-2 inline-block text-sm text-gray-500 transition dark:text-gray-400"
           :to="`#${t.id}`"
-          >{{ t.text }}</NuxtLink
+          @click="setActive(t.id)"
         >
-        <DocsToc :setActive="setActive" :activeId="activeId" :links="t.children" />
+          {{ t.text }}
+        </NuxtLink>
+        <DocsToc
+          :set-active="setActive"
+          :active-id="activeId"
+          :links="t.children"
+        />
       </template>
     </li>
   </ul>
 </template>
 
 <script lang="ts" setup>
-  const props = defineProps<{
+  defineProps<{
     links: any[];
     setActive: (id: string) => void;
     activeId: string;

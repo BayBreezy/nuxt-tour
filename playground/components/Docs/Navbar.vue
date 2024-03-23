@@ -1,19 +1,39 @@
 <template>
-  <UiNavbar id="main-nav" sticky>
+  <UiNavbar
+    id="main-nav"
+    sticky
+  >
     <UiContainer class="flex h-14 items-center justify-between">
       <div class="flex items-center gap-3">
         <UiButton
-          @click="mobileNav = true"
           size="icon-sm"
           variant="outline"
           class="h-9 w-9 lg:hidden"
-          ><Icon name="heroicons:bars-2" class="size-4" />
+          @click="mobileNav = true"
+        >
+          <Icon
+            name="heroicons:bars-2"
+            class="size-4"
+          />
         </UiButton>
-        <NuxtLink class="text-lg font-semibold" to="/">Nuxt Tour</NuxtLink>
+        <NuxtLink
+          class="text-lg font-semibold"
+          to="/"
+        >
+          Nuxt Tour
+        </NuxtLink>
       </div>
       <div class="flex items-center gap-3">
-        <UiButton id="toggle-button" @click="toggleTheme" size="icon-sm" variant="ghost">
-          <Icon class="size-4" name="lucide:sun-medium" />
+        <UiButton
+          id="toggle-button"
+          size="icon-sm"
+          variant="ghost"
+          @click="toggleTheme"
+        >
+          <Icon
+            class="size-4"
+            name="lucide:sun-medium"
+          />
         </UiButton>
       </div>
     </UiContainer>
@@ -21,8 +41,14 @@
   <UiSheet v-model:open="mobileNav">
     <UiSheetContent class="p-1">
       <template #content>
-        <UiSheetTitle title="Mobile menu" class="sr-only" />
-        <UiSheetDescription description="A list of navigation items for mobile" class="sr-only" />
+        <UiSheetTitle
+          title="Mobile menu"
+          class="sr-only"
+        />
+        <UiSheetDescription
+          description="A list of navigation items for mobile"
+          class="sr-only"
+        />
         <DocsNavlink />
       </template>
     </UiSheetContent>

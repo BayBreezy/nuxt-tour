@@ -1,5 +1,10 @@
 <template>
-  <div ref="target" :id="parentId" data-hidden role="tooltip">
+  <div
+    :id="parentId"
+    ref="target"
+    data-hidden
+    role="tooltip"
+  >
     <slot
       :name="`${getCurrentStep.slot}-header`"
       v-bind="{
@@ -31,7 +36,12 @@
             isLastStep,
           }"
         >
-          <h3 v-if="getCurrentStep.title" id="nt-tooltip-title">{{ getCurrentStep.title }}</h3>
+          <h3
+            v-if="getCurrentStep.title"
+            id="nt-tooltip-title"
+          >
+            {{ getCurrentStep.title }}
+          </h3>
         </slot>
         <slot
           :name="`${getCurrentStep.slot}-sub-text`"
@@ -48,7 +58,10 @@
             isLastStep,
           }"
         >
-          <p v-if="getCurrentStep.subText" id="nt-tooltip-sub-text">
+          <p
+            v-if="getCurrentStep.subText"
+            id="nt-tooltip-sub-text"
+          >
             {{ getCurrentStep.subText }}
           </p>
         </slot>
@@ -69,7 +82,10 @@
         isLastStep,
       }"
     >
-      <div v-if="getCurrentStep.body" id="nt-tooltip-body">
+      <div
+        v-if="getCurrentStep.body"
+        id="nt-tooltip-body"
+      >
         <p>{{ getCurrentStep.body }}</p>
       </div>
     </slot>
@@ -108,8 +124,8 @@
           }"
         >
           <button
-            type="button"
             id="nt-action-skip"
+            type="button"
             @click.prevent="
               endTour();
               props.onSkip?.();
@@ -137,8 +153,8 @@
           }"
         >
           <button
-            id="nt-action-prev"
             v-if="currentStep > 0"
+            id="nt-action-prev"
             type="button"
             @click.prevent="prevStep"
           >
@@ -163,7 +179,11 @@
             prevButton,
           }"
         >
-          <button id="nt-action-next" type="button" @click.prevent="nextStep">
+          <button
+            id="nt-action-next"
+            type="button"
+            @click.prevent="nextStep"
+          >
             {{ isLastStep ? finishButton?.label || "Done" : nextButton?.label || "Next" }}
           </button>
         </slot>
@@ -187,7 +207,11 @@
         prevButton,
       }"
     >
-      <div v-show="showArrow" :id="arrowId" data-popper-arrow></div>
+      <div
+        v-show="showArrow"
+        :id="arrowId"
+        data-popper-arrow
+      />
     </slot>
   </div>
 </template>
@@ -366,7 +390,7 @@
     const highlightedElements = document.querySelectorAll(`.${highlightClass}`);
     highlightedElements.forEach((el) => el.classList.remove(highlightClass));
     // add the highlight class to the current step's target
-    let _currentStep = document.querySelector(`${getCurrentStep.value.target}`);
+    const _currentStep = document.querySelector(`${getCurrentStep.value.target}`);
     _currentStep?.classList.add(highlightClass);
   };
 

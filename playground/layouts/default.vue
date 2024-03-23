@@ -13,8 +13,12 @@
             class="prose mx-auto w-full min-w-0 max-w-none py-5 dark:prose-invert lg:container lg:prose-base prose-headings:scroll-mt-16 prose-headings:tracking-tight prose-h2:mt-6 prose-h2:border-b prose-h2:pb-3 first:prose-h2:mt-10 prose-a:decoration-primary prose-a:decoration-wavy prose-a:underline-offset-2 hover:prose-a:text-primary lg:prose-pre:text-base"
           >
             <div class="not-prose">
-              <h1 class="mb-2 text-4xl font-bold">{{ page.title }}</h1>
-              <p class="text-lg text-muted-foreground">{{ page.description }}</p>
+              <h1 class="mb-2 text-4xl font-bold">
+                {{ page.title }}
+              </h1>
+              <p class="text-lg text-muted-foreground">
+                {{ page.description }}
+              </p>
               <UiDivider class="my-8" />
             </div>
             <slot />
@@ -23,10 +27,16 @@
           <aside
             class="sticky top-14 hidden h-[calc(100dvh-57px)] overflow-y-auto px-3 py-5 xl:block"
           >
-            <p class="mb-4 flex items-center gap-3 text-sm font-semibold">On this page</p>
+            <p class="mb-4 flex items-center gap-3 text-sm font-semibold">
+              On this page
+            </p>
 
             <nav>
-              <DocsToc :setActive="setActive" :activeId="activeId" :links="toc.links" />
+              <DocsToc
+                :set-active="setActive"
+                :active-id="activeId"
+                :links="toc.links"
+              />
             </nav>
           </aside>
         </div>
@@ -49,7 +59,7 @@
       ...children.map(({ id }: any) => id), // Flatten any nested link
     ])
   );
-  const { setActive, activeId, isActive } = useActiveScroll(ids, {
+  const { setActive, activeId } = useActiveScroll(ids, {
     replaceHash: true,
     overlayHeight: 100,
   });
