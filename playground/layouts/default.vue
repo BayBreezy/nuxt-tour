@@ -6,7 +6,7 @@
         class="grid grid-cols-1 md:grid-cols-[230px,1fr] md:gap-5 lg:grid-cols-[260px,1fr] lg:gap-7 xl:grid-cols-[280px,1fr]"
       >
         <aside class="sticky top-14 hidden h-[calc(100dvh-57px)] w-full border-r md:block">
-          <DocsNavlink />
+          <DocsNavlink :navigation="navigation" />
         </aside>
         <div class="grid xl:grid-cols-[1fr,280px] xl:gap-7">
           <div
@@ -45,7 +45,7 @@
 
   const useIdFunction = () => useId();
 
-  const { page, toc } = useContent();
+  const { page, toc, navigation } = useContent();
 
   const ids = computed(() =>
     toc.value?.links?.flatMap(({ id, children = [] }: any) => [

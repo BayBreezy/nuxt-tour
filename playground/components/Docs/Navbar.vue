@@ -24,7 +24,7 @@
       <template #content>
         <UiSheetTitle title="Mobile menu" class="sr-only" />
         <UiSheetDescription description="A list of navigation items for mobile" class="sr-only" />
-        <DocsNavlink />
+        <DocsNavlink :navigation="navigation" />
       </template>
     </UiSheetContent>
   </UiSheet>
@@ -36,5 +36,6 @@
     theme.preference = theme.value === "dark" ? "light" : "dark";
   };
 
+  const { navigation } = useContent();
   const mobileNav = ref(false);
 </script>
