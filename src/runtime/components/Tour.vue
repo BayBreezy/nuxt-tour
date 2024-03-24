@@ -1,10 +1,5 @@
 <template>
-  <div
-    :id="parentId"
-    ref="target"
-    data-hidden
-    role="tooltip"
-  >
+  <div :id="parentId" ref="target" data-hidden role="tooltip">
     <slot
       :name="`${getCurrentStep.slot}-header`"
       v-bind="{
@@ -36,12 +31,7 @@
             isLastStep,
           }"
         >
-          <h3
-            v-if="getCurrentStep.title"
-            id="nt-tooltip-title"
-          >
-            {{ getCurrentStep.title }}
-          </h3>
+          <h3 v-if="getCurrentStep.title" id="nt-tooltip-title" v-html="getCurrentStep.title"></h3>
         </slot>
         <slot
           :name="`${getCurrentStep.slot}-sub-text`"
@@ -61,9 +51,8 @@
           <p
             v-if="getCurrentStep.subText"
             id="nt-tooltip-sub-text"
-          >
-            {{ getCurrentStep.subText }}
-          </p>
+            v-html="getCurrentStep.subText"
+          ></p>
         </slot>
       </div>
     </slot>
@@ -82,12 +71,7 @@
         isLastStep,
       }"
     >
-      <div
-        v-if="getCurrentStep.body"
-        id="nt-tooltip-body"
-      >
-        <p>{{ getCurrentStep.body }}</p>
-      </div>
+      <div v-if="getCurrentStep.body" id="nt-tooltip-body" v-html="getCurrentStep.body"></div>
     </slot>
     <slot
       :name="`${getCurrentStep.slot}-actions`"
@@ -179,11 +163,7 @@
             prevButton,
           }"
         >
-          <button
-            id="nt-action-next"
-            type="button"
-            @click.prevent="nextStep"
-          >
+          <button id="nt-action-next" type="button" @click.prevent="nextStep">
             {{ isLastStep ? finishButton?.label || "Done" : nextButton?.label || "Next" }}
           </button>
         </slot>
@@ -207,11 +187,7 @@
         prevButton,
       }"
     >
-      <div
-        v-show="showArrow"
-        :id="arrowId"
-        data-popper-arrow
-      />
+      <div v-show="showArrow" :id="arrowId" data-popper-arrow />
     </slot>
   </div>
 </template>
