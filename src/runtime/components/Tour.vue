@@ -115,7 +115,9 @@
               props.onSkip?.();
             "
           >
+            <Icon style="flex-shrink: 0" v-if="skipButton?.leftIcon" :name="skipButton.leftIcon" />
             {{ skipButton?.label || "Skip" }}
+            <Icon style="flex-shrink: 0" v-if="skipButton?.rightIcon" :name="skipButton.leftIcon" />
           </button>
         </slot>
         <slot
@@ -142,10 +144,17 @@
             type="button"
             @click.prevent="prevStep"
           >
+            <Icon style="flex-shrink: 0" v-if="prevButton?.leftIcon" :name="prevButton.rightIcon" />
             {{ prevButton?.label || "Prev" }}
+            <Icon
+              style="flex-shrink: 0"
+              v-if="prevButton?.rightIcon"
+              :name="prevButton.rightIcon"
+            />
           </button>
         </slot>
         <slot
+          v-if="!isLastStep"
           :name="`${getCurrentStep.slot}-next-button`"
           v-bind="{
             endTour,
@@ -164,7 +173,42 @@
           }"
         >
           <button id="nt-action-next" type="button" @click.prevent="nextStep">
-            {{ isLastStep ? finishButton?.label || "Done" : nextButton?.label || "Next" }}
+            <Icon style="flex-shrink: 0" v-if="nextButton?.leftIcon" :name="nextButton.leftIcon" />
+            {{ nextButton?.label || "Next" }}
+            <Icon style="flex-shrink: 0" v-if="nextButton?.rightIcon" :name="nextButton.leftIcon" />
+          </button>
+        </slot>
+        <slot
+          v-if="isLastStep"
+          :name="`${getCurrentStep.slot}-finish-button`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+            skipButton,
+            nextButton,
+            prevButton,
+          }"
+        >
+          <button id="nt-action-next" type="button" @click.prevent="nextStep">
+            <Icon
+              style="flex-shrink: 0"
+              v-if="finishButton?.leftIcon"
+              :name="finishButton.leftIcon"
+            />
+            {{ finishButton?.label || "Done" }}
+            <Icon
+              style="flex-shrink: 0"
+              v-if="finishButton?.rightIcon"
+              :name="finishButton.rightIcon"
+            />
           </button>
         </slot>
       </div>
@@ -196,6 +240,7 @@
   import { createPopper } from "@popperjs/core";
   import { useScrollLock, useStorage, useTimeoutFn } from "@vueuse/core";
   import { useFocusTrap } from "@vueuse/integrations/useFocusTrap";
+  import { Icon } from "#components";
   import { computed, onMounted, ref, shallowRef, toValue } from "#imports";
   import { defu } from "defu";
   import jump from "jump.js";
