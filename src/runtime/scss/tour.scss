@@ -137,6 +137,7 @@
     font-size: $ntButtonFontSize;
     font-weight: $ntButtonFontWeight;
     transition: $ntButtonTransition;
+    white-space: nowrap;
     cursor: pointer;
 
     &#nt-action-skip {
