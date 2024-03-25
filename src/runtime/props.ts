@@ -13,10 +13,6 @@ export type ButtonProp = {
    * Any icon from the [Icones](https://icones.netlify.app/) website can be used here
    */
   icon?: string;
-  /**
-   * Any custom class/ tailwind utility classes to apply to the button
-   */
-  classes?: any;
 };
 
 export type TourStep = {
