@@ -1,5 +1,10 @@
 <template>
-  <div :id="parentId" ref="target" data-hidden role="tooltip">
+  <div
+    :id="parentId"
+    ref="target"
+    data-hidden
+    role="tooltip"
+  >
     <slot
       :name="`${getCurrentStep.slot}-header`"
       v-bind="{
@@ -31,7 +36,11 @@
             isLastStep,
           }"
         >
-          <h3 v-if="getCurrentStep.title" id="nt-tooltip-title" v-html="getCurrentStep.title"></h3>
+          <h3
+            v-if="getCurrentStep.title"
+            id="nt-tooltip-title"
+            v-html="getCurrentStep.title"
+          />
         </slot>
         <slot
           :name="`${getCurrentStep.slot}-sub-text`"
@@ -52,7 +61,7 @@
             v-if="getCurrentStep.subText"
             id="nt-tooltip-sub-text"
             v-html="getCurrentStep.subText"
-          ></p>
+          />
         </slot>
       </div>
     </slot>
@@ -71,7 +80,11 @@
         isLastStep,
       }"
     >
-      <div v-if="getCurrentStep.body" id="nt-tooltip-body" v-html="getCurrentStep.body"></div>
+      <div
+        v-if="getCurrentStep.body"
+        id="nt-tooltip-body"
+        v-html="getCurrentStep.body"
+      />
     </slot>
     <slot
       :name="`${getCurrentStep.slot}-actions`"
@@ -116,16 +129,16 @@
             "
           >
             <Icon
+              v-if="skipButton?.leftIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="skipButton?.leftIcon"
               :name="skipButton.leftIcon"
             />
             {{ skipButton?.label || "Skip" }}
             <Icon
+              v-if="skipButton?.rightIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="skipButton?.rightIcon"
               :name="skipButton.rightIcon"
             />
           </button>
@@ -155,16 +168,16 @@
             @click.prevent="prevStep"
           >
             <Icon
+              v-if="prevButton?.leftIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="prevButton?.leftIcon"
               :name="prevButton.leftIcon"
             />
             {{ prevButton?.label || "Prev" }}
             <Icon
+              v-if="prevButton?.rightIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="prevButton?.rightIcon"
               :name="prevButton.rightIcon"
             />
           </button>
@@ -188,18 +201,22 @@
             prevButton,
           }"
         >
-          <button id="nt-action-next" type="button" @click.prevent="nextStep">
+          <button
+            id="nt-action-next"
+            type="button"
+            @click.prevent="nextStep"
+          >
             <Icon
+              v-if="nextButton?.leftIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="nextButton?.leftIcon"
               :name="nextButton.leftIcon"
             />
             {{ nextButton?.label || "Next" }}
             <Icon
+              v-if="nextButton?.rightIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="nextButton?.rightIcon"
               :name="nextButton.rightIcon"
             />
           </button>
@@ -223,18 +240,22 @@
             prevButton,
           }"
         >
-          <button id="nt-action-finish" type="button" @click.prevent="nextStep">
+          <button
+            id="nt-action-finish"
+            type="button"
+            @click.prevent="nextStep"
+          >
             <Icon
+              v-if="finishButton?.leftIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="finishButton?.leftIcon"
               :name="finishButton.leftIcon"
             />
             {{ finishButton?.label || "Done" }}
             <Icon
+              v-if="finishButton?.rightIcon"
               :size="iconSize"
               :style="iconStyles"
-              v-if="finishButton?.rightIcon"
               :name="finishButton.rightIcon"
             />
           </button>
@@ -259,7 +280,11 @@
         prevButton,
       }"
     >
-      <div v-show="showArrow" :id="arrowId" data-popper-arrow />
+      <div
+        v-show="showArrow"
+        :id="arrowId"
+        data-popper-arrow
+      />
     </slot>
   </div>
 </template>

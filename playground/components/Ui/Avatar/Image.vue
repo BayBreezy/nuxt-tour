@@ -17,7 +17,7 @@
       class?: any;
     }
   >();
-  const emits = defineEmits<AvatarImageEmits>();
+  defineEmits<AvatarImageEmits>();
 
   const styles = tv({
     base: "aspect-square h-full w-full object-cover",

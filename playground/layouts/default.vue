@@ -27,10 +27,16 @@
           <aside
             class="sticky top-14 hidden h-[calc(100dvh-57px)] overflow-y-auto px-3 py-5 xl:block"
           >
-            <p class="mb-4 flex items-center gap-3 text-sm font-semibold">On this page</p>
+            <p class="mb-4 flex items-center gap-3 text-sm font-semibold">
+              On this page
+            </p>
 
             <nav>
-              <DocsToc :set-active="setActive" :active-id="activeId" :links="toc.links" />
+              <DocsToc
+                :set-active="setActive"
+                :active-id="activeId"
+                :links="toc.links"
+              />
             </nav>
           </aside>
         </div>

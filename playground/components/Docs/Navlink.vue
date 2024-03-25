@@ -2,7 +2,10 @@
   <div>
     <UiScrollArea class="h-full">
       <nav class="flex flex-col gap-2 px-2 py-5">
-        <template v-for="n in navigation" :key="n._path">
+        <template
+          v-for="n in navigation"
+          :key="n._path"
+        >
           <template v-if="!n.children">
             <UiButton
               exact-active-class="bg-muted"
@@ -20,7 +23,9 @@
           </template>
           <template v-else>
             <div>
-              <p class="mt-5 pl-3 text-sm font-semibold">{{ n.title }}</p>
+              <p class="mt-5 pl-3 text-sm font-semibold">
+                {{ n.title }}
+              </p>
               <DocsNavlink :navigation="n.children" />
             </div>
           </template>
@@ -33,7 +38,7 @@
 <script lang="ts" setup>
   import type { NavItem } from "@nuxt/content/types";
 
-  const props = defineProps<{
+  defineProps<{
     navigation: NavItem[];
   }>();
 </script>

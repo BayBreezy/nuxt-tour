@@ -1,23 +1,39 @@
 <template>
   <Showcase>
     <div class="not-prose">
-      <div class="flex flex-col items-center text-center" v-if="tourVisible">
-        <p class="mb-5">Click the button below to restart the tour</p>
-        <UiButton @click="rerunTour" size="sm" variant="outline">Restart Tour</UiButton>
+      <div
+        v-if="tourVisible"
+        class="flex flex-col items-center text-center"
+      >
+        <p class="mb-5">
+          Click the button below to restart the tour
+        </p>
+        <UiButton
+          size="sm"
+          variant="outline"
+          @click="rerunTour"
+        >
+          Restart Tour
+        </UiButton>
       </div>
-      <div v-else class="text-center">
-        <p class="mb-5">The tour will automatically start when the page loads</p>
+      <div
+        v-else
+        class="text-center"
+      >
+        <p class="mb-5">
+          The tour will automatically start when the page loads
+        </p>
       </div>
       <!-- This is what matters, not the stuff above -->
       <VTour
-        highlight
         ref="tour"
+        highlight
         :name="tourName"
         :steps="steps"
-        :skipButton="skipBtn"
-        :nextButton="nextBtn"
-        :prevButton="prevButton"
-        :finishButton="finishButton"
+        :skip-button="skipBtn"
+        :next-button="nextBtn"
+        :prev-button="prevButton"
+        :finish-button="finishButton"
       />
     </div>
   </Showcase>

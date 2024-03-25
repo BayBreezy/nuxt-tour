@@ -1,14 +1,33 @@
 <template>
   <Showcase>
     <div class="not-prose">
-      <div class="flex flex-col items-center text-center" v-if="tourVisible">
-        <p class="mb-5">Click the button below to restart the tour</p>
-        <UiButton @click="rerunTour" size="sm" variant="outline">Restart Tour</UiButton>
+      <div
+        v-if="tourVisible"
+        class="flex flex-col items-center text-center"
+      >
+        <p class="mb-5">
+          Click the button below to restart the tour
+        </p>
+        <UiButton
+          size="sm"
+          variant="outline"
+          @click="rerunTour"
+        >
+          Restart Tour
+        </UiButton>
       </div>
-      <div v-else class="text-center">
-        <p class="mb-5">The tour will automatically start when the page loads</p>
+      <div
+        v-else
+        class="text-center"
+      >
+        <p class="mb-5">
+          The tour will automatically start when the page loads
+        </p>
       </div>
       <VTour
+        ref="tour"
+        :name="tourName"
+        :steps="steps"
         @complete="
           useTimeoutFn(() => {
             useSonner('Complete', {
@@ -23,21 +42,18 @@
             });
           }, 200)
         "
-        @onTourStart="
+        @on-tour-start="
           useSonner('Tour Start', {
             description: 'The tour has started',
           })
         "
-        @onTourEnd="
+        @on-tour-end="
           useTimeoutFn(() => {
             useSonner('Tour End', {
               description: 'The tour has ended',
             });
           }, 300)
         "
-        ref="tour"
-        :name="tourName"
-        :steps="steps"
       />
     </div>
   </Showcase>
