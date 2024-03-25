@@ -1,4 +1,4 @@
-import { addComponent, createResolver, defineNuxtModule } from "@nuxt/kit";
+import { addComponent, createResolver, defineNuxtModule, installModule } from "@nuxt/kit";
 
 export interface TourOptions {
   /**
@@ -15,6 +15,18 @@ export interface TourOptions {
    * @default true
    */
   injectSass?: boolean;
+  /**
+   * The prefix to use for the nuxt-icon-tw component
+   *
+   * These icons can be displayed on the buttons of the tour
+   *
+   * @see Iconify https://icones.js.org/ for all eligible icons
+   *
+   * @see https://nuxt.com/modules/icon-tw for module options
+   *
+   * @default ""
+   */
+  iconPrefix?: string;
 }
 
 export default defineNuxtModule<TourOptions>({
@@ -30,7 +42,7 @@ export default defineNuxtModule<TourOptions>({
     prefix: "V",
     injectSass: true,
   },
-  setup(options, nuxt) {
+  async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url);
 
     const runtimeDir = resolver.resolve("./runtime");
@@ -45,6 +57,9 @@ export default defineNuxtModule<TourOptions>({
       // add sass files to the top of the css array
       nuxt.options.css.unshift(resolver.resolve(`./runtime/scss/tour.${extension}`));
     }
+
+    // install nuxt-icon module
+    await installModule("nuxt-icon-tw", { prefix: options.iconPrefix });
 
     addComponent({
       filePath: resolver.resolve("./runtime/components/Tour.vue"),
