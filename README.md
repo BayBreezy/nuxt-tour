@@ -87,6 +87,18 @@ export interface TourOptions {
    * @default true
    */
   injectSass?: boolean;
+  /**
+   * The prefix to use for the nuxt-icon-tw component
+   *
+   * These icons can be displayed on the buttons of the tour
+   *
+   * @see Iconify https://icones.js.org/ for all eligible icons
+   *
+   * @see https://nuxt.com/modules/icon-tw for module options
+   *
+   * @default ""
+   */
+  iconPrefix?: string;
 }
 ```
 
