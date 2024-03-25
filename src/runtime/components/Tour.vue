@@ -115,9 +115,19 @@
               props.onSkip?.();
             "
           >
-            <Icon style="flex-shrink: 0" v-if="skipButton?.leftIcon" :name="skipButton.leftIcon" />
+            <Icon
+              :size="iconSize"
+              :style="iconStyles"
+              v-if="skipButton?.leftIcon"
+              :name="skipButton.leftIcon"
+            />
             {{ skipButton?.label || "Skip" }}
-            <Icon style="flex-shrink: 0" v-if="skipButton?.rightIcon" :name="skipButton.leftIcon" />
+            <Icon
+              :size="iconSize"
+              :style="iconStyles"
+              v-if="skipButton?.rightIcon"
+              :name="skipButton.rightIcon"
+            />
           </button>
         </slot>
         <slot
@@ -144,10 +154,16 @@
             type="button"
             @click.prevent="prevStep"
           >
-            <Icon style="flex-shrink: 0" v-if="prevButton?.leftIcon" :name="prevButton.rightIcon" />
+            <Icon
+              :size="iconSize"
+              :style="iconStyles"
+              v-if="prevButton?.leftIcon"
+              :name="prevButton.leftIcon"
+            />
             {{ prevButton?.label || "Prev" }}
             <Icon
-              style="flex-shrink: 0"
+              :size="iconSize"
+              :style="iconStyles"
               v-if="prevButton?.rightIcon"
               :name="prevButton.rightIcon"
             />
@@ -173,9 +189,19 @@
           }"
         >
           <button id="nt-action-next" type="button" @click.prevent="nextStep">
-            <Icon style="flex-shrink: 0" v-if="nextButton?.leftIcon" :name="nextButton.leftIcon" />
+            <Icon
+              :size="iconSize"
+              :style="iconStyles"
+              v-if="nextButton?.leftIcon"
+              :name="nextButton.leftIcon"
+            />
             {{ nextButton?.label || "Next" }}
-            <Icon style="flex-shrink: 0" v-if="nextButton?.rightIcon" :name="nextButton.leftIcon" />
+            <Icon
+              :size="iconSize"
+              :style="iconStyles"
+              v-if="nextButton?.rightIcon"
+              :name="nextButton.rightIcon"
+            />
           </button>
         </slot>
         <slot
@@ -197,15 +223,17 @@
             prevButton,
           }"
         >
-          <button id="nt-action-next" type="button" @click.prevent="nextStep">
+          <button id="nt-action-finish" type="button" @click.prevent="nextStep">
             <Icon
-              style="flex-shrink: 0"
+              :size="iconSize"
+              :style="iconStyles"
               v-if="finishButton?.leftIcon"
               :name="finishButton.leftIcon"
             />
             {{ finishButton?.label || "Done" }}
             <Icon
-              style="flex-shrink: 0"
+              :size="iconSize"
+              :style="iconStyles"
               v-if="finishButton?.rightIcon"
               :name="finishButton.rightIcon"
             />
@@ -278,6 +306,10 @@
      */
     onTourEnd: [];
   }>();
+
+  // Default styles applied to icon
+  const iconStyles = { flexShrink: 0, color: "inherit" };
+  const iconSize = "18px";
 
   // check if the steps prop is empty
   if (!props.steps.length) {
