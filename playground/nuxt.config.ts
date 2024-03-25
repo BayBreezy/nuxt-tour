@@ -1,5 +1,6 @@
 export default defineNuxtConfig({
   modules: [
+    // "../src/module",
     "nuxt-tour",
     "nuxt-content-twoslash",
     "@nuxtjs/tailwindcss",
