@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.5
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.4...v0.0.5)
+
+### 🏡 Chore
+
+- **tour:** Perform jump before updating the popper instance ([b654165](https://github.com/BayBreezy/nuxt-tour/commit/b654165))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.4
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.3...v0.0.4)
