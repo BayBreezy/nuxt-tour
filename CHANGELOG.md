@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.3...v0.0.4)
+
+### 📖 Documentation
+
+- Installed newer version of the module ([142c911](https://github.com/BayBreezy/nuxt-tour/commit/142c911))
+- Update deps ([9f9fc23](https://github.com/BayBreezy/nuxt-tour/commit/9f9fc23))
+
+### 🏡 Chore
+
+- Bumps deps ([8ddc34a](https://github.com/BayBreezy/nuxt-tour/commit/8ddc34a))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.3
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.2...v0.0.3)

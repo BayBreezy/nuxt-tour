@@ -1,6 +1,6 @@
 {
   "name": "nuxt-tour",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Empower your users with interactive guided tours of your Nuxt 3 applications using the nuxt-tour module. With this module, developers can seamlessly integrate step-by-step tooltips into their applications, providing clear instructions and highlighting key features.",
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.11.1",
+    "@nuxt/kit": "^3.11.2",
     "@popperjs/core": "^2.11.8",
     "@vueuse/core": "^10.9.0",
     "@vueuse/integrations": "^10.9.0",
@@ -50,17 +50,18 @@
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
-    "@nuxt/eslint-config": "^0.2.0",
+    "@nuxt/eslint-config": "^0.3.1",
     "@nuxt/module-builder": "^0.5.5",
-    "@nuxt/schema": "^3.11.1",
+    "@nuxt/schema": "^3.11.2",
     "@nuxt/test-utils": "^3.12.0",
     "@types/jump.js": "^1.0.6",
-    "@types/node": "^20.12.2",
+    "@types/node": "^20.12.5",
+    "@typescript-eslint/parser": "^7.5.0",
     "changelogen": "^0.5.5",
     "eslint": "^8.57.0",
-    "nuxt": "^3.11.1",
+    "nuxt": "^3.11.2",
     "prettier": "^3.2.5",
-    "sass": "^1.72.0",
+    "sass": "^1.74.1",
     "vitest": "^1.4.0"
   }
 }
