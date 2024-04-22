@@ -14,6 +14,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   tailwindcss: {
     exposeConfig: true,
+    config: {
+      plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+    },
     cssPath: ["~/assets/css/tailwind.css", { injectPosition: "last" }],
   },
   colorMode: { classSuffix: "" },
