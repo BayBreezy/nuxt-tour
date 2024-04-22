@@ -1,10 +1,5 @@
 <template>
-  <div
-    :id="parentId"
-    ref="target"
-    data-hidden
-    role="tooltip"
-  >
+  <div :id="parentId" ref="target" data-hidden role="tooltip">
     <slot
       :name="`${getCurrentStep.slot}-header`"
       v-bind="{
@@ -36,11 +31,7 @@
             isLastStep,
           }"
         >
-          <h3
-            v-if="getCurrentStep.title"
-            id="nt-tooltip-title"
-            v-html="getCurrentStep.title"
-          />
+          <h3 v-if="getCurrentStep.title" id="nt-tooltip-title" v-html="getCurrentStep.title" />
         </slot>
         <slot
           :name="`${getCurrentStep.slot}-sub-text`"
@@ -80,11 +71,7 @@
         isLastStep,
       }"
     >
-      <div
-        v-if="getCurrentStep.body"
-        id="nt-tooltip-body"
-        v-html="getCurrentStep.body"
-      />
+      <div v-if="getCurrentStep.body" id="nt-tooltip-body" v-html="getCurrentStep.body" />
     </slot>
     <slot
       :name="`${getCurrentStep.slot}-actions`"
@@ -201,11 +188,7 @@
             prevButton,
           }"
         >
-          <button
-            id="nt-action-next"
-            type="button"
-            @click.prevent="nextStep"
-          >
+          <button id="nt-action-next" type="button" @click.prevent="nextStep">
             <Icon
               v-if="nextButton?.leftIcon"
               :size="iconSize"
@@ -240,11 +223,7 @@
             prevButton,
           }"
         >
-          <button
-            id="nt-action-finish"
-            type="button"
-            @click.prevent="nextStep"
-          >
+          <button id="nt-action-finish" type="button" @click.prevent="nextStep">
             <Icon
               v-if="finishButton?.leftIcon"
               :size="iconSize"
@@ -280,11 +259,7 @@
         prevButton,
       }"
     >
-      <div
-        v-show="showArrow"
-        :id="arrowId"
-        data-popper-arrow
-      />
+      <div v-show="showArrow" :id="arrowId" data-popper-arrow />
     </slot>
   </div>
 </template>
@@ -433,6 +408,8 @@
       if (toValue(getCurrentStep.value.target)) {
         target = document.querySelector(toValue(getCurrentStep.value.target!));
       }
+      // jump to the target element or the body
+      jump(target || document.body, jumpConfig.value);
       const tour = document.getElementById("nt-tooltip");
 
       // create the popper instance
@@ -446,8 +423,6 @@
       props.highlight && target ? highlightTarget() : null;
       // if the current step has an onShow function, call it
       getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
-      // jump to the target element or the body
-      jump(target || document.body, jumpConfig.value);
       // emit the onTourStart event
       emit("onTourStart");
       // set the tourStarted value to true
@@ -616,6 +591,10 @@
     await popper.value?.setOptions(defu(getCurrentStep.value?.popperConfig, defaultPopperConfig));
     // get the current step's target
     const currentTarget = document.querySelector(`${getCurrentStep.value.target}`);
+    jump(
+      document.querySelector(`${getCurrentStep.value.target}`) || document.body,
+      jumpConfig.value
+    );
     // if the target element is not found, center the tooltip on the screen
     if (!currentTarget) {
       document.getElementById(parentId)?.classList.add("nt-center");
@@ -659,10 +638,6 @@
       await popper.value?.update();
     }
     props.highlight ? highlightTarget() : null;
-    jump(
-      document.querySelector(`${getCurrentStep.value.target}`) || document.body,
-      jumpConfig.value
-    );
     getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
   };
 
