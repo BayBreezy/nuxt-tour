@@ -15,7 +15,7 @@
     "nuxt-tour": "^0.0.5",
     "radix-vue": "^1.7.1",
     "tailwind-variants": "^0.2.1",
-    "vue": "^3.4.23",
+    "vue": "^3.4.24",
     "vue-router": "^4.3.2",
     "vue-sonner": "^1.1.2",
     "vue-use-active-scroll": "^1.1.1"
