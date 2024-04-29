@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v0.0.7
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.6...v0.0.7)
+
+### 🏡 Chore
+
+- **dev deps:** Bump dev dep ([fba0d0c](https://github.com/BayBreezy/nuxt-tour/commit/fba0d0c))
+- Update deps ([c99cac9](https://github.com/BayBreezy/nuxt-tour/commit/c99cac9))
+- Update eslint config ([3bf676a](https://github.com/BayBreezy/nuxt-tour/commit/3bf676a))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.6
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.5...v0.0.6)
