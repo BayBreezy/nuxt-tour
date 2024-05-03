@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.0.8
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.7...v0.0.8)
+
+### 🏡 Chore
+
+- Update deps ([11101ce](https://github.com/BayBreezy/nuxt-tour/commit/11101ce))
+- Update docs deps ([ce5cf49](https://github.com/BayBreezy/nuxt-tour/commit/ce5cf49))
+
+### 🎨 Styles
+
+- **lint:** Use `@ts-expect-error` instead of `@ts-ignore` ([994ffbf](https://github.com/BayBreezy/nuxt-tour/commit/994ffbf))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.7
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.6...v0.0.7)
