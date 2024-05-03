@@ -630,7 +630,7 @@
     } else {
       // remove the center class
       document.getElementById(parentId)?.classList.remove("nt-center");
-      // @ts-ignore
+      // @ts-expect-error - When using nuxi typecheck disable error below
       popper.value.state.elements.reference = document.querySelector(
         `${getCurrentStep.value.target}`
       );
