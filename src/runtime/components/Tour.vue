@@ -630,6 +630,7 @@
     } else {
       // remove the center class
       document.getElementById(parentId)?.classList.remove("nt-center");
+      // @ts-ignore
       popper.value.state.elements.reference = document.querySelector(
         `${getCurrentStep.value.target}`
       );
