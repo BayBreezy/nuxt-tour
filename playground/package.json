@@ -12,10 +12,9 @@
     "@nuxt/content": "^2.12.1",
     "nuxt": "3.11.2",
     "nuxt-content-twoslash": "^0.0.10",
-    "nuxt-tour": "^0.0.7",
-    "radix-vue": "^1.7.3",
+    "radix-vue": "^1.7.4",
     "tailwind-variants": "^0.2.1",
-    "vue": "^3.4.26",
+    "vue": "^3.4.27",
     "vue-router": "^4.3.2",
     "vue-sonner": "^1.1.2",
     "vue-use-active-scroll": "^1.1.1"

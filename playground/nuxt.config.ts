@@ -1,7 +1,8 @@
+import Tour from "../src/module";
+
 export default defineNuxtConfig({
   modules: [
-    // "../src/module",
-    "nuxt-tour",
+    Tour,
     "nuxt-content-twoslash",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
