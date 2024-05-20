@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.0.10
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.9...v0.0.10)
+
+### 📖 Documentation
+
+- **github link:** Added a link to the github repo in the navigation docs ([cc2f465](https://github.com/BayBreezy/nuxt-tour/commit/cc2f465))
+
+### 🏡 Chore
+
+- **release:** V0.0.9 ([2ea13ec](https://github.com/BayBreezy/nuxt-tour/commit/2ea13ec))
+- Clean install of packages for docs ([614d7b7](https://github.com/BayBreezy/nuxt-tour/commit/614d7b7))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.9
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.8...v0.0.9)
