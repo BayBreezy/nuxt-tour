@@ -59,7 +59,7 @@
     "@types/jump.js": "^1.0.6",
     "@types/node": "^20.12.12",
     "changelogen": "^0.5.5",
-    "eslint": "^9.3.0",
+    "eslint": "^9.4.0",
     "nuxt": "^3.11.2",
     "prettier": "^3.2.5",
     "vitest": "^1.6.0"
