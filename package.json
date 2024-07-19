@@ -33,7 +33,7 @@
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "netlify": "npm run afterClone && npm run dev:prepare && npm run prepack && npm run dev:build",
+    "netlify": "npm run afterClone && npm run prepack && npm run dev:build",
     "prepack": "nuxt-module-build build",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "test": "vitest run",
