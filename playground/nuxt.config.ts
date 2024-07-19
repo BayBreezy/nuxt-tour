@@ -7,19 +7,18 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
-    "nuxt-icon",
     "@nuxt/content",
+    "@nuxt/icon",
   ],
 
   tour: { prefix: "V" },
   devtools: { enabled: true },
+
   tailwindcss: {
     exposeConfig: true,
-    config: {
-      plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-    },
     cssPath: ["~/assets/css/tailwind.css", { injectPosition: "last" }],
   },
+
   colorMode: { classSuffix: "" },
   typescript: { shim: false },
 
@@ -48,5 +47,6 @@ export default defineNuxtConfig({
     },
   },
 
-  build: { transpile: ["vue-sonner"] },
+  build: { transpile: ["vue-sonner", "shiki", "nitropack"] },
+  compatibilityDate: "2024-07-19",
 });
