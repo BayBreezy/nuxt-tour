@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.0.14
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.13...v0.0.14)
+
+### 📖 Documentation
+
+- **readme:** Remove iconPrefix from readme ([9083a8c](https://github.com/BayBreezy/nuxt-tour/commit/9083a8c))
+- **config:** Change icon package, update tw config & transpile deps ([416a712](https://github.com/BayBreezy/nuxt-tour/commit/416a712))
+- **component:** Update sonner component ([e1aa316](https://github.com/BayBreezy/nuxt-tour/commit/e1aa316))
+- Remove iconPrefix from getting started page ([06d12a0](https://github.com/BayBreezy/nuxt-tour/commit/06d12a0))
+
+### 🏡 Chore
+
+- **module:** Removed the `iconPrefix` option & change the icon module that is used ([8c8f932](https://github.com/BayBreezy/nuxt-tour/commit/8c8f932))
+- Bump deps ([7a29d86](https://github.com/BayBreezy/nuxt-tour/commit/7a29d86))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.13
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.12...v0.0.13)

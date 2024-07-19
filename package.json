@@ -1,6 +1,6 @@
 {
   "name": "nuxt-tour",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Empower your users with interactive guided tours of your Nuxt 3 applications using the nuxt-tour module. With this module, developers can seamlessly integrate step-by-step tooltips into their applications, providing clear instructions and highlighting key features.",
   "repository": {
     "type": "git",
