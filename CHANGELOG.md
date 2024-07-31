@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.17
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.16...v0.0.17)
+
+### 🩹 Fixes
+
+- Bump deps and make icon module a dependency instead of a devDep. Closes Cannot find module '@nuxt/icon' #44 ([#44](https://github.com/BayBreezy/nuxt-tour/issues/44))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.16
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.15...v0.0.16)
