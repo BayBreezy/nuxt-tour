@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.0.18
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.17...v0.0.18)
+
+### 🏡 Chore
+
+- Bump deps ([43dba2f](https://github.com/BayBreezy/nuxt-tour/commit/43dba2f))
+- Bump deps ([a9b0fa1](https://github.com/BayBreezy/nuxt-tour/commit/a9b0fa1))
+
+### 🎨 Styles
+
+- Lint tour component ([39d2e1c](https://github.com/BayBreezy/nuxt-tour/commit/39d2e1c))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.17
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.16...v0.0.17)
