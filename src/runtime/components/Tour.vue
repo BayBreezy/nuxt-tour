@@ -420,8 +420,10 @@
       );
 
       // highlight the target element (if the highlight prop is true & the target element is found)
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       props.highlight && target ? highlightTarget() : null;
       // if the current step has an onShow function, call it
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
       // emit the onTourStart event
       emit("onTourStart");
@@ -454,6 +456,7 @@
     // if the current step is less than the max steps, end the tour
     if (currentStep.value < maxSteps.value) {
       // if the current step has an onNext function, call it
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       getCurrentStep.value.onNext ? await getCurrentStep.value.onNext() : null;
       // set the last step to the current step
       lastStep.value = currentStep.value;
@@ -485,6 +488,7 @@
     // if the current step is greater than 0, move to the previous step
     if (currentStep.value > 0) {
       // if the current step has an onPrev function, call it
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       getCurrentStep.value.onPrev ? await getCurrentStep.value.onPrev() : null;
       // set the last step to the current step
       lastStep.value = currentStep.value;
@@ -528,6 +532,7 @@
     // deactivate the focus trap
     deActivateFocusTrap();
     // Call onComplete function if it exists
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     props.onComplete ? await props.onComplete() : null;
     isLocked.value = false;
   };
@@ -542,6 +547,7 @@
     // if the tour has not started, start the tour
     if (tourStarted.value === false) await startTour();
     // if the current step has an onNext function, call it
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     getCurrentStep.value.onNext ? await getCurrentStep.value.onNext() : null;
     lastStep.value = nextStep - 1 >= 0 ? nextStep - 1 : 0;
     currentStep.value = nextStep;
@@ -636,7 +642,9 @@
       );
       await popper.value?.update();
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     props.highlight ? highlightTarget() : null;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
   };
 
