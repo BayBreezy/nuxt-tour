@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.0.20
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.19...v0.0.20)
+
+### 🏡 Chore
+
+- Bump deps ([a65b2a2](https://github.com/BayBreezy/nuxt-tour/commit/a65b2a2))
+- Add license to root of product ([261b678](https://github.com/BayBreezy/nuxt-tour/commit/261b678))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.19
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.18...v0.0.19)
