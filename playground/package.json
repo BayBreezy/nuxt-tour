@@ -10,26 +10,26 @@
   },
   "dependencies": {
     "@nuxt/content": "^2.13.2",
-    "nuxt": "3.13.1",
+    "nuxt": "3.13.2",
     "nuxt-content-twoslash": "^0.1.1",
     "radix-vue": "1.9.5",
     "tailwind-variants": "^0.2.1",
-    "vue": "^3.5.3",
-    "vue-router": "^4.4.3",
+    "vue": "^3.5.6",
+    "vue-router": "^4.4.5",
     "vue-sonner": "^1.1.5",
-    "vue-use-active-scroll": "^1.1.2"
+    "vue-use-active-scroll": "^1.1.3"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.3.1",
     "@nuxt/icon": "^1.5.1",
-    "@nuxtjs/color-mode": "^3.4.4",
+    "@nuxtjs/color-mode": "^3.5.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@tailwindcss/typography": "^0.5.15",
     "@types/jump.js": "^1.0.6",
-    "@vueuse/nuxt": "^11.0.3",
+    "@vueuse/nuxt": "^11.1.0",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   }
 }
