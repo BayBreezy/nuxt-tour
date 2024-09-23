@@ -50,7 +50,7 @@
     "defu": "^6.1.4",
     "focus-trap": "^7.6.0",
     "jump.js": "^1.0.2",
-    "sass": "^1.78.0"
+    "sass": "^1.79.3"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
@@ -59,8 +59,8 @@
     "@nuxt/schema": "^3.13.2",
     "@nuxt/test-utils": "^3.14.2",
     "@types/node": "^22.5.5",
-    "changelogen": "^0.5.5",
-    "eslint": "^9.10.0",
+    "changelogen": "^0.5.7",
+    "eslint": "^9.11.0",
     "nuxt": "^3.13.2",
     "prettier": "^3.3.3",
     "vitest": "^2.1.1"

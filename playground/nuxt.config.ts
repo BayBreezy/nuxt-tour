@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   ],
 
   tour: { prefix: "V" },
-  devtools: { enabled: true },
+  devtools: { enabled: true, componentInspector: false },
 
   tailwindcss: {
     exposeConfig: true,
