@@ -50,7 +50,7 @@
     "defu": "^6.1.4",
     "focus-trap": "^7.6.0",
     "jump.js": "^1.0.2",
-    "sass": "^1.78.0"
+    "sass": "^1.79.3"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
