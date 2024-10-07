@@ -41,7 +41,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/icon": "^1.5.2",
+    "@nuxt/icon": "^1.5.4",
     "@nuxt/kit": "^3.13.2",
     "@popperjs/core": "^2.11.8",
     "@types/jump.js": "^1.0.6",
@@ -57,12 +57,12 @@
     "@nuxt/eslint-config": "^0.5.7",
     "@nuxt/module-builder": "^0.8.4",
     "@nuxt/schema": "^3.13.2",
-    "@nuxt/test-utils": "^3.14.2",
+    "@nuxt/test-utils": "^3.14.3",
     "@types/node": "^22.7.4",
     "changelogen": "^0.5.7",
-    "eslint": "^9.11.1",
+    "eslint": "^9.12.0",
     "nuxt": "^3.13.2",
     "prettier": "^3.3.3",
-    "vitest": "^2.1.1"
+    "vitest": "^2.1.2"
   }
 }
