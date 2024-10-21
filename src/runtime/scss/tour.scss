@@ -1,22 +1,22 @@
 @use "sass:math";
-@import "variables";
+@use "variables";
 
 [data-hidden] {
   display: none !important;
 }
 
 #nt-tooltip {
-  position: $ntTooltipPosition;
-  background-color: $ntTooltipBackgroundColor;
-  border: $ntTooltipBorder;
-  padding: $ntTooltipPadding;
-  box-shadow: $ntTooltipBoxShadow;
-  border-radius: $ntTooltipBorderRadius;
-  z-index: $ntTooltipZIndex;
-  max-width: $ntTooltipMaxWidth;
-  display: $ntTooltipDisplay;
-  flex-direction: $ntTooltipFlexDirection;
-  gap: $ntTooltipGap;
+  position: variables.$ntTooltipPosition;
+  background-color: variables.$ntTooltipBackgroundColor;
+  border: variables.$ntTooltipBorder;
+  padding: variables.$ntTooltipPadding;
+  box-shadow: variables.$ntTooltipBoxShadow;
+  border-radius: variables.$ntTooltipBorderRadius;
+  z-index: variables.$ntTooltipZIndex;
+  max-width: variables.$ntTooltipMaxWidth;
+  display: variables.$ntTooltipDisplay;
+  flex-direction: variables.$ntTooltipFlexDirection;
+  gap: variables.$ntTooltipGap;
 }
 
 .nt-center {
@@ -27,138 +27,138 @@
 }
 
 #nt-tooltip-header {
-  display: $ntTooltipHeaderDisplay;
-  flex-direction: $ntTooltipHeaderFlexDirection;
-  gap: $ntTooltipHeaderGap;
+  display: variables.$ntTooltipHeaderDisplay;
+  flex-direction: variables.$ntTooltipHeaderFlexDirection;
+  gap: variables.$ntTooltipHeaderGap;
 
   #nt-tooltip-title {
-    font-size: $ntTooltipTitleFontSize;
-    line-height: $ntTooltipTitleLineHeight;
-    font-weight: $ntTooltipTitleFontWeight;
-    color: $ntTooltipTitleColor;
+    font-size: variables.$ntTooltipTitleFontSize;
+    line-height: variables.$ntTooltipTitleLineHeight;
+    font-weight: variables.$ntTooltipTitleFontWeight;
+    color: variables.$ntTooltipTitleColor;
   }
 
   #nt-tooltip-sub-text {
-    line-height: $ntTooltipSubTextLineHeight;
-    font-size: $ntTooltipSubTextFontSize;
-    color: $ntTooltipSubTextColor;
+    line-height: variables.$ntTooltipSubTextLineHeight;
+    font-size: variables.$ntTooltipSubTextFontSize;
+    color: variables.$ntTooltipSubTextColor;
   }
 }
 
 #nt-tooltip-body {
-  font-size: $ntTooltipBodyFontSize;
-  color: $ntTooltipBodyColor;
+  font-size: variables.$ntTooltipBodyFontSize;
+  color: variables.$ntTooltipBodyColor;
 }
 
 #nt-tooltip[data-popper-placement^="top"] {
   #nt-arrow {
-    bottom: math.div(-$ntTooltipArrowSize, 2);
+    bottom: math.div(-(variables.$ntTooltipArrowSize), 2);
     &::before {
       content: "";
-      border-bottom: $ntTooltipArrowBorder;
-      border-right: $ntTooltipArrowBorder;
+      border-bottom: variables.$ntTooltipArrowBorder;
+      border-right: variables.$ntTooltipArrowBorder;
     }
   }
 }
 
 #nt-tooltip[data-popper-placement^="bottom"] {
   #nt-arrow {
-    top: math.div(-$ntTooltipArrowSize, 2);
+    top: math.div(-(variables.$ntTooltipArrowSize), 2);
     &::before {
       content: "";
-      border-top: $ntTooltipArrowBorder;
-      border-left: $ntTooltipArrowBorder;
+      border-top: variables.$ntTooltipArrowBorder;
+      border-left: variables.$ntTooltipArrowBorder;
     }
   }
 }
 
 #nt-tooltip[data-popper-placement^="left"] {
   #nt-arrow {
-    right: math.div(-$ntTooltipArrowSize, 2);
+    right: math.div(-(variables.$ntTooltipArrowSize), 2);
     &::before {
       content: "";
-      border-top: $ntTooltipArrowBorder;
-      border-right: $ntTooltipArrowBorder;
+      border-top: variables.$ntTooltipArrowBorder;
+      border-right: variables.$ntTooltipArrowBorder;
     }
   }
 }
 
 #nt-tooltip[data-popper-placement^="right"] {
   #nt-arrow {
-    left: math.div(-$ntTooltipArrowSize, 2);
+    left: math.div(-(variables.$ntTooltipArrowSize), 2);
     &::before {
       content: "";
-      border-bottom: $ntTooltipArrowBorder;
-      border-left: $ntTooltipArrowBorder;
+      border-bottom: variables.$ntTooltipArrowBorder;
+      border-left: variables.$ntTooltipArrowBorder;
     }
   }
 }
 
 #nt-arrow {
-  width: $ntTooltipArrowSize;
-  height: $ntTooltipArrowSize;
+  width: variables.$ntTooltipArrowSize;
+  height: variables.$ntTooltipArrowSize;
   position: absolute;
   z-index: -99;
 
   &::before {
     content: "";
-    width: $ntTooltipArrowSize;
-    height: $ntTooltipArrowSize;
-    background-color: $ntTooltipArrowBackgroundColor;
+    width: variables.$ntTooltipArrowSize;
+    height: variables.$ntTooltipArrowSize;
+    background-color: variables.$ntTooltipArrowBackgroundColor;
     transform: rotate(45deg);
     position: absolute;
   }
 }
 
 .nt-highlight {
-  outline: $ntHighlightOutline;
-  outline-offset: $ntHighlightOffset;
-  border-radius: $ntHighlightOutlineRadius;
+  outline: variables.$ntHighlightOutline;
+  outline-offset: variables.$ntHighlightOffset;
+  border-radius: variables.$ntHighlightOutlineRadius;
 }
 
 .nt-actions {
-  display: $ntActionDisplay;
-  gap: $ntActionGap;
-  align-items: $ntActionAlignItems;
-  gap: $ntActionGap;
-  margin-top: $ntActionMarginTop;
+  display: variables.$ntActionDisplay;
+  gap: variables.$ntActionGap;
+  align-items: variables.$ntActionAlignItems;
+  gap: variables.$ntActionGap;
+  margin-top: variables.$ntActionMarginTop;
 
   button {
-    display: $ntButtonDisplay;
-    align-items: $ntButtonAlignItems;
-    justify-content: $ntButtonJustifyContent;
-    line-height: $ntButtonLineHeight;
-    gap: $ntButtonGap;
-    height: $ntButtonHeight;
-    padding: $ntButtonPadding;
-    border-radius: $ntButtonBorderRadius;
-    background-color: $ntButtonBackgroundColor;
-    color: $ntButtonColor;
-    font-size: $ntButtonFontSize;
-    font-weight: $ntButtonFontWeight;
-    transition: $ntButtonTransition;
+    display: variables.$ntButtonDisplay;
+    align-items: variables.$ntButtonAlignItems;
+    justify-content: variables.$ntButtonJustifyContent;
+    line-height: variables.$ntButtonLineHeight;
+    gap: variables.$ntButtonGap;
+    height: variables.$ntButtonHeight;
+    padding: variables.$ntButtonPadding;
+    border-radius: variables.$ntButtonBorderRadius;
+    background-color: variables.$ntButtonBackgroundColor;
+    color: variables.$ntButtonColor;
+    font-size: variables.$ntButtonFontSize;
+    font-weight: variables.$ntButtonFontWeight;
+    transition: variables.$ntButtonTransition;
     white-space: nowrap;
     cursor: pointer;
 
     &#nt-action-skip {
-      background-color: $ntButtonSkipBackgroundColor;
-      color: $ntButtonSkipColor;
-      border: $ntButtonSkipBorder;
+      background-color: variables.$ntButtonSkipBackgroundColor;
+      color: variables.$ntButtonSkipColor;
+      border: variables.$ntButtonSkipBorder;
 
       &:hover {
-        background-color: $ntButtonSkipHoverBackgroundColor;
+        background-color: variables.$ntButtonSkipHoverBackgroundColor;
       }
     }
 
     &#nt-action-prev {
-      background-color: $ntButtonPrevBackgroundColor;
-      color: $ntButtonPrevColor;
-      border: $ntButtonPrevBorder;
+      background-color: variables.$ntButtonPrevBackgroundColor;
+      color: variables.$ntButtonPrevColor;
+      border: variables.$ntButtonPrevBorder;
 
       &:hover {
-        background-color: $ntButtonPrevHoverBackgroundColor;
-        border-color: $ntButtonPrevHoverBorderColor;
-        color: $ntButtonPrevHoverColor;
+        background-color: variables.$ntButtonPrevHoverBackgroundColor;
+        border-color: variables.$ntButtonPrevHoverBorderColor;
+        color: variables.$ntButtonPrevHoverColor;
       }
     }
 
