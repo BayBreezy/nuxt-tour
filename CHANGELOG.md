@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.0.25
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.24...v0.0.25)
+
+### 🩹 Fixes
+
+- **sass:** Update sass to 1.8 and fix breaking changes ([543c5a7](https://github.com/BayBreezy/nuxt-tour/commit/543c5a7))
+
+### 🏡 Chore
+
+- **release:** V0.0.24 ([957868f](https://github.com/BayBreezy/nuxt-tour/commit/957868f))
+- Bump deps ([b919521](https://github.com/BayBreezy/nuxt-tour/commit/b919521))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.24
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.23...v0.0.24)
