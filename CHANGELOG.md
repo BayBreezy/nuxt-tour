@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.0.26
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.25...v0.0.26)
+
+### 🏡 Chore
+
+- Bump deps ([5c25367](https://github.com/BayBreezy/nuxt-tour/commit/5c25367))
+- **deps-dev:** Bump @nuxt/icon from 1.5.8 to 1.6.0 in /playground ([90ee092](https://github.com/BayBreezy/nuxt-tour/commit/90ee092))
+- **deps-dev:** Bump vitest from 2.1.3 to 2.1.4 ([174abca](https://github.com/BayBreezy/nuxt-tour/commit/174abca))
+- **deps-dev:** Bump @nuxt/eslint-config from 0.6.0 to 0.6.1 ([7e64eac](https://github.com/BayBreezy/nuxt-tour/commit/7e64eac))
+- Bump deps ([b19b8e6](https://github.com/BayBreezy/nuxt-tour/commit/b19b8e6))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.25
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.24...v0.0.25)
