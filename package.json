@@ -45,7 +45,7 @@
     "@nuxt/kit": "^3.13.2",
     "@popperjs/core": "^2.11.8",
     "@types/jump.js": "^1.0.6",
-    "@vueuse/core": "^11.1.0",
+    "@vueuse/core": "^11.2.0",
     "@vueuse/integrations": "^11.1.0",
     "defu": "^6.1.4",
     "focus-trap": "^7.6.0",
