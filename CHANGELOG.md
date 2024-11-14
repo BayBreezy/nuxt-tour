@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.0.27
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.26...v0.0.27)
+
+### 🏡 Chore
+
+- **release:** V0.0.26 ([c7b85d1](https://github.com/BayBreezy/nuxt-tour/commit/c7b85d1))
+- Update deps ([8feab55](https://github.com/BayBreezy/nuxt-tour/commit/8feab55))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.26
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.25...v0.0.26)
