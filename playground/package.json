@@ -14,7 +14,7 @@
     "nuxt-content-twoslash": "^0.1.1",
     "radix-vue": "1.9.9",
     "tailwind-variants": "^0.3.0",
-    "vue": "^3.5.12",
+    "vue": "^3.5.13",
     "vue-router": "^4.4.5",
     "vue-sonner": "^1.2.5",
     "vue-use-active-scroll": "^1.1.3"
