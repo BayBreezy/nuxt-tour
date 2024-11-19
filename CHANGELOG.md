@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.0.28
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.27...v0.0.28)
+
+### 📖 Documentation
+
+- Update u-thing config ([9cbe4c1](https://github.com/BayBreezy/nuxt-tour/commit/9cbe4c1))
+
+### 🏡 Chore
+
+- Bump deps ([2a42f43](https://github.com/BayBreezy/nuxt-tour/commit/2a42f43))
+
+### 🤖 CI
+
+- Update dependabot config ([784f38b](https://github.com/BayBreezy/nuxt-tour/commit/784f38b))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.27
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.26...v0.0.27)
