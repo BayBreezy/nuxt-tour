@@ -41,26 +41,26 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/icon": "^1.7.2",
+    "@nuxt/icon": "^1.7.5",
     "@nuxt/kit": "^3.14.159",
     "@popperjs/core": "^2.11.8",
     "@types/jump.js": "^1.0.6",
     "@vueuse/core": "^11.2.0",
     "@vueuse/integrations": "^11.2.0",
     "defu": "^6.1.4",
-    "focus-trap": "^7.6.1",
+    "focus-trap": "^7.6.2",
     "jump.js": "^1.0.2",
-    "sass": "^1.80.7"
+    "sass": "^1.81.0"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
-    "@nuxt/eslint-config": "^0.6.1",
+    "@nuxt/eslint-config": "^0.7.1",
     "@nuxt/module-builder": "^0.8.4",
     "@nuxt/schema": "^3.14.159",
     "@nuxt/test-utils": "^3.14.4",
     "@types/node": "^22.9.0",
     "changelogen": "^0.5.7",
-    "eslint": "^9.14.0",
+    "eslint": "^9.15.0",
     "nuxt": "^3.14.159",
     "prettier": "^3.3.3",
     "vitest": "^2.1.5"
