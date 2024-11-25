@@ -1,29 +1,13 @@
 <template>
   <div class="not-prose">
     <div v-if="tourVisible">
-      <p class="mb-5">
-        Click the button below to restart the tour
-      </p>
-      <UiButton
-        size="sm"
-        variant="outline"
-        @click="rerunTour"
-      >
-        Restart Tour
-      </UiButton>
+      <p class="mb-5">Click the button below to restart the tour</p>
+      <UiButton size="sm" variant="outline" @click="rerunTour"> Restart Tour </UiButton>
     </div>
-    <VTour
-      ref="tour"
-      name="create-tour-example"
-      :steps="steps"
-    >
+    <VTour ref="tour" name="create-tour-example" :steps="steps">
       <template #limitations-body>
         <ul class="mb-3 mt-4 flex list-inside flex-col gap-3 text-sm text-zinc-600">
-          <li
-            v-for="l in limitations"
-            :key="l"
-            class="flex items-start gap-3"
-          >
+          <li v-for="l in limitations" :key="l" class="flex items-start gap-3">
             <Icon
               name="heroicons:exclamation-triangle"
               class="mt-1 size-4 shrink-0 text-amber-500"
@@ -34,15 +18,8 @@
       </template>
       <template #startTour-body>
         <ul class="mb-3 mt-4 flex list-inside flex-col gap-3 text-sm text-zinc-600">
-          <li
-            v-for="s in waysToStart"
-            :key="s"
-            class="flex items-start gap-3"
-          >
-            <Icon
-              name="heroicons:check-badge"
-              class="size-5 shrink-0 text-green-500"
-            />
+          <li v-for="s in waysToStart" :key="s" class="flex items-start gap-3">
+            <Icon name="heroicons:check-badge" class="size-5 shrink-0 text-green-500" />
             {{ s }}
           </li>
         </ul>
@@ -84,6 +61,14 @@
       slot: "limitations",
       popperConfig: {
         placement: "right-start",
+        modifiers: [
+          {
+            name: "offset",
+            options: {
+              offset: [0, 50],
+            },
+          },
+        ],
       },
     },
     {

@@ -270,8 +270,8 @@
   import { useFocusTrap } from "@vueuse/integrations/useFocusTrap";
   import { Icon } from "#components";
   import { computed, onMounted, ref, shallowRef, toValue } from "#imports";
-  import { defu } from "defu";
   import jump from "jump.js";
+  import merge from "lodash/merge";
   import type { TourProps } from "../props";
   import type { Instance, Modifier, OptionsGeneric } from "@popperjs/core";
   import type { Options } from "jump.js";
@@ -288,10 +288,14 @@
 
   /** The merged config to pass to jump */
   const jumpConfig = computed<Options>(() =>
-    defu(props.jumpOptions, {
-      duration: 300,
-      offset: -100,
-    } as Options)
+    merge(
+      {},
+      {
+        duration: 300,
+        offset: -100,
+      } as Options,
+      props.jumpOptions
+    )
   );
 
   const popper = ref<Instance | null>(null);
@@ -416,7 +420,7 @@
       popper.value = createPopper(
         target || document.body,
         tour!,
-        defu(getCurrentStep.value?.popperConfig, defaultPopperConfig)
+        merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
       );
 
       // highlight the target element (if the highlight prop is true & the target element is found)
@@ -593,7 +597,9 @@
    * @returns void
    */
   const recalculatePopper = async () => {
-    await popper.value?.setOptions(defu(getCurrentStep.value?.popperConfig, defaultPopperConfig));
+    await popper.value?.setOptions(
+      merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
+    );
     // get the current step's target
     const currentTarget = document.querySelector(`${getCurrentStep.value.target}`);
     jump(
