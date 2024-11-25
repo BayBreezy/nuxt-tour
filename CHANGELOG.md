@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.0.29
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.28...v0.0.29)
+
+### 🩹 Fixes
+
+- Replace defu with lodash `merge`. Allows user config to get merged with defaults properly. closes Custom popperConfig properties are being overriden by defaults. #120 ([#120](https://github.com/BayBreezy/nuxt-tour/issues/120))
+
+### 🏡 Chore
+
+- Bump deps ([46959e8](https://github.com/BayBreezy/nuxt-tour/commit/46959e8))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.28
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.27...v0.0.28)
