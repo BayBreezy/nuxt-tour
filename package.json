@@ -41,7 +41,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/icon": "^1.9.1",
+    "@nuxt/icon": "^1.10.1",
     "@nuxt/kit": "^3.14.1592",
     "@popperjs/core": "^2.11.8",
     "@types/jump.js": "^1.0.6",
