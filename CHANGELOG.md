@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.0.33
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.32...v0.0.33)
+
+### 🏡 Chore
+
+- **release:** V0.0.32 ([19fc9fd](https://github.com/BayBreezy/nuxt-tour/commit/19fc9fd))
+- Move `@types/lodash` to being a dependency ([af7312e](https://github.com/BayBreezy/nuxt-tour/commit/af7312e))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.32
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.31...v0.0.32)
