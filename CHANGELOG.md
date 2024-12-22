@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.0.34
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.33...v0.0.34)
+
+### 🩹 Fixes
+
+- Change how lodash merge is imported(for pnpm's sake) ([74adfd8](https://github.com/BayBreezy/nuxt-tour/commit/74adfd8))
+
+### 🏡 Chore
+
+- Bump deps ([4edd4b4](https://github.com/BayBreezy/nuxt-tour/commit/4edd4b4))
+- Swap out lodash for lodash-es ([431b4ca](https://github.com/BayBreezy/nuxt-tour/commit/431b4ca))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.33
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.32...v0.0.33)
