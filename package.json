@@ -45,12 +45,12 @@
     "@nuxt/kit": "^3.14.1592",
     "@popperjs/core": "^2.11.8",
     "@types/jump.js": "^1.0.6",
-    "@types/lodash": "^4.17.13",
+    "@types/lodash-es": "^4.17.12",
     "@vueuse/core": "^12.1.0",
     "@vueuse/integrations": "^12.1.0",
     "focus-trap": "^7.6.2",
     "jump.js": "^1.0.2",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "sass": "^1.83.0"
   },
   "devDependencies": {

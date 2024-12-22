@@ -271,7 +271,7 @@
   import { Icon } from "#components";
   import { computed, onMounted, ref, shallowRef, toValue } from "#imports";
   import jump from "jump.js";
-  import { merge } from "lodash";
+  import { merge } from "lodash-es";
   import type { TourProps } from "../props";
   import type { Instance, Modifier, OptionsGeneric } from "@popperjs/core";
   import type { Options } from "jump.js";
