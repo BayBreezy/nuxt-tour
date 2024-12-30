@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.35
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.34...v0.0.35)
+
+### 🏡 Chore
+
+- Bump deps ([091828e](https://github.com/BayBreezy/nuxt-tour/commit/091828e))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.34
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.33...v0.0.34)
