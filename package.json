@@ -46,7 +46,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/jump.js": "^1.0.6",
     "@types/lodash-es": "^4.17.12",
-    "@vueuse/core": "^12.2.0",
+    "@vueuse/core": "^12.3.0",
     "@vueuse/integrations": "^12.2.0",
     "focus-trap": "^7.6.2",
     "jump.js": "^1.0.2",
