@@ -47,6 +47,6 @@ export default defineNuxtConfig({
     },
   },
 
-  build: { transpile: ["vue-sonner", "shiki", "nitropack"] },
+  build: { transpile: ["vue-sonner"] },
   compatibilityDate: "2024-07-19",
 });
