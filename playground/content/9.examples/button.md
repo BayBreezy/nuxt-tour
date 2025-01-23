@@ -17,8 +17,8 @@ The color of the finish button can be changed by adding a style tag to the SFC.
 
 ```vue
 <style scoped>
-  #nt-tooltip {
-    max-width: 400px;
+  :deep(#nt-tooltip) {
+    max-width: 450px;
   }
   :deep(#nt-action-finish) {
     @apply bg-green-600 text-white;
@@ -34,23 +34,24 @@ The color of the finish button can be changed by adding a style tag to the SFC.
 <template>
   <Showcase>
     <div class="not-prose">
-      <div class="flex flex-col items-center text-center" v-if="tourVisible">
+      <div v-if="tourVisible" class="flex flex-col items-center text-center">
         <p class="mb-5">Click the button below to restart the tour</p>
-        <UiButton @click="rerunTour" size="sm" variant="outline">Restart Tour</UiButton>
+        <UiButton size="sm" variant="outline" @click="rerunTour"> Restart Tour </UiButton>
       </div>
       <div v-else class="text-center">
         <p class="mb-5">The tour will automatically start when the page loads</p>
       </div>
       <!-- This is what matters, not the stuff above -->
       <VTour
-        highlight
         ref="tour"
+        highlight
+        backdrop
         :name="tourName"
         :steps="steps"
-        :skipButton="skipBtn"
-        :nextButton="nextBtn"
-        :prevButton="prevButton"
-        :finishButton="finishButton"
+        :skip-button="skipBtn"
+        :next-button="nextBtn"
+        :prev-button="prevButton"
+        :finish-button="finishButton"
       />
     </div>
   </Showcase>
@@ -124,8 +125,8 @@ The color of the finish button can be changed by adding a style tag to the SFC.
 </script>
 
 <style scoped>
-  #nt-tooltip {
-    max-width: 400px;
+  :deep(#nt-tooltip) {
+    max-width: 450px;
   }
   :deep(#nt-action-finish) {
     @apply bg-green-600 text-white;
