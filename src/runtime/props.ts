@@ -2,6 +2,17 @@ import type { Modifier, OptionsGeneric } from "@popperjs/core";
 import type { ComputedRef, MaybeRefOrGetter, Ref } from "#imports";
 import type { Options } from "jump.js";
 
+export type TourEmits = {
+  /**
+   * Emitted when the tour starts
+   */
+  onTourStart: [];
+  /**
+   * Emitted when the tour ends
+   */
+  onTourEnd: [];
+};
+
 export type ButtonProp = {
   /**
    * The label of the button
@@ -63,6 +74,12 @@ export type TourStep = {
    * The prefix that will be added to the slot name
    */
   slot?: string;
+  /**
+   * Determines if the step should show a backdrop or not
+   *
+   * @default false
+   */
+  backdrop?: boolean;
 };
 
 export type TourProps = {
@@ -121,7 +138,7 @@ export type TourProps = {
   /**
    * The configuration to pass to jump.js
    *
-   * @default { duration: 600, offset: -100 }
+   * @default { duration: 300, offset: -100 }
    */
   jumpOptions?: Options;
   /**
@@ -136,4 +153,10 @@ export type TourProps = {
    * @default true
    */
   lockScroll?: boolean;
+  /**
+   * Determines if the tour should show a backdrop or not
+   *
+   * @default false
+   */
+  backdrop?: boolean;
 };
