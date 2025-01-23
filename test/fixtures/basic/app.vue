@@ -1,15 +1,10 @@
 <template>
   <div>
     <div class="container">
-      <h1 class="target">
-        Target 1
-      </h1>
+      <h1 class="target">Target 1</h1>
     </div>
   </div>
-  <VTour
-    auto-start
-    :steps="steps"
-  />
+  <VTour :auto-start="true" :steps="steps" />
 </template>
 
 <script setup lang="ts">

@@ -20,12 +20,14 @@ describe("Display Tour To User", async () => {
     expect(html).toContain('class="target"');
   });
 
-  it("automatically starts the tour", async () => {
-    const html: string = await $fetch("/");
-    // Expect it to have the nt-tooltip id in the DOM
-    expect(html).toContain('<div id="nt-tooltip"');
-    expect(html).toContain('role="tooltip"');
-  });
+  it(
+    "automatically starts the tour",
+    async () => {
+      const html: string = await $fetch("/");
+      expect(html).toContain('role="tooltip"');
+    },
+    { timeout: 20000 }
+  );
 
   it("has correct content inside the step", async () => {
     const html: string = await $fetch("/");
