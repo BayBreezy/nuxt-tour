@@ -59,6 +59,7 @@
       title: "Limitations",
       subText: "Be aware of these limitations",
       slot: "limitations",
+      backdrop: true,
       popperConfig: {
         placement: "right-start",
         modifiers: [
