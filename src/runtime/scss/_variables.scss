@@ -86,3 +86,7 @@ $ntButtonPrevBorder: 1px solid $ntBorderColor !default;
 $ntButtonPrevHoverBackgroundColor: $ntButtonBackgroundColor !default;
 $ntButtonPrevHoverBorderColor: $ntButtonPrevBackgroundColor !default;
 $ntButtonPrevHoverColor: $ntWhite !default;
+
+// Backdrop
+$ntBackdropZIndex: 9998 !default;
+$ntBackdropBackground: rgba(0, 0, 0, 0.5) !default;

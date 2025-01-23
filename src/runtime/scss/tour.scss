@@ -5,6 +5,26 @@
   display: none !important;
 }
 
+.fade-nt-tooltip-enter-active,
+.fade-nt-tooltip-leave-active {
+  transition: all 0.2s;
+}
+
+.fade-nt-tooltip-enter-from,
+.fade-nt-tooltip-leave-to {
+  opacity: 0;
+}
+
+#nt-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: variables.$ntBackdropBackground;
+  z-index: variables.$ntBackdropZIndex;
+}
+
 #nt-tooltip {
   position: variables.$ntTooltipPosition;
   background-color: variables.$ntTooltipBackgroundColor;
