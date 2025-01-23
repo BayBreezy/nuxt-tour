@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.0.37
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.36...v0.0.37)
+
+### 🚀 Enhancements
+
+- Add `backdrop` & transition styles to css ([1a56f3b](https://github.com/BayBreezy/nuxt-tour/commit/1a56f3b))
+- Add `backdrop` prop to tour & tour steps. Also extracted the tour emit types ([85f0d13](https://github.com/BayBreezy/nuxt-tour/commit/85f0d13))
+- Add `backdrop` functionality along with transition & update default values ([4c0c81e](https://github.com/BayBreezy/nuxt-tour/commit/4c0c81e))
+
+### 📖 Documentation
+
+- Fix twoslash error in docs ([1ede335](https://github.com/BayBreezy/nuxt-tour/commit/1ede335))
+- Update examples ([0fe5e42](https://github.com/BayBreezy/nuxt-tour/commit/0fe5e42))
+- Update the code snippets ([838029b](https://github.com/BayBreezy/nuxt-tour/commit/838029b))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.36
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.35...v0.0.36)
