@@ -1,23 +1,15 @@
 <template>
-  <div :id="parentId" ref="target" data-hidden role="tooltip">
-    <slot
-      :name="`${getCurrentStep.slot}-header`"
-      v-bind="{
-        endTour,
-        nextStep,
-        prevStep,
-        currentStep,
-        lastStep,
-        getCurrentStep,
-        getLastStep,
-        jump,
-        isLocked,
-        isLastStep,
-      }"
-    >
-      <div id="nt-tooltip-header">
+  <div>
+    <div
+      :id="backdropClass"
+      :class="backdropClass"
+      data-hidden
+      :style="'clip-path: ' + getClipPath"
+    />
+    <Transition name="fade-nt-tooltip">
+      <div v-show="showParent" :id="parentId" ref="target" data-hidden role="tooltip">
         <slot
-          :name="`${getCurrentStep.slot}-title`"
+          :name="`${getCurrentStep.slot}-header`"
           v-bind="{
             endTour,
             nextStep,
@@ -31,10 +23,49 @@
             isLastStep,
           }"
         >
-          <h3 v-if="getCurrentStep.title" id="nt-tooltip-title" v-html="getCurrentStep.title" />
+          <div id="nt-tooltip-header">
+            <slot
+              :name="`${getCurrentStep.slot}-title`"
+              v-bind="{
+                endTour,
+                nextStep,
+                prevStep,
+                currentStep,
+                lastStep,
+                getCurrentStep,
+                getLastStep,
+                jump,
+                isLocked,
+                isLastStep,
+              }"
+            >
+              <h3 v-if="getCurrentStep.title" id="nt-tooltip-title" v-html="getCurrentStep.title" />
+            </slot>
+            <slot
+              :name="`${getCurrentStep.slot}-sub-text`"
+              v-bind="{
+                endTour,
+                nextStep,
+                prevStep,
+                currentStep,
+                lastStep,
+                getCurrentStep,
+                getLastStep,
+                jump,
+                isLocked,
+                isLastStep,
+              }"
+            >
+              <p
+                v-if="getCurrentStep.subText"
+                id="nt-tooltip-sub-text"
+                v-html="getCurrentStep.subText"
+              />
+            </slot>
+          </div>
         </slot>
         <slot
-          :name="`${getCurrentStep.slot}-sub-text`"
+          :name="`${getCurrentStep.slot}-body`"
           v-bind="{
             endTour,
             nextStep,
@@ -48,243 +79,227 @@
             isLastStep,
           }"
         >
-          <p
-            v-if="getCurrentStep.subText"
-            id="nt-tooltip-sub-text"
-            v-html="getCurrentStep.subText"
-          />
+          <div v-if="getCurrentStep.body" id="nt-tooltip-body" v-html="getCurrentStep.body" />
+        </slot>
+        <slot
+          :name="`${getCurrentStep.slot}-actions`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+          }"
+        >
+          <div class="nt-actions">
+            <slot
+              :name="`${getCurrentStep.slot}-skip-button`"
+              v-bind="{
+                endTour,
+                nextStep,
+                prevStep,
+                currentStep,
+                lastStep,
+                getCurrentStep,
+                getLastStep,
+                jump,
+                isLocked,
+                isLastStep,
+                skipButton,
+                nextButton,
+                prevButton,
+              }"
+            >
+              <button
+                id="nt-action-skip"
+                type="button"
+                @click.prevent="
+                  endTour();
+                  props.onSkip?.();
+                "
+              >
+                <Icon
+                  v-if="skipButton?.leftIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="skipButton.leftIcon"
+                />
+                {{ skipButton?.label || "Skip" }}
+                <Icon
+                  v-if="skipButton?.rightIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="skipButton.rightIcon"
+                />
+              </button>
+            </slot>
+            <slot
+              :name="`${getCurrentStep.slot}-prev-button`"
+              v-bind="{
+                endTour,
+                nextStep,
+                prevStep,
+                currentStep,
+                lastStep,
+                getCurrentStep,
+                getLastStep,
+                jump,
+                isLocked,
+                isLastStep,
+                skipButton,
+                nextButton,
+                prevButton,
+              }"
+            >
+              <button
+                v-if="currentStep > 0"
+                id="nt-action-prev"
+                type="button"
+                @click.prevent="prevStep"
+              >
+                <Icon
+                  v-if="prevButton?.leftIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="prevButton.leftIcon"
+                />
+                {{ prevButton?.label || "Prev" }}
+                <Icon
+                  v-if="prevButton?.rightIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="prevButton.rightIcon"
+                />
+              </button>
+            </slot>
+            <slot
+              v-if="!isLastStep"
+              :name="`${getCurrentStep.slot}-next-button`"
+              v-bind="{
+                endTour,
+                nextStep,
+                prevStep,
+                currentStep,
+                lastStep,
+                getCurrentStep,
+                getLastStep,
+                jump,
+                isLocked,
+                isLastStep,
+                skipButton,
+                nextButton,
+                prevButton,
+              }"
+            >
+              <button id="nt-action-next" type="button" @click.prevent="nextStep">
+                <Icon
+                  v-if="nextButton?.leftIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="nextButton.leftIcon"
+                />
+                {{ nextButton?.label || "Next" }}
+                <Icon
+                  v-if="nextButton?.rightIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="nextButton.rightIcon"
+                />
+              </button>
+            </slot>
+            <slot
+              v-if="isLastStep"
+              :name="`${getCurrentStep.slot}-finish-button`"
+              v-bind="{
+                endTour,
+                nextStep,
+                prevStep,
+                currentStep,
+                lastStep,
+                getCurrentStep,
+                getLastStep,
+                jump,
+                isLocked,
+                isLastStep,
+                skipButton,
+                nextButton,
+                prevButton,
+              }"
+            >
+              <button id="nt-action-finish" type="button" @click.prevent="nextStep">
+                <Icon
+                  v-if="finishButton?.leftIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="finishButton.leftIcon"
+                />
+                {{ finishButton?.label || "Done" }}
+                <Icon
+                  v-if="finishButton?.rightIcon"
+                  :size="iconSize"
+                  :style="iconStyles"
+                  :name="finishButton.rightIcon"
+                />
+              </button>
+            </slot>
+          </div>
+        </slot>
+        <slot
+          :name="`${getCurrentStep.slot}-arrow`"
+          v-bind="{
+            endTour,
+            nextStep,
+            prevStep,
+            currentStep,
+            lastStep,
+            getCurrentStep,
+            getLastStep,
+            jump,
+            isLocked,
+            isLastStep,
+            skipButton,
+            nextButton,
+            prevButton,
+          }"
+        >
+          <div v-show="showArrow" :id="arrowId" data-popper-arrow />
         </slot>
       </div>
-    </slot>
-    <slot
-      :name="`${getCurrentStep.slot}-body`"
-      v-bind="{
-        endTour,
-        nextStep,
-        prevStep,
-        currentStep,
-        lastStep,
-        getCurrentStep,
-        getLastStep,
-        jump,
-        isLocked,
-        isLastStep,
-      }"
-    >
-      <div v-if="getCurrentStep.body" id="nt-tooltip-body" v-html="getCurrentStep.body" />
-    </slot>
-    <slot
-      :name="`${getCurrentStep.slot}-actions`"
-      v-bind="{
-        endTour,
-        nextStep,
-        prevStep,
-        currentStep,
-        lastStep,
-        getCurrentStep,
-        getLastStep,
-        jump,
-        isLocked,
-        isLastStep,
-      }"
-    >
-      <div class="nt-actions">
-        <slot
-          :name="`${getCurrentStep.slot}-skip-button`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-            skipButton,
-            nextButton,
-            prevButton,
-          }"
-        >
-          <button
-            id="nt-action-skip"
-            type="button"
-            @click.prevent="
-              endTour();
-              props.onSkip?.();
-            "
-          >
-            <Icon
-              v-if="skipButton?.leftIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="skipButton.leftIcon"
-            />
-            {{ skipButton?.label || "Skip" }}
-            <Icon
-              v-if="skipButton?.rightIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="skipButton.rightIcon"
-            />
-          </button>
-        </slot>
-        <slot
-          :name="`${getCurrentStep.slot}-prev-button`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-            skipButton,
-            nextButton,
-            prevButton,
-          }"
-        >
-          <button
-            v-if="currentStep > 0"
-            id="nt-action-prev"
-            type="button"
-            @click.prevent="prevStep"
-          >
-            <Icon
-              v-if="prevButton?.leftIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="prevButton.leftIcon"
-            />
-            {{ prevButton?.label || "Prev" }}
-            <Icon
-              v-if="prevButton?.rightIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="prevButton.rightIcon"
-            />
-          </button>
-        </slot>
-        <slot
-          v-if="!isLastStep"
-          :name="`${getCurrentStep.slot}-next-button`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-            skipButton,
-            nextButton,
-            prevButton,
-          }"
-        >
-          <button id="nt-action-next" type="button" @click.prevent="nextStep">
-            <Icon
-              v-if="nextButton?.leftIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="nextButton.leftIcon"
-            />
-            {{ nextButton?.label || "Next" }}
-            <Icon
-              v-if="nextButton?.rightIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="nextButton.rightIcon"
-            />
-          </button>
-        </slot>
-        <slot
-          v-if="isLastStep"
-          :name="`${getCurrentStep.slot}-finish-button`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-            skipButton,
-            nextButton,
-            prevButton,
-          }"
-        >
-          <button id="nt-action-finish" type="button" @click.prevent="nextStep">
-            <Icon
-              v-if="finishButton?.leftIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="finishButton.leftIcon"
-            />
-            {{ finishButton?.label || "Done" }}
-            <Icon
-              v-if="finishButton?.rightIcon"
-              :size="iconSize"
-              :style="iconStyles"
-              :name="finishButton.rightIcon"
-            />
-          </button>
-        </slot>
-      </div>
-    </slot>
-    <slot
-      :name="`${getCurrentStep.slot}-arrow`"
-      v-bind="{
-        endTour,
-        nextStep,
-        prevStep,
-        currentStep,
-        lastStep,
-        getCurrentStep,
-        getLastStep,
-        jump,
-        isLocked,
-        isLastStep,
-        skipButton,
-        nextButton,
-        prevButton,
-      }"
-    >
-      <div v-show="showArrow" :id="arrowId" data-popper-arrow />
-    </slot>
+    </Transition>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { createPopper } from "@popperjs/core";
-  import { useScrollLock, useStorage, useTimeoutFn } from "@vueuse/core";
+  import { useEventListener, useScrollLock, useStorage, useTimeoutFn } from "@vueuse/core";
   import { useFocusTrap } from "@vueuse/integrations/useFocusTrap";
   import { Icon } from "#components";
   import { computed, onMounted, ref, shallowRef, toValue } from "#imports";
   import jump from "jump.js";
   import { merge } from "lodash-es";
-  import type { TourProps } from "../props";
+  import { watch } from "vue";
+  import type { TourEmits, TourProps } from "../props";
   import type { Instance, Modifier, OptionsGeneric } from "@popperjs/core";
   import type { Options } from "jump.js";
 
+  /**Props with the defaults */
   const props = withDefaults(defineProps<TourProps>(), {
     name: "default",
     autoStart: false,
+    backdrop: false,
     startDelay: 100,
     highlight: false,
     showArrow: true,
     trapFocus: true,
     lockScroll: true,
   });
+  /** Emits for the tour */
+  const emit = defineEmits<TourEmits>();
 
   /** The merged config to pass to jump */
   const jumpConfig = computed<Options>(() =>
@@ -292,7 +307,7 @@
       {},
       {
         duration: 300,
-        offset: -100,
+        offset: -150,
       } as Options,
       props.jumpOptions
     )
@@ -300,23 +315,12 @@
 
   const popper = ref<Instance | null>(null);
 
-  const emit = defineEmits<{
-    /**
-     * Emitted when the tour starts
-     */
-    onTourStart: [];
-    /**
-     * Emitted when the tour ends
-     */
-    onTourEnd: [];
-  }>();
-
   // Default styles applied to icon
   const iconStyles = { flexShrink: 0, color: "inherit" };
   const iconSize = "18px";
 
   // check if the steps prop is empty
-  if (!props.steps.length) {
+  if (!props.steps?.length) {
     throw new Error("You must provide at least one step to the tour");
   }
 
@@ -326,6 +330,32 @@
 
   const isLocked = useScrollLock(window);
 
+  /**
+   * Method used to get the clip path values for the target element
+   *
+   * Used with the `highlight` & `backdrop` props
+   */
+  const getClipPathValues = (targetSelector: string) => {
+    const targetElement = document?.querySelector(targetSelector) as HTMLElement;
+    if (!targetElement) return "";
+
+    const rect = targetElement.getBoundingClientRect();
+    return `polygon(
+    0% 0%,
+    0% 100%,
+    ${rect.left - 6}px 100%,
+    ${rect.left - 6}px ${rect.top}px,
+    ${rect.right + 5}px ${rect.top}px,
+    ${rect.right + 5}px ${rect.bottom}px,
+    ${rect.left - 6}px ${rect.bottom}px,
+    ${rect.left - 6}px 100%,
+    100% 100%,
+    100% 0%
+  )`;
+  };
+
+  /** State used to do transition on parent */
+  const showParent = shallowRef(true);
   /** The prefix for the tour in local storage. It also prefixes the classes and ID's */
   const tourPrefix = "nt-";
   /** State of the tour. `true` indicates that the tour has started */
@@ -336,6 +366,8 @@
   const arrowId = `${tourPrefix}arrow`;
   /** The class to highlight the target element */
   const highlightClass = `${tourPrefix}highlight`;
+  /** The class for the backdrop */
+  const backdropClass = `${tourPrefix}backdrop`;
   /** The tour current step */
   const currentStep = shallowRef(0);
   /** The tour last step */
@@ -354,10 +386,13 @@
   const storageItem = useStorage(`${tourPrefix}${props.name || "default"}`, false);
   /** Stores a `boolean` value that indicates if the tour is on the last step */
   const isLastStep = computed(() => currentStep.value === maxSteps.value);
+  const getClipPath = ref(
+    getClipPathValues(`.${highlightClass}`) ? getClipPathValues(`.${highlightClass}`) : ""
+  );
 
   /** The default configuration passed to popper */
   const defaultPopperConfig: Partial<OptionsGeneric<Partial<Modifier<any, any>>>> | undefined = {
-    placement: "top",
+    placement: "auto",
     modifiers: [
       {
         name: "offset",
@@ -391,12 +426,11 @@
     // set the last step to null
     lastStep.value = null;
 
+    // get the parent element
+    const parent = document.getElementById(parentId);
+
     // Timeout function used to trigger the tour after the specified delay
     useTimeoutFn(async () => {
-      // get the parent element and remove the data-hidden attr
-      const parent = document.getElementById(parentId);
-      parent?.removeAttribute("data-hidden");
-
       // if the target element is not found, center the tooltip on the screen
       if (!getCurrentStep.value.target) {
         // center the tooltip
@@ -410,10 +444,9 @@
       let target: HTMLElement | null = null;
       // if the target is found, set the target to the target element
       if (toValue(getCurrentStep.value.target)) {
-        target = document.querySelector(toValue(getCurrentStep.value.target!));
+        target = document?.querySelector(toValue(getCurrentStep.value.target!));
       }
-      // jump to the target element or the body
-      jump(target || document.body, jumpConfig.value);
+
       const tour = document.getElementById("nt-tooltip");
 
       // create the popper instance
@@ -423,6 +456,27 @@
         merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
       );
 
+      // jump to the target element or the body
+      jump(target || document.body, {
+        ...jumpConfig.value,
+        callback() {
+          if (props.jumpOptions?.callback) {
+            props.jumpOptions.callback();
+          }
+          setTimeout(() => {
+            parent?.removeAttribute("data-hidden");
+            showParent.value = true;
+            tourStarted.value = true;
+            // activate the focus trap
+            if (props.trapFocus) activateFocusTrap();
+            // check if scroll should be locked
+            if (props.lockScroll) isLocked.value = true;
+          }, 200);
+        },
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      props.backdrop || getCurrentStep.value.backdrop ? updateBackdrop() : null;
       // highlight the target element (if the highlight prop is true & the target element is found)
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       props.highlight && target ? highlightTarget() : null;
@@ -431,12 +485,6 @@
       getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
       // emit the onTourStart event
       emit("onTourStart");
-      // set the tourStarted value to true
-      tourStarted.value = true;
-      // activate the focus trap
-      if (props.trapFocus) activateFocusTrap();
-      // check if scroll should be locked
-      if (props.lockScroll) isLocked.value = true;
     }, Number(props.startDelay));
   };
 
@@ -445,11 +493,44 @@
    */
   const highlightTarget = () => {
     // remove the highlight class from all elements
-    const highlightedElements = document.querySelectorAll(`.${highlightClass}`);
+    const highlightedElements = document?.querySelectorAll(`.${highlightClass}`);
     highlightedElements.forEach((el) => el.classList.remove(highlightClass));
     // add the highlight class to the current step's target
-    const _currentStep = document.querySelector(`${getCurrentStep.value.target}`);
+    const _currentStep = document?.querySelector(`${getCurrentStep.value.target}`);
+    getClipPath.value = getClipPathValues(`.${highlightClass}`);
     _currentStep?.classList.add(highlightClass);
+  };
+
+  watch(showParent, (value) => {
+    if (value && props.highlight) {
+      setTimeout(() => {
+        getClipPath.value = getClipPathValues(`.${highlightClass}`);
+      }, 100);
+    }
+  });
+
+  useEventListener("scroll", () => {
+    if (props.highlight) {
+      getClipPath.value = getClipPathValues(`.${highlightClass}`);
+    }
+  });
+  useEventListener("resize", () => {
+    if (props.highlight) {
+      getClipPath.value = getClipPathValues(`.${highlightClass}`);
+    }
+  });
+
+  const updateBackdrop = () => {
+    if (props.backdrop) {
+      return document?.querySelector(`.${backdropClass}`)!.removeAttribute("data-hidden");
+    } else {
+      document?.querySelector(`.${backdropClass}`)!.setAttribute("data-hidden", "");
+    }
+    if (getCurrentStep.value.backdrop) {
+      return document?.querySelector(`.${backdropClass}`)!.removeAttribute("data-hidden");
+    } else {
+      document?.querySelector(`.${backdropClass}`)!.setAttribute("data-hidden", "");
+    }
   };
 
   /**
@@ -467,7 +548,7 @@
       // increment the current step
       currentStep.value++;
       // if the target element is not found, center the tooltip on the screen
-      if (!document.querySelector(`${getCurrentStep.value.target}`)) {
+      if (!document?.querySelector(`${getCurrentStep.value.target}`)) {
         document.getElementById(parentId)?.classList.add("nt-center");
       } else {
         // remove the center class
@@ -499,7 +580,7 @@
       // decrement the current step
       currentStep.value--;
       // if the target element is not found, center the tooltip on the screen
-      if (!document.querySelector(`${getCurrentStep.value.target}`)) {
+      if (!document?.querySelector(`${getCurrentStep.value.target}`)) {
         document.getElementById(parentId)?.classList.add("nt-center");
       } else {
         // remove the center class
@@ -522,8 +603,11 @@
   const endTour = async () => {
     // get the parent element and set the data-hidden attr
     document.getElementById(parentId)?.setAttribute("data-hidden", "");
+    showParent.value = false;
+    // Hide the backdrop
+    document?.querySelector(`.${backdropClass}`)!.setAttribute("data-hidden", "");
     // remove the highlight class from all elements
-    const highlightedElements = document.querySelectorAll(`.${highlightClass}`);
+    const highlightedElements = document?.querySelectorAll(`.${highlightClass}`);
     highlightedElements.forEach((el) => el.classList.remove(highlightClass));
     // destroy the popper instance
     popper.value?.destroy();
@@ -556,7 +640,7 @@
     lastStep.value = nextStep - 1 >= 0 ? nextStep - 1 : 0;
     currentStep.value = nextStep;
     // if the target element is not found, center the tooltip on the screen
-    if (!document.querySelector(`${getCurrentStep.value.target}`)) {
+    if (!document?.querySelector(`${getCurrentStep.value.target}`)) {
       document.getElementById(parentId)?.classList.add("nt-center");
     } else {
       // remove the center class
@@ -597,14 +681,25 @@
    * @returns void
    */
   const recalculatePopper = async () => {
+    // get the parent element and set the data-hidden attr
+    showParent.value = false;
+    document.getElementById(parentId)?.setAttribute("data-hidden", "");
+    // get the current step's target
+    const currentTarget = document?.querySelector(`${getCurrentStep.value.target}`);
+    jump(document?.querySelector(`${getCurrentStep.value.target}`) || document.body, {
+      ...jumpConfig.value,
+      callback: async () => {
+        setTimeout(() => {
+          document.getElementById(parentId)?.removeAttribute("data-hidden");
+          showParent.value = true;
+          if (props.highlight) {
+            getClipPath.value = getClipPathValues(`.${highlightClass}`);
+          }
+        }, 500);
+      },
+    });
     await popper.value?.setOptions(
       merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
-    );
-    // get the current step's target
-    const currentTarget = document.querySelector(`${getCurrentStep.value.target}`);
-    jump(
-      document.querySelector(`${getCurrentStep.value.target}`) || document.body,
-      jumpConfig.value
     );
     // if the target element is not found, center the tooltip on the screen
     if (!currentTarget) {
@@ -643,11 +738,13 @@
       // remove the center class
       document.getElementById(parentId)?.classList.remove("nt-center");
       // @ts-expect-error - When using nuxi typecheck disable error below
-      popper.value.state.elements.reference = document.querySelector(
+      popper.value.state.elements.reference = document?.querySelector(
         `${getCurrentStep.value.target}`
       );
       await popper.value?.update();
     }
+
+    updateBackdrop();
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     props.highlight ? highlightTarget() : null;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
