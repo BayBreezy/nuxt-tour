@@ -57,7 +57,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@nuxt/eslint-config": "^0.7.5",
     "@nuxt/module-builder": "^0.8.4",
-    "@nuxt/schema": "^3.15.2",
+    "@nuxt/schema": "^3.15.3",
     "@nuxt/test-utils": "^3.15.4",
     "@types/node": "^22.10.7",
     "changelogen": "^0.5.7",
