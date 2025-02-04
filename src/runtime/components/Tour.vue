@@ -450,23 +450,19 @@
       }
 
       // get the current step's target
-        let target: HTMLElement | null = null;
-      // if the target is found, set the target to the target element
-      if (toValue(getCurrentStep.value.target)) {
-        target = getCurrentStepTarget.value;
-      }
+      let target = getCurrentStepTarget.value;
 
       const tour = document.getElementById("nt-tooltip");
 
       // create the popper instance
       popper.value = createPopper(
-        target || document.body,
+        target,
         tour!,
         merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
       );
 
       // jump to the target element or the body
-      jump(target || document.body, {
+      jump(target, {
         ...jumpConfig.value,
         callback() {
           if (props.jumpOptions?.callback) {
