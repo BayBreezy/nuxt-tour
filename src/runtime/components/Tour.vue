@@ -376,6 +376,15 @@
   const getCurrentStep = computed(() => {
     return props.steps[currentStep.value];
   });
+  const getCurrentStepTarget = computed(() => {
+    const target = document?.querySelector(toValue(getCurrentStep.value.target!))
+    if (target) {
+      return target as HTMLElement;
+    }
+    else {
+      return document.body;
+    }
+  });
   /** The last step of the tour. */
   const getLastStep = computed(() => {
     return props.steps[lastStep.value || props.steps.length - 1];
@@ -441,10 +450,10 @@
       }
 
       // get the current step's target
-      let target: HTMLElement | null = null;
+        let target: HTMLElement | null = null;
       // if the target is found, set the target to the target element
       if (toValue(getCurrentStep.value.target)) {
-        target = document?.querySelector(toValue(getCurrentStep.value.target!));
+        target = getCurrentStepTarget.value;
       }
 
       const tour = document.getElementById("nt-tooltip");
@@ -496,7 +505,7 @@
     const highlightedElements = document?.querySelectorAll(`.${highlightClass}`);
     highlightedElements.forEach((el) => el.classList.remove(highlightClass));
     // add the highlight class to the current step's target
-    const _currentStep = document?.querySelector(`${getCurrentStep.value.target}`);
+    const _currentStep = getCurrentStepTarget.value;
     getClipPath.value = getClipPathValues(`.${highlightClass}`);
     _currentStep?.classList.add(highlightClass);
   };
@@ -548,7 +557,7 @@
       // increment the current step
       currentStep.value++;
       // if the target element is not found, center the tooltip on the screen
-      if (!document?.querySelector(`${getCurrentStep.value.target}`)) {
+      if (!getCurrentStepTarget.value) {
         document.getElementById(parentId)?.classList.add("nt-center");
       } else {
         // remove the center class
@@ -580,7 +589,7 @@
       // decrement the current step
       currentStep.value--;
       // if the target element is not found, center the tooltip on the screen
-      if (!document?.querySelector(`${getCurrentStep.value.target}`)) {
+      if (!getCurrentStepTarget.value) {
         document.getElementById(parentId)?.classList.add("nt-center");
       } else {
         // remove the center class
@@ -640,7 +649,7 @@
     lastStep.value = nextStep - 1 >= 0 ? nextStep - 1 : 0;
     currentStep.value = nextStep;
     // if the target element is not found, center the tooltip on the screen
-    if (!document?.querySelector(`${getCurrentStep.value.target}`)) {
+    if (!getCurrentStepTarget.value) {
       document.getElementById(parentId)?.classList.add("nt-center");
     } else {
       // remove the center class
@@ -685,8 +694,8 @@
     showParent.value = false;
     document.getElementById(parentId)?.setAttribute("data-hidden", "");
     // get the current step's target
-    const currentTarget = document?.querySelector(`${getCurrentStep.value.target}`);
-    jump(document?.querySelector(`${getCurrentStep.value.target}`) || document.body, {
+    const currentTarget = getCurrentStepTarget.value;
+    jump(getCurrentStepTarget.value, {
       ...jumpConfig.value,
       callback: async () => {
         setTimeout(() => {
