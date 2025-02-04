@@ -376,16 +376,18 @@
   const getCurrentStep = computed(() => {
     return props.steps[currentStep.value];
   });
-  const getCurrentStepTarget = computed(() => {
-    const target = document?.querySelector(toValue(getCurrentStep.value.target!))
-    if (target) {
-      return target as HTMLElement;
+const getCurrentStepTarget = computed(() => {
+    const target = getCurrentStep.value.target!;
+    if (target instanceof HTMLElement) {
+      return target;
     }
-    else {
+    const targetElement = document?.querySelector(toValue(target));
+    if (targetElement) {
+      return targetElement as HTMLElement;
+    } else {
       return document.body;
     }
   });
-  /** The last step of the tour. */
   const getLastStep = computed(() => {
     return props.steps[lastStep.value || props.steps.length - 1];
   });
@@ -441,7 +443,7 @@
     // Timeout function used to trigger the tour after the specified delay
     useTimeoutFn(async () => {
       // if the target element is not found, center the tooltip on the screen
-      if (!getCurrentStep.value.target) {
+      if (getCurrentStepTarget.value == document.body) {
         // center the tooltip
         parent?.classList.add("nt-center");
       } else {
@@ -553,7 +555,7 @@
       // increment the current step
       currentStep.value++;
       // if the target element is not found, center the tooltip on the screen
-      if (!getCurrentStepTarget.value) {
+      if (getCurrentStepTarget.value == document.body) {
         document.getElementById(parentId)?.classList.add("nt-center");
       } else {
         // remove the center class
@@ -585,7 +587,7 @@
       // decrement the current step
       currentStep.value--;
       // if the target element is not found, center the tooltip on the screen
-      if (!getCurrentStepTarget.value) {
+      if (getCurrentStepTarget.value == document.body) {
         document.getElementById(parentId)?.classList.add("nt-center");
       } else {
         // remove the center class
@@ -645,7 +647,7 @@
     lastStep.value = nextStep - 1 >= 0 ? nextStep - 1 : 0;
     currentStep.value = nextStep;
     // if the target element is not found, center the tooltip on the screen
-    if (!getCurrentStepTarget.value) {
+    if (getCurrentStepTarget.value == document.body) {
       document.getElementById(parentId)?.classList.add("nt-center");
     } else {
       // remove the center class
@@ -707,7 +709,7 @@
       merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
     );
     // if the target element is not found, center the tooltip on the screen
-    if (!currentTarget) {
+    if (getCurrentStepTarget.value == document.body) {
       document.getElementById(parentId)?.classList.add("nt-center");
       // update popper options for centering the tooltip
       await popper.value?.setOptions({
@@ -743,9 +745,7 @@
       // remove the center class
       document.getElementById(parentId)?.classList.remove("nt-center");
       // @ts-expect-error - When using nuxi typecheck disable error below
-      popper.value.state.elements.reference = document?.querySelector(
-        `${getCurrentStep.value.target}`
-      );
+      popper.value.state.elements.reference = getCurrentStepTarget.value;
       await popper.value?.update();
     }
 

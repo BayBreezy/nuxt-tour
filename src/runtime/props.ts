@@ -39,9 +39,8 @@ export type TourStep = {
    * This can be a CSS selector, a ref of type string
    *
    * If this is not passed, the step will be positioned in the center of the screen
-   */
-  target?: string | undefined | null | MaybeRefOrGetter<string> | ComputedRef<string>;
-
+  */
+  target?: string | undefined | null | MaybeRefOrGetter<string> | ComputedRef<string> | HTMLElement;
   /**
    * The title of the step
    */
