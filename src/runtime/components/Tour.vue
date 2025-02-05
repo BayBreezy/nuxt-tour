@@ -452,7 +452,7 @@ const getCurrentStepTarget = computed(() => {
       }
 
       // get the current step's target
-      let target = getCurrentStepTarget.value;
+      const target = getCurrentStepTarget.value;
 
       const tour = document.getElementById("nt-tooltip");
 
