@@ -35,7 +35,7 @@
     "lint:fix": "eslint . --fix",
     "netlify": "npm run afterClone && npm run prepack && npm run dev:build",
     "prepack": "nuxt-module-build build",
-    "prepare": "nuxt-module-build build",
+    "prepare": "nuxt-module-build prepare && nuxt-module-build build",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "rm:lock": "rm -rf package-lock.json playground/package-lock.json",
     "test": "vitest run",
