@@ -1,45 +1,27 @@
 <template>
-  <p id="htmlToTarget1">
-    Sample element for targeting
-  </p>
-  <p id="htmlToTarget2">
-    Sample element for targeting
-  </p>
-  <p id="htmlToTarget3">
-    Sample element for targeting
-  </p>
-  <Showcase>
-    <div class="not-prose">
-      <div
-        v-if="tourVisible"
-        class="flex flex-col items-center text-center"
-      >
-        <p class="mb-5">
-          Click the button below to restart the tour
-        </p>
-        <UiButton
-          size="sm"
-          variant="outline"
-          @click="rerunTour"
-        >
-          Restart Tour
-        </UiButton>
-      </div>
-      <div
-        v-else
-        class="text-center"
-      >
-        <p class="mb-5">
-          The tour will automatically start when the page loads
-        </p>
-      </div>
-      <VTour
-        ref="tour"
-        name="html-tour-example"
-        :steps="steps"
-      />
+  <div>
+    <div>
+      <p id="htmlToTarget1" class="inline-block">Sample element for targeting</p>
     </div>
-  </Showcase>
+    <div>
+      <p id="htmlToTarget2" class="inline-block">Sample element for targeting</p>
+    </div>
+    <div>
+      <p id="htmlToTarget3" class="inline-block">Sample element for targeting</p>
+    </div>
+    <Showcase>
+      <div class="not-prose">
+        <div v-if="tourVisible" class="flex flex-col items-center text-center">
+          <p class="mb-5">Click the button below to restart the tour</p>
+          <UiButton size="sm" variant="outline" @click="rerunTour"> Restart Tour </UiButton>
+        </div>
+        <div v-else class="text-center">
+          <p class="mb-5">The tour will automatically start when the page loads</p>
+        </div>
+        <VTour ref="tour" name="html-tour-example" :steps="steps" />
+      </div>
+    </Showcase>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -88,7 +70,7 @@
     htmlTarget2.value = document.getElementById("htmlToTarget2");
     htmlTarget3.value = document.getElementById("htmlToTarget3");
 
-    console.log('target', steps);
+    console.log("target", steps);
     tour.value?.startTour();
   });
 </script>
