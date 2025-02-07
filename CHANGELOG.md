@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.0.38
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.37...v0.0.38)
+
+### 📖 Documentation
+
+- Update markup for html example ([9fe6fdf](https://github.com/BayBreezy/nuxt-tour/commit/9fe6fdf))
+
+### 🏡 Chore
+
+- Update test ([dcc7110](https://github.com/BayBreezy/nuxt-tour/commit/dcc7110))
+- Bump deps ([3aad744](https://github.com/BayBreezy/nuxt-tour/commit/3aad744))
+
+### 🎨 Styles
+
+- Lint and format ([fdfc89d](https://github.com/BayBreezy/nuxt-tour/commit/fdfc89d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.0.37
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.36...v0.0.37)
