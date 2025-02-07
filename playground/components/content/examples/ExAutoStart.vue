@@ -1,34 +1,14 @@
 <template>
   <Showcase>
     <div class="not-prose">
-      <div
-        v-if="tourVisible"
-        class="flex flex-col items-center text-center"
-      >
-        <p class="mb-5">
-          Click the button below to restart the tour
-        </p>
-        <UiButton
-          size="sm"
-          variant="outline"
-          @click="rerunTour"
-        >
-          Restart Tour
-        </UiButton>
+      <div v-if="tourVisible" class="flex flex-col items-center text-center">
+        <p class="mb-5">Click the button below to restart the tour</p>
+        <UiButton size="sm" variant="outline" @click="rerunTour"> Restart Tour </UiButton>
       </div>
-      <div
-        v-else
-        class="text-center"
-      >
-        <p class="mb-5">
-          The tour will automatically start when the page loads
-        </p>
+      <div v-else class="text-center">
+        <p class="mb-5">The tour will automatically start when the page loads</p>
       </div>
-      <VTour
-        ref="tour"
-        name="autostart-tour-example"
-        :steps="steps"
-      />
+      <VTour ref="tour" name="autostart-tour-example" :steps="steps" />
     </div>
   </Showcase>
 </template>

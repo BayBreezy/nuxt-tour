@@ -1,9 +1,5 @@
 <template>
-  <AvatarRoot
-    :as="as"
-    :as-child="asChild"
-    :class="styles({ class: props.class })"
-  >
+  <AvatarRoot :as="as" :as-child="asChild" :class="styles({ class: props.class })">
     <slot>
       <slot name="image">
         <UiAvatarImage
@@ -15,11 +11,7 @@
         />
       </slot>
       <slot name="fallback">
-        <UiAvatarFallback
-          :delay-ms="delayMs"
-          :class="fallbackClass"
-          :fallback="fallback"
-        />
+        <UiAvatarFallback :delay-ms="delayMs" :class="fallbackClass" :fallback="fallback" />
       </slot>
     </slot>
   </AvatarRoot>

@@ -7,10 +7,7 @@
         class="flex basis-full gap-4 rounded-lg border p-5 transition hover:border-primary md:basis-1/2"
       >
         <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border">
-          <Icon
-            name="lucide:arrow-left"
-            class="h-5 w-5 text-muted-foreground"
-          />
+          <Icon name="lucide:arrow-left" class="h-5 w-5 text-muted-foreground" />
         </div>
         <div class="flex flex-col gap-1">
           <p class="font-semibold lg:text-sm">
@@ -35,10 +32,7 @@
           </p>
         </div>
         <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border">
-          <Icon
-            name="lucide:arrow-right"
-            class="h-5 w-5 text-muted-foreground"
-          />
+          <Icon name="lucide:arrow-right" class="h-5 w-5 text-muted-foreground" />
         </div>
       </NuxtLink>
     </div>

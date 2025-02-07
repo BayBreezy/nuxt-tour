@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## v0.0.37
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.36...v0.0.37)
@@ -516,7 +515,7 @@
 - Change the icon props name ([08fc5d9](https://github.com/BayBreezy/nuxt-tour/commit/08fc5d9))
 - Give finish button its own slot and display icons ([d539c88](https://github.com/BayBreezy/nuxt-tour/commit/d539c88))
 - Display button icons in Tour component. Add default icon styles ([b59d3de](https://github.com/BayBreezy/nuxt-tour/commit/b59d3de))
-- Add white-space set to nowrap for buttons  in scss file ([175a114](https://github.com/BayBreezy/nuxt-tour/commit/175a114))
+- Add white-space set to nowrap for buttons in scss file ([175a114](https://github.com/BayBreezy/nuxt-tour/commit/175a114))
 - Add custom button example ([fc6390a](https://github.com/BayBreezy/nuxt-tour/commit/fc6390a))
 - Comment out local module path ([6b85c9d](https://github.com/BayBreezy/nuxt-tour/commit/6b85c9d))
 
@@ -530,7 +529,6 @@
 - BayBreezy <behon.baker@yahoo.com>
 
 ## v0.0.2
-
 
 ### 📖 Documentation
 
@@ -550,4 +548,3 @@
 ### ❤️ Contributors
 
 - BayBreezy <behon.baker@yahoo.com>
-

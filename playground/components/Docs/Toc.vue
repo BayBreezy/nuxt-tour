@@ -1,16 +1,13 @@
 <template>
   <ul>
-    <li
-      v-for="(t, k) in links"
-      :key="k"
-    >
+    <li v-for="(t, k) in links" :key="k">
       <template v-if="!hasChildren(t)">
         <NuxtLink
           :class="[
             marginPerDepth(t.depth),
             t.id === activeId
               ? 'text-primary underline underline-offset-2'
-              : 'text-muted-foreground no-underline ',
+              : 'text-muted-foreground no-underline',
           ]"
           class="mb-2 inline-flex items-center text-sm transition"
           :to="`#${t.id}`"
@@ -37,11 +34,7 @@
         >
           {{ t.text }}
         </NuxtLink>
-        <DocsToc
-          :set-active="setActive"
-          :active-id="activeId"
-          :links="t.children"
-        />
+        <DocsToc :set-active="setActive" :active-id="activeId" :links="t.children" />
       </template>
     </li>
   </ul>

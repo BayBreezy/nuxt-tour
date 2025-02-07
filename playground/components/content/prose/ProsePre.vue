@@ -11,16 +11,8 @@
         });
       "
     >
-      <Icon
-        v-if="!copied"
-        class="size-4"
-        name="lucide:copy"
-      />
-      <Icon
-        v-if="copied"
-        class="size-4"
-        name="lucide:copy-check"
-      />
+      <Icon v-if="!copied" class="size-4" name="lucide:copy" />
+      <Icon v-if="copied" class="size-4" name="lucide:copy-check" />
     </button>
     <div class="max-h-[380px] overflow-auto rounded-md border">
       <div
@@ -31,10 +23,7 @@
           props.filename
         }}</span>
       </div>
-      <pre
-        class="!m-0 !rounded-none"
-        :class="props.class"
-      ><slot /></pre>
+      <pre class="!m-0 !rounded-none" :class="props.class"><slot /></pre>
     </div>
   </div>
 </template>

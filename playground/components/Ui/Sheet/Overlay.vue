@@ -1,8 +1,5 @@
 <template>
-  <DialogOverlay
-    :class="styles({ class: props.class })"
-    v-bind="reactiveOmit(props, 'class')"
-  />
+  <DialogOverlay :class="styles({ class: props.class })" v-bind="reactiveOmit(props, 'class')" />
 </template>
 
 <script lang="ts" setup>

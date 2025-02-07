@@ -11,16 +11,10 @@
         <slot name="header">
           <UiSheetHeader>
             <slot name="title">
-              <UiSheetTitle
-                v-if="title"
-                :title="title"
-              />
+              <UiSheetTitle v-if="title" :title="title" />
             </slot>
             <slot name="description">
-              <UiSheetDescription
-                v-if="description"
-                :description="description"
-              />
+              <UiSheetDescription v-if="description" :description="description" />
             </slot>
           </UiSheetHeader>
         </slot>
@@ -65,7 +59,7 @@
           "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
         left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
         right:
-          "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
+          "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
     },
     defaultVariants: {
