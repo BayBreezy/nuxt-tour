@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.0.39
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.38...v0.0.39)
+
+### 🏡 Chore
+
+- Bump deps ([05318cd](https://github.com/BayBreezy/nuxt-tour/commit/05318cd))
+- Optimize deps during development ([2ce4621](https://github.com/BayBreezy/nuxt-tour/commit/2ce4621))
+- Remove small offset from clip path values ([1dd6fa2](https://github.com/BayBreezy/nuxt-tour/commit/1dd6fa2))
+- Update logic used to determine dev mode ([758de92](https://github.com/BayBreezy/nuxt-tour/commit/758de92))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.0.38
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.37...v0.0.38)
