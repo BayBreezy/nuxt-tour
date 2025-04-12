@@ -1,6 +1,13 @@
 import Tour from "../src/module";
 
 export default defineNuxtConfig({
+  $development: {
+    vite: {
+      optimizeDeps: {
+        include: ["radix-vue", "vue-use-active-scroll", "tailwind-variants"],
+      },
+    },
+  },
   modules: [
     Tour,
     "nuxt-content-twoslash",

@@ -38,9 +38,7 @@ export default defineNuxtModule<TourOptions>({
     nuxt.options.build.transpile.push("@popperjs/core");
     nuxt.options.alias["#nuxt-tour"] = runtimeDir;
 
-    const isDevelopment = runtimeDir.endsWith("src/runtime") || runtimeDir.endsWith("src\\runtime");
-
-    const extension = isDevelopment ? "scss" : "css";
+    const extension = nuxt.options.dev ? "scss" : "css";
     if (options.injectSass) {
       // add sass files to the top of the css array
       nuxt.options.css.unshift(resolver.resolve(`./runtime/scss/tour.${extension}`));
@@ -48,6 +46,18 @@ export default defineNuxtModule<TourOptions>({
 
     // install nuxt-icon module
     await installModule("@nuxt/icon");
+
+    // optimize deps in dev mode
+    if (nuxt.options.dev) {
+      nuxt.hook("vite:extendConfig", (config) => {
+        config.optimizeDeps?.include?.push(
+          "@popperjs/core",
+          "@vueuse/integrations/useFocusTrap",
+          "jump.js",
+          "lodash-es"
+        );
+      });
+    }
 
     addComponent({
       filePath: resolver.resolve("./runtime/components/Tour.vue"),
