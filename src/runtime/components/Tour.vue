@@ -343,12 +343,12 @@
     return `polygon(
     0% 0%,
     0% 100%,
-    ${rect.left - 6}px 100%,
-    ${rect.left - 6}px ${rect.top}px,
-    ${rect.right + 5}px ${rect.top}px,
-    ${rect.right + 5}px ${rect.bottom}px,
-    ${rect.left - 6}px ${rect.bottom}px,
-    ${rect.left - 6}px 100%,
+    ${rect.left}px 100%,
+    ${rect.left}px ${rect.top}px,
+    ${rect.right}px ${rect.top}px,
+    ${rect.right}px ${rect.bottom}px,
+    ${rect.left}px ${rect.bottom}px,
+    ${rect.left}px 100%,
     100% 100%,
     100% 0%
   )`;
@@ -376,7 +376,7 @@
   const getCurrentStep = computed(() => {
     return props.steps[currentStep.value];
   });
-const getCurrentStepTarget = computed(() => {
+  const getCurrentStepTarget = computed(() => {
     const target = getCurrentStep.value.target!;
     if (target instanceof HTMLElement) {
       return target;
