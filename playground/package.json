@@ -9,7 +9,7 @@
     "ui": "npx --yes ui-thing@latest add"
   },
   "dependencies": {
-    "@nuxt/content": "2.13.4",
+    "@nuxt/content": "3.5.1",
     "nuxt": "3.17.2",
     "nuxt-content-twoslash": "^0.1.2",
     "radix-vue": "1.9.17",
