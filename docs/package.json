@@ -1,0 +1,33 @@
+{
+  "name": "docs",
+  "author": {
+    "name": "Behon Baker",
+    "email": "behon.baker@yahoo.com",
+    "url": "https://behonbaker.com"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "clean": "rm -rf .data .nuxt .output dist node_modules",
+    "dev": "nuxi dev --host",
+    "dev:prepare": "nuxt prepare",
+    "generate": "nuxt generate",
+    "prepare": "nuxt prepare",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@baybreezy/docd": "latest"
+  },
+  "devDependencies": {
+    "@antfu/ni": "latest",
+    "@types/node": "latest",
+    "nuxt": "^4.4.4",
+    "typescript": "^6.0.3",
+    "vue": "latest"
+  },
+  "packageManager": "bun@1.3.9",
+  "trustedDependencies": [
+    "@morev/vue-transitions",
+    "@parcel/watcher"
+  ]
+}
