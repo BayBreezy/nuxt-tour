@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "trailingComma": "es5",
+  "vueIndentScriptAndStyle": true,
+  "jsdoc": { "bracketSpacing": true, "descriptionWithDot": true, "separateReturnsFromParam": true },
+  "sortImports": {
+    "partitionByComment": true
+  },
+  "sortTailwindcss": { "attributes": [":class"], "functions": ["tw", "tv"] },
+  "importOrder": ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "<TYPES>", "^[.]"],
+  "sortPackageJson": { "sortScripts": true },
+  "ignorePatterns": ["**/*.{md,mdc}"]
+}
