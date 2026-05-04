@@ -1,273 +1,124 @@
 <template>
   <div>
-    <div
-      :id="backdropClass"
-      :class="backdropClass"
-      data-hidden
-      :style="'clip-path: ' + getClipPath"
-    />
+    <div :id="backdropId" data-hidden :style="{ clipPath: clipPath }" />
     <Transition name="fade-nt-tooltip">
-      <div v-show="showParent" :id="parentId" ref="target" data-hidden role="tooltip">
+      <div
+        v-show="showTooltip"
+        id="nt-tooltip"
+        ref="tooltipEl"
+        data-hidden
+        role="tooltip"
+        tabindex="-1"
+      >
         <slot
-          :name="`${getCurrentStep.slot}-header`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-          }"
+          v-for="slotName in ['header']"
+          :key="slotName"
+          :name="`${stepSlot}-header`"
+          v-bind="slotProps"
         >
           <div id="nt-tooltip-header">
-            <slot
-              :name="`${getCurrentStep.slot}-title`"
-              v-bind="{
-                endTour,
-                nextStep,
-                prevStep,
-                currentStep,
-                lastStep,
-                getCurrentStep,
-                getLastStep,
-                jump,
-                isLocked,
-                isLastStep,
-              }"
-            >
-              <h3 v-if="getCurrentStep.title" id="nt-tooltip-title" v-html="getCurrentStep.title" />
+            <slot :name="`${stepSlot}-title`" v-bind="slotProps">
+              <h3 v-if="step.title" id="nt-tooltip-title" v-html="step.title" />
             </slot>
-            <slot
-              :name="`${getCurrentStep.slot}-sub-text`"
-              v-bind="{
-                endTour,
-                nextStep,
-                prevStep,
-                currentStep,
-                lastStep,
-                getCurrentStep,
-                getLastStep,
-                jump,
-                isLocked,
-                isLastStep,
-              }"
-            >
-              <p
-                v-if="getCurrentStep.subText"
-                id="nt-tooltip-sub-text"
-                v-html="getCurrentStep.subText"
-              />
+            <slot :name="`${stepSlot}-sub-text`" v-bind="slotProps">
+              <p v-if="step.subText" id="nt-tooltip-sub-text" v-html="step.subText" />
             </slot>
           </div>
         </slot>
-        <slot
-          :name="`${getCurrentStep.slot}-body`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-          }"
-        >
-          <div v-if="getCurrentStep.body" id="nt-tooltip-body" v-html="getCurrentStep.body" />
+
+        <slot :name="`${stepSlot}-body`" v-bind="slotProps">
+          <div v-if="step.body" id="nt-tooltip-body" v-html="step.body" />
         </slot>
-        <slot
-          :name="`${getCurrentStep.slot}-actions`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-          }"
-        >
+
+        <slot :name="`${stepSlot}-progress`" v-bind="slotProps">
+          <div v-if="props.showProgress" id="nt-progress">
+            {{ currentStepIndex + 1 }} / {{ props.steps.length }}
+          </div>
+        </slot>
+
+        <slot :name="`${stepSlot}-actions`" v-bind="slotProps">
           <div class="nt-actions">
-            <slot
-              :name="`${getCurrentStep.slot}-skip-button`"
-              v-bind="{
-                endTour,
-                nextStep,
-                prevStep,
-                currentStep,
-                lastStep,
-                getCurrentStep,
-                getLastStep,
-                jump,
-                isLocked,
-                isLastStep,
-                skipButton,
-                nextButton,
-                prevButton,
-              }"
-            >
-              <button
-                id="nt-action-skip"
-                type="button"
-                @click.prevent="
-                  endTour();
-                  props.onSkip?.();
-                "
-              >
+            <slot :name="`${stepSlot}-skip-button`" v-bind="slotProps">
+              <button id="nt-action-skip" type="button" @click.prevent="skipTour">
                 <Icon
-                  v-if="skipButton?.leftIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="skipButton.leftIcon"
+                  v-if="props.skipButton?.leftIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.skipButton.leftIcon"
                 />
-                {{ skipButton?.label || "Skip" }}
+                {{ props.skipButton?.label || "Skip" }}
                 <Icon
-                  v-if="skipButton?.rightIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="skipButton.rightIcon"
+                  v-if="props.skipButton?.rightIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.skipButton.rightIcon"
                 />
               </button>
             </slot>
-            <slot
-              :name="`${getCurrentStep.slot}-prev-button`"
-              v-bind="{
-                endTour,
-                nextStep,
-                prevStep,
-                currentStep,
-                lastStep,
-                getCurrentStep,
-                getLastStep,
-                jump,
-                isLocked,
-                isLastStep,
-                skipButton,
-                nextButton,
-                prevButton,
-              }"
-            >
+
+            <slot :name="`${stepSlot}-prev-button`" v-bind="slotProps">
               <button
-                v-if="currentStep > 0"
+                v-if="currentStepIndex > 0"
                 id="nt-action-prev"
                 type="button"
                 @click.prevent="prevStep"
               >
                 <Icon
-                  v-if="prevButton?.leftIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="prevButton.leftIcon"
+                  v-if="props.prevButton?.leftIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.prevButton.leftIcon"
                 />
-                {{ prevButton?.label || "Prev" }}
+                {{ props.prevButton?.label || "Prev" }}
                 <Icon
-                  v-if="prevButton?.rightIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="prevButton.rightIcon"
+                  v-if="props.prevButton?.rightIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.prevButton.rightIcon"
                 />
               </button>
             </slot>
-            <slot
-              v-if="!isLastStep"
-              :name="`${getCurrentStep.slot}-next-button`"
-              v-bind="{
-                endTour,
-                nextStep,
-                prevStep,
-                currentStep,
-                lastStep,
-                getCurrentStep,
-                getLastStep,
-                jump,
-                isLocked,
-                isLastStep,
-                skipButton,
-                nextButton,
-                prevButton,
-              }"
-            >
+
+            <slot v-if="!isLastStep" :name="`${stepSlot}-next-button`" v-bind="slotProps">
               <button id="nt-action-next" type="button" @click.prevent="nextStep">
                 <Icon
-                  v-if="nextButton?.leftIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="nextButton.leftIcon"
+                  v-if="props.nextButton?.leftIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.nextButton.leftIcon"
                 />
-                {{ nextButton?.label || "Next" }}
+                {{ props.nextButton?.label || "Next" }}
                 <Icon
-                  v-if="nextButton?.rightIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="nextButton.rightIcon"
+                  v-if="props.nextButton?.rightIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.nextButton.rightIcon"
                 />
               </button>
             </slot>
-            <slot
-              v-if="isLastStep"
-              :name="`${getCurrentStep.slot}-finish-button`"
-              v-bind="{
-                endTour,
-                nextStep,
-                prevStep,
-                currentStep,
-                lastStep,
-                getCurrentStep,
-                getLastStep,
-                jump,
-                isLocked,
-                isLastStep,
-                skipButton,
-                nextButton,
-                prevButton,
-              }"
-            >
+
+            <slot v-if="isLastStep" :name="`${stepSlot}-finish-button`" v-bind="slotProps">
               <button id="nt-action-finish" type="button" @click.prevent="nextStep">
                 <Icon
-                  v-if="finishButton?.leftIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="finishButton.leftIcon"
+                  v-if="props.finishButton?.leftIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.finishButton.leftIcon"
                 />
-                {{ finishButton?.label || "Done" }}
+                {{ props.finishButton?.label || "Done" }}
                 <Icon
-                  v-if="finishButton?.rightIcon"
-                  :size="iconSize"
-                  :style="iconStyles"
-                  :name="finishButton.rightIcon"
+                  v-if="props.finishButton?.rightIcon"
+                  :size="ICON_SIZE"
+                  :style="ICON_STYLE"
+                  :name="props.finishButton.rightIcon"
                 />
               </button>
             </slot>
           </div>
         </slot>
-        <slot
-          :name="`${getCurrentStep.slot}-arrow`"
-          v-bind="{
-            endTour,
-            nextStep,
-            prevStep,
-            currentStep,
-            lastStep,
-            getCurrentStep,
-            getLastStep,
-            jump,
-            isLocked,
-            isLastStep,
-            skipButton,
-            nextButton,
-            prevButton,
-          }"
-        >
-          <div v-show="showArrow" :id="arrowId" data-popper-arrow />
+
+        <slot :name="`${stepSlot}-arrow`" v-bind="slotProps">
+          <div v-show="props.showArrow !== false" id="nt-arrow" data-popper-arrow />
         </slot>
       </div>
     </Transition>
@@ -275,503 +126,520 @@
 </template>
 
 <script lang="ts" setup>
-  import { createPopper } from "@popperjs/core";
-  import { useEventListener, useScrollLock, useStorage, useTimeoutFn } from "@vueuse/core";
+  import type { Instance } from "@popperjs/core";
+  import { useEventListener, useScrollLock, useTimeoutFn } from "@vueuse/core";
   import { useFocusTrap } from "@vueuse/integrations/useFocusTrap";
-  import { Icon } from "#components";
-  import { computed, onMounted, ref, shallowRef, toValue } from "#imports";
-  import jump from "jump.js";
-  import { merge } from "lodash-es";
-  import { watch } from "vue";
-  import type { TourEmits, TourProps } from "../props";
-  import type { Instance, Modifier, OptionsGeneric } from "@popperjs/core";
-  import type { Options } from "jump.js";
 
-  /**Props with the defaults */
-  const props = withDefaults(defineProps<TourProps>(), {
-    name: "default",
-    autoStart: false,
-    backdrop: false,
-    startDelay: 100,
-    highlight: false,
-    showArrow: true,
-    trapFocus: true,
-    lockScroll: true,
-  });
-  /** Emits for the tour */
+  import { Icon } from "#components";
+  import {
+    computed,
+    nextTick,
+    onMounted,
+    onUnmounted,
+    ref,
+    shallowRef,
+    toValue,
+    watch,
+  } from "#imports";
+
+  import { useTour } from "../composables/useTour";
+  import type { TourConfig, TourEmits } from "../types";
+  import { createTourPopper, updateTourPopper } from "../utils/popper";
+  import { scrollToTarget } from "../utils/scroll";
+  import {
+    shouldSkipTour,
+    markComplete,
+    saveStepProgress,
+    clearEntry,
+    getResumeStep,
+  } from "../utils/storage";
+
+  const ICON_SIZE = "18px";
+  const ICON_STYLE = { flexShrink: 0, color: "inherit" };
+
+  const props = withDefaults(
+    defineProps<
+      TourConfig & {
+        /** Passed by module.ts via a plugin — storage key prefix. */
+        _storagePrefix?: string;
+        /** Passed by module.ts via a plugin — global storage version. */
+        _storageVersion?: string | null;
+      }
+    >(),
+    {
+      name: "default",
+      autoStart: false,
+      backdrop: false,
+      startDelay: 100,
+      highlight: false,
+      showArrow: true,
+      showProgress: false,
+      keyboard: true,
+      trapFocus: true,
+      lockScroll: true,
+      saveToLocalStorage: "end",
+      scrollBehavior: "jump",
+      _storagePrefix: "nt",
+      _storageVersion: undefined,
+    }
+  );
+
   const emit = defineEmits<TourEmits>();
 
-  /** The merged config to pass to jump */
-  const jumpConfig = computed<Options>(() =>
-    merge(
-      {},
-      {
-        duration: 300,
-        offset: -150,
-      } as Options,
-      props.jumpOptions
-    )
-  );
-
-  const popper = ref<Instance | null>(null);
-
-  // Default styles applied to icon
-  const iconStyles = { flexShrink: 0, color: "inherit" };
-  const iconSize = "18px";
-
-  // check if the steps prop is empty
   if (!props.steps?.length) {
-    throw new Error("You must provide at least one step to the tour");
+    throw new Error("[nuxt-tour] You must provide at least one step.");
   }
 
-  // The target of the focus trap
-  const target = ref();
-  const { activate: activateFocusTrap, deactivate: deActivateFocusTrap } = useFocusTrap(target);
+  // ─── Composable wiring ───────────────────────────────────────────────────────
 
-  const isLocked = useScrollLock(window);
+  const { _state: tourState } = useTour(props.name, props._storagePrefix);
 
-  /**
-   * Method used to get the clip path values for the target element
-   *
-   * Used with the `highlight` & `backdrop` props
-   */
-  const getClipPathValues = (targetSelector: string) => {
-    const targetElement = document?.querySelector(targetSelector) as HTMLElement;
-    if (!targetElement) return "";
+  // ─── Refs ────────────────────────────────────────────────────────────────────
 
-    const rect = targetElement.getBoundingClientRect();
-    return `polygon(
-    0% 0%,
-    0% 100%,
-    ${rect.left}px 100%,
-    ${rect.left}px ${rect.top}px,
-    ${rect.right}px ${rect.top}px,
-    ${rect.right}px ${rect.bottom}px,
-    ${rect.left}px ${rect.bottom}px,
-    ${rect.left}px 100%,
-    100% 100%,
-    100% 0%
-  )`;
-  };
+  const tooltipEl = ref<HTMLElement | null>(null);
+  const popperInstance = ref<Instance | null>(null);
+  const currentStepIndex = shallowRef(0);
+  const showTooltip = shallowRef(false);
+  const isActive = shallowRef(false);
+  const isPaused = shallowRef(false);
+  const clipPath = ref("");
 
-  /** State used to do transition on parent */
-  const showParent = shallowRef(true);
-  /** The prefix for the tour in local storage. It also prefixes the classes and ID's */
-  const tourPrefix = "nt-";
-  /** State of the tour. `true` indicates that the tour has started */
-  const tourStarted = shallowRef(false);
-  /** The parent element id */
-  const parentId = `${tourPrefix}tooltip`;
-  /** The arrow element id */
-  const arrowId = `${tourPrefix}arrow`;
-  /** The class to highlight the target element */
-  const highlightClass = `${tourPrefix}highlight`;
-  /** The class for the backdrop */
-  const backdropClass = `${tourPrefix}backdrop`;
-  /** The tour current step */
-  const currentStep = shallowRef(0);
-  /** The tour last step */
-  const lastStep = shallowRef<number | null>(props.steps.length - 1);
-  /** The current/active step of the tour. */
-  const getCurrentStep = computed(() => {
-    return props.steps[currentStep.value];
+  const backdropId = "nt-backdrop";
+  const highlightClass = "nt-highlight";
+
+  // ─── Computed ────────────────────────────────────────────────────────────────
+
+  const step = computed(() => props.steps[currentStepIndex.value]);
+  const stepSlot = computed(() => step.value?.slot ?? "");
+  const isLastStep = computed(() => currentStepIndex.value === props.steps.length - 1);
+
+  const stepTarget = computed<Element>(() => {
+    const t = step.value?.target;
+    if (!t) return document.body;
+    if (t instanceof HTMLElement) return t;
+    const sel = toValue(t as string);
+    return document.querySelector(sel) ?? document.body;
   });
-  const getCurrentStepTarget = computed(() => {
-    const target = getCurrentStep.value.target!;
-    if (target instanceof HTMLElement) {
-      return target;
-    }
-    const targetElement = document?.querySelector(toValue(target));
-    if (targetElement) {
-      return targetElement as HTMLElement;
+
+  const isCentred = computed(() => stepTarget.value === document.body);
+
+  const slotProps = computed(() => ({
+    currentStep: currentStepIndex.value,
+    totalSteps: props.steps.length,
+    isLastStep: isLastStep.value,
+    step: step.value,
+    startTour,
+    endTour,
+    skipTour,
+    nextStep,
+    prevStep,
+    goToStep,
+    pause,
+    resume,
+    isLocked: isLocked.value,
+  }));
+
+  // ─── Scroll lock ─────────────────────────────────────────────────────────────
+
+  const isLocked = import.meta.client ? useScrollLock(window) : ref(false);
+
+  // ─── Focus trap ──────────────────────────────────────────────────────────────
+
+  const { activate: trapActivate, deactivate: trapDeactivate } = useFocusTrap(tooltipEl, {
+    allowOutsideClick: true,
+    fallbackFocus: () => tooltipEl.value!,
+  });
+
+  function activateFocusTrap() {
+    if (props.trapFocus) trapActivate();
+  }
+
+  function deactivateFocusTrap() {
+    trapDeactivate();
+  }
+
+  // ─── Highlight / clip-path ───────────────────────────────────────────────────
+
+  function calcClipPath(selector: string): string {
+    const el = document.querySelector(selector) as HTMLElement | null;
+    if (!el) return "";
+    const r = el.getBoundingClientRect();
+    return `polygon(0% 0%, 0% 100%, ${r.left}px 100%, ${r.left}px ${r.top}px, ${r.right}px ${r.top}px, ${r.right}px ${r.bottom}px, ${r.left}px ${r.bottom}px, ${r.left}px 100%, 100% 100%, 100% 0%)`;
+  }
+
+  function applyHighlight() {
+    document
+      .querySelectorAll(`.${highlightClass}`)
+      .forEach((el) => el.classList.remove(highlightClass));
+    if (!isCentred.value) stepTarget.value.classList.add(highlightClass);
+    clipPath.value = calcClipPath(`.${highlightClass}`);
+  }
+
+  function removeHighlight() {
+    document
+      .querySelectorAll(`.${highlightClass}`)
+      .forEach((el) => el.classList.remove(highlightClass));
+    clipPath.value = "";
+  }
+
+  useEventListener("scroll", () => {
+    if (props.highlight && isActive.value) clipPath.value = calcClipPath(`.${highlightClass}`);
+  });
+  useEventListener("resize", () => {
+    if (props.highlight && isActive.value) clipPath.value = calcClipPath(`.${highlightClass}`);
+  });
+
+  // ─── Backdrop ────────────────────────────────────────────────────────────────
+
+  function showBackdrop() {
+    document.getElementById(backdropId)?.removeAttribute("data-hidden");
+  }
+
+  function hideBackdrop() {
+    document.getElementById(backdropId)?.setAttribute("data-hidden", "");
+  }
+
+  function syncBackdrop() {
+    const show = props.backdrop || step.value?.backdrop;
+    if (show) showBackdrop();
+    else hideBackdrop();
+  }
+
+  // ─── Popper ──────────────────────────────────────────────────────────────────
+
+  async function initPopper() {
+    if (!tooltipEl.value) return;
+    popperInstance.value?.destroy();
+    popperInstance.value = createTourPopper(
+      stepTarget.value,
+      tooltipEl.value,
+      step.value?.popperConfig
+    );
+    if (isCentred.value) {
+      tooltipEl.value.classList.add("nt-center");
+      await updateTourPopper(
+        popperInstance.value,
+        stepTarget.value,
+        step.value?.popperConfig,
+        true
+      );
     } else {
-      return document.body;
+      tooltipEl.value.classList.remove("nt-center");
     }
-  });
-  const getLastStep = computed(() => {
-    return props.steps[lastStep.value || props.steps.length - 1];
-  });
-  /** The maximum number of steps in the tour */
-  const maxSteps = computed(() => props.steps.length - 1);
-  /** The name of the item that will be stored in localStorage. This item will be false by default */
-  const storageItem = useStorage(`${tourPrefix}${props.name || "default"}`, false);
-  /** Stores a `boolean` value that indicates if the tour is on the last step */
-  const isLastStep = computed(() => currentStep.value === maxSteps.value);
-  const getClipPath = ref(
-    getClipPathValues(`.${highlightClass}`) ? getClipPathValues(`.${highlightClass}`) : ""
-  );
+  }
 
-  /** The default configuration passed to popper */
-  const defaultPopperConfig: Partial<OptionsGeneric<Partial<Modifier<any, any>>>> | undefined = {
-    placement: "auto",
-    modifiers: [
-      {
-        name: "offset",
-        options: {
-          offset: [0, 14],
-        },
+  async function refreshPopper() {
+    if (!popperInstance.value || !tooltipEl.value) return;
+    if (isCentred.value) {
+      tooltipEl.value.classList.add("nt-center");
+      await updateTourPopper(
+        popperInstance.value,
+        stepTarget.value,
+        step.value?.popperConfig,
+        true
+      );
+    } else {
+      tooltipEl.value.classList.remove("nt-center");
+      await updateTourPopper(
+        popperInstance.value,
+        stepTarget.value,
+        step.value?.popperConfig,
+        false
+      );
+    }
+  }
+
+  // ─── Show / hide tooltip ─────────────────────────────────────────────────────
+
+  function revealTooltip() {
+    tooltipEl.value?.removeAttribute("data-hidden");
+    showTooltip.value = true;
+  }
+
+  function hideTooltip() {
+    tooltipEl.value?.setAttribute("data-hidden", "");
+    showTooltip.value = false;
+  }
+
+  // ─── Core tour actions ───────────────────────────────────────────────────────
+
+  async function startTour() {
+    if (!props.steps?.length) return;
+
+    if (props.saveToLocalStorage !== "never") {
+      const skip = shouldSkipTour(props.name ?? "default", {
+        prefix: props._storagePrefix,
+        version: props._storageVersion ?? null,
+        ttl: props.ttl,
+      });
+      if (skip) return;
+    }
+
+    let startAt = 0;
+    if (props.saveToLocalStorage === "step") {
+      startAt = getResumeStep(props.name ?? "default", props._storagePrefix);
+    }
+    currentStepIndex.value = startAt;
+
+    useTimeoutFn(
+      async () => {
+        await initPopper();
+
+        if (props.highlight && !isCentred.value) applyHighlight();
+        syncBackdrop();
+
+        await scrollToTarget(
+          isCentred.value ? null : stepTarget.value,
+          props.scrollBehavior ?? "jump",
+          props.jumpOptions
+        );
+
+        await step.value?.onShow?.();
+
+        revealTooltip();
+        isActive.value = true;
+        isPaused.value = false;
+
+        await nextTick();
+        activateFocusTrap();
+        if (props.lockScroll) isLocked.value = true;
+
+        emit("tour:start");
+
+        // Sync composable state
+        tourState.isActive = true;
+        tourState.currentStep = currentStepIndex.value;
+        tourState.totalSteps = props.steps.length;
       },
-      {
-        name: "flip",
-        options: {
-          fallbackPlacements: ["top", "bottom"],
-        },
-      },
-    ],
-  };
+      Number(props.startDelay ?? 100)
+    );
+  }
 
-  /**
-   * Function used to start the tour
-   *
-   * If the `steps` prop is empty, the tour won't start
-   *
-   *  If the name of the tour in local storage is found and it's value is `true`, the tour won't start
-   */
-  const startTour = async () => {
-    // if the steps prop is empty, don't start the tour
-    if (!props.steps || !props.steps.length) return;
-    // start tour can be found in local storage and it's value is true, then return
-    if (storageItem.value) return;
-    // set the current step to 0
-    currentStep.value = 0;
-    // set the last step to null
-    lastStep.value = null;
+  async function endTour() {
+    hideTooltip();
+    hideBackdrop();
+    removeHighlight();
 
-    // get the parent element
-    const parent = document.getElementById(parentId);
+    popperInstance.value?.destroy();
+    popperInstance.value = null;
 
-    // Timeout function used to trigger the tour after the specified delay
-    useTimeoutFn(async () => {
-      // if the target element is not found, center the tooltip on the screen
-      if (getCurrentStepTarget.value == document.body) {
-        // center the tooltip
-        parent?.classList.add("nt-center");
-      } else {
-        // remove the center class
-        parent?.classList.remove("nt-center");
+    if (props.saveToLocalStorage !== "never") {
+      markComplete(props.name ?? "default", "completed", {
+        prefix: props._storagePrefix,
+        version: props._storageVersion ?? null,
+      });
+      tourState._storageCompleted = true;
+    }
+
+    isActive.value = false;
+    isPaused.value = false;
+    deactivateFocusTrap();
+    if (props.lockScroll) isLocked.value = false;
+
+    await scrollToTarget(
+      document.body,
+      props.scrollBehavior === "none" ? "none" : "jump",
+      props.jumpOptions
+    );
+
+    emit("tour:end");
+
+    tourState.isActive = false;
+  }
+
+  async function skipTour() {
+    hideTooltip();
+    hideBackdrop();
+    removeHighlight();
+
+    popperInstance.value?.destroy();
+    popperInstance.value = null;
+
+    if (props.saveToLocalStorage !== "never") {
+      markComplete(props.name ?? "default", "skipped", {
+        prefix: props._storagePrefix,
+        version: props._storageVersion ?? null,
+      });
+      tourState._storageCompleted = true;
+    }
+
+    isActive.value = false;
+    isPaused.value = false;
+    deactivateFocusTrap();
+    if (props.lockScroll) isLocked.value = false;
+
+    emit("tour:skip");
+
+    tourState.isActive = false;
+  }
+
+  async function nextStep() {
+    if (!isLastStep.value) {
+      await step.value?.onNext?.();
+      const from = currentStepIndex.value;
+      currentStepIndex.value++;
+      emit("tour:step-change", { from, to: currentStepIndex.value });
+
+      if (props.saveToLocalStorage === "step") {
+        saveStepProgress(props.name ?? "default", currentStepIndex.value, {
+          prefix: props._storagePrefix,
+          version: props._storageVersion ?? null,
+        });
       }
 
-      // get the current step's target
-      const target = getCurrentStepTarget.value;
+      await transitionStep();
+    } else {
+      await endTour();
+    }
+  }
 
-      const tour = document.getElementById("nt-tooltip");
+  async function prevStep() {
+    if (currentStepIndex.value === 0) return;
+    await step.value?.onPrev?.();
+    const from = currentStepIndex.value;
+    currentStepIndex.value--;
+    emit("tour:step-change", { from, to: currentStepIndex.value });
+    await transitionStep();
+  }
 
-      // create the popper instance
-      popper.value = createPopper(
-        target,
-        tour!,
-        merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
-      );
+  async function goToStep(index: number) {
+    if (index < 0 || index >= props.steps.length) return;
+    if (!isActive.value) await startTour();
+    const from = currentStepIndex.value;
+    currentStepIndex.value = index;
+    emit("tour:step-change", { from, to: index });
+    await transitionStep();
+  }
 
-      // jump to the target element or the body
-      jump(target, {
-        ...jumpConfig.value,
-        callback() {
-          if (props.jumpOptions?.callback) {
-            props.jumpOptions.callback();
-          }
-          setTimeout(() => {
-            parent?.removeAttribute("data-hidden");
-            showParent.value = true;
-            tourStarted.value = true;
-            // activate the focus trap
-            if (props.trapFocus) activateFocusTrap();
-            // check if scroll should be locked
-            if (props.lockScroll) isLocked.value = true;
-          }, 200);
-        },
-      });
+  async function transitionStep() {
+    hideTooltip();
+    await refreshPopper();
+    if (props.highlight && !isCentred.value) applyHighlight();
+    else if (props.highlight) removeHighlight();
+    syncBackdrop();
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      props.backdrop || getCurrentStep.value.backdrop ? updateBackdrop() : null;
-      // highlight the target element (if the highlight prop is true & the target element is found)
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      props.highlight && target ? highlightTarget() : null;
-      // if the current step has an onShow function, call it
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
-      // emit the onTourStart event
-      emit("onTourStart");
-    }, Number(props.startDelay));
-  };
+    await scrollToTarget(
+      isCentred.value ? null : stepTarget.value,
+      props.scrollBehavior ?? "jump",
+      props.jumpOptions
+    );
+    await step.value?.onShow?.();
 
-  /**
-   * Highlight the target element
-   */
-  const highlightTarget = () => {
-    // remove the highlight class from all elements
-    const highlightedElements = document?.querySelectorAll(`.${highlightClass}`);
-    highlightedElements.forEach((el) => el.classList.remove(highlightClass));
-    // add the highlight class to the current step's target
-    const _currentStep = getCurrentStepTarget.value;
-    getClipPath.value = getClipPathValues(`.${highlightClass}`);
-    _currentStep?.classList.add(highlightClass);
-  };
+    // Small grace period for scroll + popper to settle
+    await new Promise<void>((r) => setTimeout(r, 100));
+    revealTooltip();
 
-  watch(showParent, (value) => {
-    if (value && props.highlight) {
+    await nextTick();
+    activateFocusTrap();
+    if (props.lockScroll) isLocked.value = true;
+
+    tourState.currentStep = currentStepIndex.value;
+  }
+
+  function pause() {
+    if (!isActive.value || isPaused.value) return;
+    isPaused.value = true;
+    hideTooltip();
+    tourState.isPaused = true;
+  }
+
+  function resume() {
+    if (!isPaused.value) return;
+    isPaused.value = false;
+    revealTooltip();
+    tourState.isPaused = false;
+  }
+
+  async function resetTour() {
+    clearEntry(props.name ?? "default", props._storagePrefix);
+    tourState._storageCompleted = false;
+    currentStepIndex.value = 0;
+    isActive.value = false;
+    isPaused.value = false;
+    deactivateFocusTrap();
+    isLocked.value = false;
+    popperInstance.value?.destroy();
+    popperInstance.value = null;
+    await startTour();
+  }
+
+  // ─── Keyboard navigation ──────────────────────────────────────────────────────
+
+  useEventListener("keydown", (e: KeyboardEvent) => {
+    if (!props.keyboard || !isActive.value || isPaused.value) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") nextStep();
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") prevStep();
+    else if (e.key === "Escape") skipTour();
+  });
+
+  // ─── Tooltip visibility watch ────────────────────────────────────────────────
+
+  watch(showTooltip, (visible) => {
+    if (visible && props.highlight) {
       setTimeout(() => {
-        getClipPath.value = getClipPathValues(`.${highlightClass}`);
+        clipPath.value = calcClipPath(`.${highlightClass}`);
       }, 100);
     }
   });
 
-  useEventListener("scroll", () => {
-    if (props.highlight) {
-      getClipPath.value = getClipPathValues(`.${highlightClass}`);
-    }
-  });
-  useEventListener("resize", () => {
-    if (props.highlight) {
-      getClipPath.value = getClipPathValues(`.${highlightClass}`);
-    }
-  });
-
-  const updateBackdrop = () => {
-    if (props.backdrop) {
-      return document?.querySelector(`.${backdropClass}`)!.removeAttribute("data-hidden");
-    } else {
-      document?.querySelector(`.${backdropClass}`)!.setAttribute("data-hidden", "");
-    }
-    if (getCurrentStep.value.backdrop) {
-      return document?.querySelector(`.${backdropClass}`)!.removeAttribute("data-hidden");
-    } else {
-      document?.querySelector(`.${backdropClass}`)!.setAttribute("data-hidden", "");
-    }
-  };
-
-  /**
-   * Move to the next step
-   * @returns void
-   */
-  const nextStep = async () => {
-    // if the current step is less than the max steps, end the tour
-    if (currentStep.value < maxSteps.value) {
-      // if the current step has an onNext function, call it
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      getCurrentStep.value.onNext ? await getCurrentStep.value.onNext() : null;
-      // set the last step to the current step
-      lastStep.value = currentStep.value;
-      // increment the current step
-      currentStep.value++;
-      // if the target element is not found, center the tooltip on the screen
-      if (getCurrentStepTarget.value == document.body) {
-        document.getElementById(parentId)?.classList.add("nt-center");
-      } else {
-        // remove the center class
-        document.getElementById(parentId)?.classList.remove("nt-center");
-      }
-      if (props.trapFocus) {
-        activateFocusTrap();
-      }
-      // check if scroll should be locked
-      if (props.lockScroll) isLocked.value = true;
-      await recalculatePopper();
-      return;
-    }
-    endTour();
-  };
-
-  /**
-   * Move to the previous step
-   * @returns void
-   */
-  const prevStep = async () => {
-    // if the current step is greater than 0, move to the previous step
-    if (currentStep.value > 0) {
-      // if the current step has an onPrev function, call it
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      getCurrentStep.value.onPrev ? await getCurrentStep.value.onPrev() : null;
-      // set the last step to the current step
-      lastStep.value = currentStep.value;
-      // decrement the current step
-      currentStep.value--;
-      // if the target element is not found, center the tooltip on the screen
-      if (getCurrentStepTarget.value == document.body) {
-        document.getElementById(parentId)?.classList.add("nt-center");
-      } else {
-        // remove the center class
-        document.getElementById(parentId)?.classList.remove("nt-center");
-      }
-      // recalculate the popper
-      if (props.trapFocus) {
-        activateFocusTrap();
-      }
-      // check if scroll should be locked
-      if (props.lockScroll) isLocked.value = true;
-      await recalculatePopper();
-    }
-  };
-
-  /**
-   * End the tour
-   * @returns void
-   */
-  const endTour = async () => {
-    // get the parent element and set the data-hidden attr
-    document.getElementById(parentId)?.setAttribute("data-hidden", "");
-    showParent.value = false;
-    // Hide the backdrop
-    document?.querySelector(`.${backdropClass}`)!.setAttribute("data-hidden", "");
-    // remove the highlight class from all elements
-    const highlightedElements = document?.querySelectorAll(`.${highlightClass}`);
-    highlightedElements.forEach((el) => el.classList.remove(highlightClass));
-    // destroy the popper instance
-    popper.value?.destroy();
-    // set the storage item to true
-    storageItem.value = true;
-    // go to the top of the page
-    jump(document.body, jumpConfig.value);
-    // emit the onTourEnd event
-    emit("onTourEnd");
-    // deactivate the focus trap
-    deActivateFocusTrap();
-    // Call onComplete function if it exists
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    props.onComplete ? await props.onComplete() : null;
-    isLocked.value = false;
-  };
-
-  /**
-   * Go to a specific step
-   *
-   * @param {number} nextStep - The step to go to
-   * @returns void
-   */
-  const goToStep = async (nextStep: number) => {
-    // if the tour has not started, start the tour
-    if (tourStarted.value === false) await startTour();
-    // if the current step has an onNext function, call it
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    getCurrentStep.value.onNext ? await getCurrentStep.value.onNext() : null;
-    lastStep.value = nextStep - 1 >= 0 ? nextStep - 1 : 0;
-    currentStep.value = nextStep;
-    // if the target element is not found, center the tooltip on the screen
-    if (getCurrentStepTarget.value == document.body) {
-      document.getElementById(parentId)?.classList.add("nt-center");
-    } else {
-      // remove the center class
-      document.getElementById(parentId)?.classList.remove("nt-center");
-    }
-    // recalculate the popper
-    await recalculatePopper();
-    if (props.trapFocus) {
-      activateFocusTrap();
-    }
-    // check if scroll should be locked
-    if (props.lockScroll) isLocked.value = true;
-  };
-
-  /**
-   * Reset the tour
-   * @returns void
-   */
-  const resetTour = async () => {
-    // set the current step to 0
-    currentStep.value = 0;
-    // set the last step to 0
-    lastStep.value = 0;
-    // set the storage item to false
-    storageItem.value = false;
-    // deactivate the focus trap
-    deActivateFocusTrap();
-    // unlock the scroll
-    isLocked.value = false;
-    // destroy the popper instance
-    popper.value?.destroy();
-    // if the tour has not started, start the tour
-    await startTour();
-  };
-
-  /**
-   * Recalculate the popper
-   * @returns void
-   */
-  const recalculatePopper = async () => {
-    // get the parent element and set the data-hidden attr
-    showParent.value = false;
-    document.getElementById(parentId)?.setAttribute("data-hidden", "");
-    // get the current step's target
-    const currentTarget = getCurrentStepTarget.value;
-    jump(getCurrentStepTarget.value, {
-      ...jumpConfig.value,
-      callback: async () => {
-        setTimeout(() => {
-          document.getElementById(parentId)?.removeAttribute("data-hidden");
-          showParent.value = true;
-          if (props.highlight) {
-            getClipPath.value = getClipPathValues(`.${highlightClass}`);
-          }
-        }, 500);
-      },
-    });
-    await popper.value?.setOptions(
-      merge({}, defaultPopperConfig, getCurrentStep.value?.popperConfig)
-    );
-    // if the target element is not found, center the tooltip on the screen
-    if (getCurrentStepTarget.value == document.body) {
-      document.getElementById(parentId)?.classList.add("nt-center");
-      // update popper options for centering the tooltip
-      await popper.value?.setOptions({
-        placement: "auto",
-        strategy: "fixed",
-        modifiers: [
-          {
-            name: "offset",
-            options: {
-              offset: [0, 0],
-            },
-          },
-          //  Custom modifier to hide the arrow
-          {
-            name: "hideArrow",
-            enabled: true,
-            phase: "write",
-            fn: ({ state }: any) => {
-              // Set arrow style to display: none
-              state.styles.arrow = {
-                ...state.styles.arrow,
-                display: "none",
-              };
-            },
-            effect: ({ state }: any) => {
-              // Update Popper.js to reflect changes
-              state.elements.arrow.style.display = "none";
-            },
-          },
-        ],
-      });
-    } else {
-      // remove the center class
-      document.getElementById(parentId)?.classList.remove("nt-center");
-      // @ts-expect-error - When using nuxi typecheck disable error below
-      popper.value.state.elements.reference = getCurrentStepTarget.value;
-      await popper.value?.update();
-    }
-
-    updateBackdrop();
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    props.highlight ? highlightTarget() : null;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    getCurrentStep.value.onShow ? await getCurrentStep.value.onShow() : null;
-  };
+  // ─── Lifecycle ───────────────────────────────────────────────────────────────
 
   onMounted(async () => {
-    if (props.autoStart) {
+    tourState.totalSteps = props.steps.length;
+    tourState._start = startTour;
+    tourState._end = endTour;
+    tourState._skip = skipTour;
+    tourState._next = nextStep;
+    tourState._prev = prevStep;
+    tourState._goTo = goToStep;
+    tourState._pause = pause;
+    tourState._resume = resume;
+    tourState._reset = resetTour;
+
+    if (tourState._pendingStart) {
+      tourState._pendingStart = false;
+      await startTour();
+    } else if (props.autoStart) {
       await startTour();
     }
   });
 
+  onUnmounted(() => {
+    popperInstance.value?.destroy();
+    hideBackdrop();
+    removeHighlight();
+    isLocked.value = false;
+
+    // Detach from registry so stale refs don't linger
+    tourState._start = undefined;
+    tourState._end = undefined;
+    tourState._skip = undefined;
+    tourState._next = undefined;
+    tourState._prev = undefined;
+    tourState._goTo = undefined;
+    tourState._pause = undefined;
+    tourState._resume = undefined;
+    tourState._reset = undefined;
+    tourState.isActive = false;
+  });
+
+  // ─── Expose ──────────────────────────────────────────────────────────────────
+
   defineExpose({
     startTour,
     endTour,
+    skipTour,
     nextStep,
     prevStep,
     goToStep,
+    pause,
+    resume,
     resetTour,
-    recalculatePopper,
     activateFocusTrap,
-    deActivateFocusTrap,
+    deactivateFocusTrap,
+    recalculatePopper: refreshPopper,
     isLocked,
+    currentStep: currentStepIndex,
+    isActive,
   });
 </script>
