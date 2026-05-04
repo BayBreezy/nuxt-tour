@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+
 import { $fetch, setup } from "@nuxt/test-utils/e2e";
 import { describe, expect, it } from "vitest";
 
@@ -20,14 +21,10 @@ describe("Display Tour To User", async () => {
     expect(html).toContain('class="target"');
   });
 
-  it(
-    "automatically starts the tour",
-    async () => {
-      const html: string = await $fetch("/");
-      expect(html).toContain('role="tooltip"');
-    },
-    { timeout: 20000 }
-  );
+  it("automatically starts the tour", { timeout: 20000 }, async () => {
+    const html: string = await $fetch("/");
+    expect(html).toContain('role="tooltip"');
+  });
 
   it("has correct content inside the step", async () => {
     const html: string = await $fetch("/");

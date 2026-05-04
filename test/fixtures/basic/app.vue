@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { TourStep } from "#nuxt-tour/props";
+  import type { TourStep } from "#nuxt-tour/types";
 
   const steps: TourStep[] = [
     {
