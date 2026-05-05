@@ -60,8 +60,6 @@ jobs:
       - name: Create release branch and open draft PR
         run: |
           git checkout -b release/v${{ steps.version.outputs.version }}
-          git add package.json CHANGELOG.md
-          git commit -m "chore(release): v${{ steps.version.outputs.version }}"
           git push origin release/v${{ steps.version.outputs.version }}
           gh pr create \
             --title "chore(release): v${{ steps.version.outputs.version }}" \
