@@ -14,27 +14,22 @@ on:
           - prerelease
 
 jobs:
-  release:
-    name: Release
+  prepare:
+    name: Prepare release PR
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      id-token: write # required for npm provenance
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # full history so changelogen can read all commits
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
@@ -48,9 +43,6 @@ jobs:
       - name: Test
         run: bun run test
 
-      - name: Build
-        run: bun run prepack
-
       - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
@@ -61,10 +53,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push commit & tag
-        run: git push --follow-tags
+      - name: Read new version
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
-      - name: Publish to npm (with provenance)
-        run: npm publish --provenance --access public
+      - name: Create release branch and open draft PR
+        run: |
+          git checkout -b release/v${{ steps.version.outputs.version }}
+          git add package.json CHANGELOG.md
+          git commit -m "chore(release): v${{ steps.version.outputs.version }}"
+          git push origin release/v${{ steps.version.outputs.version }}
+          gh pr create \
+            --title "chore(release): v${{ steps.version.outputs.version }}" \
+            --body "## Release v${{ steps.version.outputs.version }}
+
+          Review and edit \`CHANGELOG.md\` in this PR before merging.
+          Once merged, run the **Publish** workflow to tag and publish to npm." \
+            --base main \
+            --draft
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
