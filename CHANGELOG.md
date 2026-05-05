@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.0
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.1.0...v0.1.0)
+
+### 🤖 CI
+
+- Remove git add and commit steps from release workflow ([3ae326b](https://github.com/BayBreezy/nuxt-tour/commit/3ae326b))
+- Force push release branch and close existing PR before creating a new one ([46c9ea3](https://github.com/BayBreezy/nuxt-tour/commit/46c9ea3))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.0.40
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.39...v0.0.40)
