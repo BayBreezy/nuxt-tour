@@ -1,34 +1,45 @@
-import { addComponent, createResolver, defineNuxtModule, installModule } from "@nuxt/kit";
+import { addComponent, addImportsDir, createResolver, defineNuxtModule } from "@nuxt/kit";
 
 export interface TourOptions {
   /**
-   * The prefix to use for the component name
+   * Prefix for the auto-registered component name. With the default "V" the component is `<VTour
+   * />`.
    *
    * @default "V"
    */
   prefix?: string;
   /**
-   * Inject the default sass file
-   *
-   * Feel free to create your own 🙂. Just get the class names correct
+   * Inject the default tour.css file. Set to false if you want to provide your own stylesheet.
    *
    * @default true
    */
-  injectSass?: boolean;
+  injectCSS?: boolean;
+  /**
+   * Prefix used for localStorage keys.
+   *
+   * @default "nt"
+   */
+  storagePrefix?: string;
+  /**
+   * Global storage version. Bump this to force already-played tours to show again. Leave undefined
+   * to disable version-based resets.
+   */
+  storageVersion?: string;
 }
 
 export default defineNuxtModule<TourOptions>({
   meta: {
     name: "nuxt-tour",
     configKey: "tour",
-    compatibility: {
-      nuxt: ">=3.0",
-    },
+    compatibility: { nuxt: ">=3.0" },
   },
-  // Default configuration options of the Nuxt module
+  moduleDependencies: {
+    "@nuxt/icon": {},
+  },
   defaults: {
     prefix: "V",
-    injectSass: true,
+    injectCSS: true,
+    storagePrefix: "nt",
   },
   async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url);
@@ -38,28 +49,21 @@ export default defineNuxtModule<TourOptions>({
     nuxt.options.build.transpile.push("@popperjs/core");
     nuxt.options.alias["#nuxt-tour"] = runtimeDir;
 
-    const isDevelopment = runtimeDir.endsWith("src/runtime") || runtimeDir.endsWith("src\\runtime");
-
-    const extension = isDevelopment ? "scss" : "css";
-    if (options.injectSass) {
-      // add sass files to the top of the css array
-      nuxt.options.css.unshift(resolver.resolve(`./runtime/scss/tour.${extension}`));
+    if (options.injectCSS) {
+      nuxt.options.css.unshift(resolver.resolve("./runtime/css/tour.css"));
     }
 
-    // install nuxt-icon module
-    await installModule("@nuxt/icon");
+    // Auto-import useTour composable
+    addImportsDir(resolver.resolve("./runtime/composables"));
 
-    // optimize deps in dev mode
-    if (isDevelopment) {
-      nuxt.hook("vite:extendConfig", (config) => {
-        config.optimizeDeps?.include?.push(
-          "@popperjs/core",
-          "@vueuse/integrations/useFocusTrap",
-          "jump.js",
-          "lodash-es"
-        );
-      });
-    }
+    // Optimise dev bundling
+    nuxt.hook("vite:extendConfig", (config) => {
+      config.optimizeDeps?.include?.push(
+        "@popperjs/core",
+        "@vueuse/integrations/useFocusTrap",
+        "jump.js"
+      );
+    });
 
     addComponent({
       filePath: resolver.resolve("./runtime/components/Tour.vue"),
