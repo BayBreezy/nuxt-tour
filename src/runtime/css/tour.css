@@ -1,0 +1,277 @@
+/* nuxt-tour default styles — customise by overriding --nt-* on #nt-tooltip */
+
+[data-hidden] {
+  display: none !important;
+}
+
+/* ── Transitions ──────────────────────────────────────────────────────────── */
+
+/*
+ * Popper.js sets transform: translate3d() as an inline style, which outranks any
+ * class-level transform. Using the standalone `translate` and `scale` CSS properties
+ * (Transforms Level 2) composes with Popper's transform instead of fighting it.
+ */
+
+.nt-tooltip-fade-enter-active,
+.nt-tooltip-fade-leave-active,
+.nt-tooltip-slide-up-enter-active,
+.nt-tooltip-slide-up-leave-active,
+.nt-tooltip-slide-down-enter-active,
+.nt-tooltip-slide-down-leave-active,
+.nt-tooltip-slide-left-enter-active,
+.nt-tooltip-slide-left-leave-active,
+.nt-tooltip-slide-right-enter-active,
+.nt-tooltip-slide-right-leave-active {
+  transition:
+    opacity 0.3s ease,
+    translate 0.3s ease,
+    scale 0.3s ease;
+}
+
+.nt-tooltip-fade-enter-from,
+.nt-tooltip-fade-leave-to {
+  opacity: 0;
+}
+
+/* translate: x y — first value is X axis, second is Y axis */
+
+.nt-tooltip-slide-up-enter-from,
+.nt-tooltip-slide-up-leave-to {
+  opacity: 0;
+  translate: 0 10px;
+}
+
+.nt-tooltip-slide-down-enter-from,
+.nt-tooltip-slide-down-leave-to {
+  opacity: 0;
+  translate: 0 -10px;
+}
+
+.nt-tooltip-slide-left-enter-from,
+.nt-tooltip-slide-left-leave-to {
+  opacity: 0;
+  translate: 10px 0;
+}
+
+.nt-tooltip-slide-right-enter-from,
+.nt-tooltip-slide-right-leave-to {
+  opacity: 0;
+  translate: -10px 0;
+}
+
+/* ── Backdrop ─────────────────────────────────────────────────────────────── */
+
+#nt-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--nt-backdrop-bg, rgba(0, 0, 0, 0.5));
+  z-index: var(--nt-backdrop-z, 9998);
+}
+
+/* ── Tooltip ──────────────────────────────────────────────────────────────── */
+
+#nt-tooltip {
+  /* Design tokens */
+  --nt-border-color: #e2e8f0;
+  --nt-bg: #ffffff;
+  --nt-text: #0f172a;
+  --nt-subtext: #64748b;
+  --nt-highlight-color: #0ea5e9;
+  --nt-radius: 6px;
+  --nt-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+  --nt-z-index: 9999;
+  --nt-max-width: 370px;
+  --nt-padding: 12px 16px;
+  --nt-gap: 6px;
+  --nt-arrow-size: 12px;
+  --nt-backdrop-bg: rgba(0, 0, 0, 0.5);
+  --nt-backdrop-z: 9998;
+
+  /* Button tokens */
+  --nt-btn-bg: #020617;
+  --nt-btn-color: #ffffff;
+  --nt-btn-radius: 5px;
+  --nt-btn-height: 32px;
+  --nt-btn-padding: 4px 14px;
+  --nt-btn-font-size: 14px;
+  --nt-btn-font-weight: 500;
+  --nt-btn-gap: 6px;
+  --nt-btn-transition: all 0.2s ease-in-out;
+
+  /* Highlight token */
+  --nt-highlight-offset: 8px;
+  --nt-highlight-radius: 4px;
+
+  /* Layout */
+  position: relative;
+  background-color: var(--nt-bg);
+  border: 1px solid var(--nt-border-color);
+  padding: var(--nt-padding);
+  box-shadow: var(--nt-shadow);
+  border-radius: var(--nt-radius);
+  z-index: var(--nt-z-index);
+  max-width: var(--nt-max-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--nt-gap);
+}
+
+/* Centred tooltip (no target element) */
+.nt-center {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* ── Tooltip header ───────────────────────────────────────────────────────── */
+
+#nt-tooltip-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#nt-tooltip-title {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--nt-text);
+  margin: 0;
+}
+
+#nt-tooltip-sub-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--nt-subtext);
+  margin: 0;
+}
+
+/* ── Tooltip body ─────────────────────────────────────────────────────────── */
+
+#nt-tooltip-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--nt-text);
+}
+
+/* ── Progress indicator ───────────────────────────────────────────────────── */
+
+#nt-progress {
+  font-size: 12px;
+  color: var(--nt-subtext);
+  line-height: 1;
+}
+
+/* ── Arrow ────────────────────────────────────────────────────────────────── */
+
+#nt-arrow {
+  width: var(--nt-arrow-size);
+  height: var(--nt-arrow-size);
+  position: absolute;
+  z-index: -1;
+}
+
+#nt-arrow::before {
+  content: "";
+  width: var(--nt-arrow-size);
+  height: var(--nt-arrow-size);
+  background-color: var(--nt-bg);
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+#nt-tooltip[data-popper-placement^="top"] #nt-arrow {
+  bottom: calc(var(--nt-arrow-size) / -2);
+}
+#nt-tooltip[data-popper-placement^="top"] #nt-arrow::before {
+  border-bottom: 1px solid var(--nt-border-color);
+  border-right: 1px solid var(--nt-border-color);
+}
+
+#nt-tooltip[data-popper-placement^="bottom"] #nt-arrow {
+  top: calc(var(--nt-arrow-size) / -2);
+}
+#nt-tooltip[data-popper-placement^="bottom"] #nt-arrow::before {
+  border-top: 1px solid var(--nt-border-color);
+  border-left: 1px solid var(--nt-border-color);
+}
+
+#nt-tooltip[data-popper-placement^="left"] #nt-arrow {
+  right: calc(var(--nt-arrow-size) / -2);
+}
+#nt-tooltip[data-popper-placement^="left"] #nt-arrow::before {
+  border-top: 1px solid var(--nt-border-color);
+  border-right: 1px solid var(--nt-border-color);
+}
+
+#nt-tooltip[data-popper-placement^="right"] #nt-arrow {
+  left: calc(var(--nt-arrow-size) / -2);
+}
+#nt-tooltip[data-popper-placement^="right"] #nt-arrow::before {
+  border-bottom: 1px solid var(--nt-border-color);
+  border-left: 1px solid var(--nt-border-color);
+}
+
+/* ── Highlight ────────────────────────────────────────────────────────────── */
+
+.nt-highlight {
+  outline: 1px solid var(--nt-highlight-color, #0ea5e9);
+  outline-offset: var(--nt-highlight-offset, 8px);
+  border-radius: var(--nt-highlight-radius, 4px);
+}
+
+/* ── Actions ──────────────────────────────────────────────────────────────── */
+
+.nt-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.nt-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nt-btn-gap);
+  height: var(--nt-btn-height);
+  padding: var(--nt-btn-padding);
+  border-radius: var(--nt-btn-radius);
+  background-color: var(--nt-btn-bg);
+  color: var(--nt-btn-color);
+  font-size: var(--nt-btn-font-size);
+  font-weight: var(--nt-btn-font-weight);
+  transition: var(--nt-btn-transition);
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  line-height: 1;
+}
+
+.nt-actions button:hover {
+  opacity: 0.85;
+}
+
+.nt-actions button#nt-action-skip {
+  background-color: transparent;
+  color: var(--nt-text);
+  border-color: transparent;
+}
+
+.nt-actions button#nt-action-skip:hover {
+  background-color: var(--nt-border-color);
+}
+
+.nt-actions button#nt-action-prev {
+  background-color: var(--nt-border-color);
+  color: var(--nt-text);
+  border-color: var(--nt-border-color);
+}
+
+.nt-actions button#nt-action-prev:hover {
+  background-color: var(--nt-btn-bg);
+  border-color: var(--nt-btn-bg);
+  color: var(--nt-btn-color);
+  opacity: 1;
+}
