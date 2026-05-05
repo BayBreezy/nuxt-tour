@@ -60,7 +60,8 @@ jobs:
       - name: Create release branch and open draft PR
         run: |
           git checkout -b release/v${{ steps.version.outputs.version }}
-          git push origin release/v${{ steps.version.outputs.version }}
+          git push --force origin release/v${{ steps.version.outputs.version }}
+          gh pr close release/v${{ steps.version.outputs.version }} 2>/dev/null || true
           gh pr create \
             --title "chore(release): v${{ steps.version.outputs.version }}" \
             --body "## Release v${{ steps.version.outputs.version }}
