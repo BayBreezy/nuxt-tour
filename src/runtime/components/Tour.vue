@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :id="backdropId" data-hidden :style="{ clipPath: clipPath }" />
-    <Transition name="fade-nt-tooltip">
+    <Transition :name="transitionName">
       <div
         v-show="showTooltip"
         id="nt-tooltip"
@@ -18,16 +18,16 @@
         >
           <div id="nt-tooltip-header">
             <slot :name="`${stepSlot}-title`" v-bind="slotProps">
-              <h3 v-if="step.title" id="nt-tooltip-title" v-html="step.title" />
+              <h3 v-if="step?.title" id="nt-tooltip-title" v-html="step.title" />
             </slot>
             <slot :name="`${stepSlot}-sub-text`" v-bind="slotProps">
-              <p v-if="step.subText" id="nt-tooltip-sub-text" v-html="step.subText" />
+              <p v-if="step?.subText" id="nt-tooltip-sub-text" v-html="step.subText" />
             </slot>
           </div>
         </slot>
 
         <slot :name="`${stepSlot}-body`" v-bind="slotProps">
-          <div v-if="step.body" id="nt-tooltip-body" v-html="step.body" />
+          <div v-if="step?.body" id="nt-tooltip-body" v-html="step.body" />
         </slot>
 
         <slot :name="`${stepSlot}-progress`" v-bind="slotProps">
@@ -179,6 +179,7 @@
       lockScroll: true,
       saveToLocalStorage: "end",
       scrollBehavior: "jump",
+      transition: "fade",
       _storagePrefix: "nt",
       _storageVersion: undefined,
     }
@@ -212,6 +213,9 @@
   const step = computed(() => props.steps[currentStepIndex.value]);
   const stepSlot = computed(() => step.value?.slot ?? "");
   const isLastStep = computed(() => currentStepIndex.value === props.steps.length - 1);
+  const transitionName = computed(
+    () => `nt-tooltip-${step.value?.transition ?? props.transition ?? "fade"}`
+  );
 
   const stepTarget = computed<Element>(() => {
     const t = step.value?.target;
