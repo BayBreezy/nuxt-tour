@@ -54,8 +54,8 @@ jobs:
 
       - name: Create and push tag
         run: |
-          git tag v${{ github.event.inputs.version }}
-          git push origin v${{ github.event.inputs.version }}
+          git tag --force v${{ github.event.inputs.version }}
+          git push --force origin v${{ github.event.inputs.version }}
 
       - name: Publish to npm (with provenance)
         run: npm publish --provenance --access public

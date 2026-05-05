@@ -57,6 +57,9 @@ jobs:
         id: version
         run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
+      - name: Remove local tag if changelogen created one
+        run: git tag -d v${{ steps.version.outputs.version }} 2>/dev/null || true
+
       - name: Create release branch and open draft PR
         run: |
           git checkout -b release/v${{ steps.version.outputs.version }}
