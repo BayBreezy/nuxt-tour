@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["test/fixtures/**"],
+  "ignorePatterns": ["test/fixtures/**", "docs/**"],
   "plugins": ["typescript", "unicorn", "oxc", "vue"],
   "categories": {
     "correctness": "error"
