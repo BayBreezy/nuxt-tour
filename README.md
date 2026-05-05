@@ -1,12 +1,3 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: Nuxt Tour
-- Package name: nuxt-tour
-- Description: Empower your users with interactive guided tours of your Nuxt 3 applications using the nuxt-tour module. With this versatile tool, developers can seamlessly integrate step-by-step tooltips and popovers into their applications, providing clear instructions and highlighting key features.
--->
-
 # Nuxt Tour
 
 [![npm version][npm-version-src]][npm-version-href]
@@ -18,37 +9,33 @@ Find and replace all on all files (CMD+SHIFT+F):
 
 <br/>
 
-Empower your users with interactive guided tours of your Nuxt 3 applications using the `nuxt-tour` module.
-
-With this module, developers can seamlessly integrate step-by-step tooltips into their applications, providing clear instructions and highlighting key features.
-
-Special thanks to [Vue Tour](https://github.com/GlobalHive/vuejs-tour/tree/master) for doing the heavy lifting. I basically just ported it to Nuxt 3(with a few changes here and there).
-
-Thank you https://github.com/GlobalHive
+Add interactive guided tours to your Nuxt app. nuxt-tour gives you a fully-featured `<VTour />` component and a `useTour()` composable so you can drive tours from anywhere in your code.
 
 - [📖 &nbsp;Documentation](https://nuxt-tour.behonbaker.com/)
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
-  <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-tour?file=playground%2Fapp.vue) -->
+- [🤝 &nbsp;Contributing](/CONTRIBUTING.md)
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-
-- **Easy Integration**: Quickly add guided tours to your Nuxt 3 projects with minimal setup.
-- **Customizable**: Tailor the appearance of steps to match your application's design and user experience.
-- **Step-by-Step Navigation**: Guide users through workflows and features with sequential tooltips and intuitive navigation controls.
-- **Rich Content Support**: Enhance tooltips with text, images, videos, and interactive elements through the provided slots.
-- **Responsive Design**: Ensure a consistent experience across devices with responsive tooltips that adapt to different screen sizes.
+- **Component + Composable** — use `<VTour />` declaratively or control tours programmatically with `useTour()`
+- **Smart localStorage** — three storage modes: `'end'` (default), `'step'` (resume mid-tour), or `'never'`; supports TTL expiry and version-based resets
+- **Keyboard navigation** — arrow keys to move between steps, Escape to exit
+- **Highlight & backdrop** — spotlight the target element with an outline and an optional dark overlay
+- **Fully customisable** — every piece of the tooltip is a named slot; styling is done with CSS custom properties (`--nt-*`), no Sass required
+- **SSR safe** — all browser APIs are guarded behind `import.meta.client`
+- **Accessible** — focus trap, scroll lock, and `role="tooltip"` out of the box
 
 ## Quick Setup
 
-Install the module to your Nuxt application with one command:
-
 ```bash
+# npm
 npm install nuxt-tour
+
+# bun
+bun add nuxt-tour
 ```
 
-Then, add the module to your `nuxt.config` file:
+Add the module to your `nuxt.config`:
 
 ```ts
 export default defineNuxtConfig({
@@ -56,72 +43,132 @@ export default defineNuxtConfig({
 });
 ```
 
-You can then pass a `prefix` to the module via the `tour` key in your `nuxt.config` file. You can also pass the `injectSass` key to inject the default styles into your application:
+## Basic Usage
+
+Define your steps and drop in the component:
+
+```vue
+<template>
+  <div>
+    <h1 class="hero-title">Welcome</h1>
+    <button class="cta">Get started</button>
+
+    <VTour :steps="steps" auto-start />
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { TourStep } from "#nuxt-tour/types";
+
+const steps: TourStep[] = [
+  {
+    target: ".hero-title",
+    title: "Welcome to the app",
+    body: "This is your dashboard. Let us show you around.",
+  },
+  {
+    target: ".cta",
+    title: "Ready to go?",
+    body: "Click here whenever you want to get started.",
+  },
+];
+</script>
+```
+
+## Composable Usage
+
+Control a tour from anywhere — even before the component mounts:
+
+```ts
+const { isPlayed, start, reset, currentStep, isActive } = useTour("onboarding");
+
+// Show a "Replay tour" button only after the tour has been completed
+if (!isPlayed.value) {
+  await start();
+}
+```
+
+## Module Options
 
 ```ts
 export default defineNuxtConfig({
   modules: ["nuxt-tour"],
   tour: {
-    prefix: "tour",
+    // Component name prefix. Default "V" → <VTour />
+    prefix: "V",
+
+    // Inject the default stylesheet. Set false to bring your own.
+    injectCSS: true,
+
+    // localStorage key prefix. Default "nt" → key "nt-onboarding"
+    storagePrefix: "nt",
+
+    // Bump this string to force all previously-played tours to show again.
+    storageVersion: "v2",
   },
 });
 ```
 
-## Configure the module
+## Key Props
 
-You can configure the module by passing the following options to the `tour` key in your `nuxt.config` file:
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `steps` | `TourStep[]` | — | Step definitions (required) |
+| `name` | `string` | `"default"` | Unique tour name — used as the localStorage key |
+| `autoStart` | `boolean` | `false` | Start the tour on mount |
+| `saveToLocalStorage` | `'end' \| 'step' \| 'never'` | `'end'` | When to persist progress |
+| `ttl` | `number` | — | Days before a completed tour shows again |
+| `highlight` | `boolean` | `false` | Outline the target element |
+| `backdrop` | `boolean` | `false` | Show a dark overlay |
+| `showProgress` | `boolean` | `false` | Show "Step N of M" counter |
+| `keyboard` | `boolean` | `true` | Arrow-key and Escape navigation |
+| `scrollBehavior` | `'jump' \| 'smooth' \| 'none'` | `'jump'` | How to scroll to each step |
+| `trapFocus` | `boolean` | `true` | Trap keyboard focus inside the tooltip |
+| `lockScroll` | `boolean` | `true` | Prevent page scrolling while the tour is active |
 
-```ts
-export interface TourOptions {
-  /**
-   * The prefix to use for the component name
-   *
-   * @default "V"
-   */
-  prefix?: string;
-  /**
-   * Inject the default sass file
-   *
-   * Feel free to create your own 🙂. Just get the class names correct
-   *
-   * @default true
-   */
-  injectSass?: boolean;
+## Customising Styles
+
+Override any `--nt-*` CSS custom property on `#nt-tooltip`:
+
+```css
+#nt-tooltip {
+  --nt-bg: #1e1e2e;
+  --nt-text: #cdd6f4;
+  --nt-border-color: #45475a;
+  --nt-btn-bg: #cba6f7;
+  --nt-btn-color: #1e1e2e;
+  --nt-radius: 10px;
 }
 ```
 
-That's it! You can now use Nuxt Tour in your Nuxt app ✨
+## Emits
 
-## Contribution
+| Event | Payload | Description |
+|---|---|---|
+| `tour:start` | — | Tour has begun |
+| `tour:end` | — | Tour completed |
+| `tour:skip` | — | Tour was skipped |
+| `tour:step-change` | `{ from, to }` | Step changed |
 
-<details>
-  <summary>Local development</summary>
-  
-  ```bash
-  # Install dependencies
-  npm install
-  
-  # Generate type stubs
-  npm run dev:prepare
-  
-  # Develop with the playground
-  npm run dev
-  
-  # Build the playground
-  npm run dev:build
-  
-  # Run ESLint
-  npm run lint
-  
-  # Run Vitest
-  npm run test
-  npm run test:watch
-  
-  # Release new version
-  npm run release
-  ```
+## Exposed Methods
 
-</details>
+```ts
+const tour = useTemplateRef("tour");
+
+tour.value?.startTour();
+tour.value?.endTour();
+tour.value?.skipTour();
+tour.value?.nextStep();
+tour.value?.prevStep();
+tour.value?.goToStep(2);
+tour.value?.pause();
+tour.value?.resume();
+tour.value?.resetTour();
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](/CONTRIBUTING.md) for local dev setup, coding standards, and the PR checklist.
 
 <!-- Badges -->
 
