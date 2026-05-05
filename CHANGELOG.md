@@ -1,5 +1,81 @@
 # Changelog
 
+## v0.1.0
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.40...v0.1.0)
+
+This is a major rewrite of nuxt-tour. The module has been rebuilt from scratch with a new composable-first architecture, a pure-CSS default stylesheet, richer storage handling, and improved SSR safety. See the breaking changes section before upgrading.
+
+### 💥 Breaking Changes
+
+- **`injectSass` → `injectCSS`**: The module option `injectSass` has been renamed to `injectCSS`. The default stylesheet is now a plain CSS file (`tour.css`) with CSS custom properties instead of SCSS.
+- **Types import path changed**: Import types from `#nuxt-tour/types` instead of `#nuxt-tour/props`.
+- **`TourProps` → `TourConfig`**: The main component props type has been renamed to `TourConfig`.
+- **`ButtonProp` → `ButtonConfig`**: The button configuration type has been renamed to `ButtonConfig`.
+- **Emits renamed and extended**: `onTourStart` → `tour:start`, `onTourEnd` → `tour:end`. New events: `tour:skip` and `tour:step-change` (`{ from, to }`).
+- **Callback props removed**: `onComplete` and `onSkip` props have been removed. Use `@tour:end` and `@tour:skip` event listeners instead.
+- **localStorage schema changed**: The stored value is now a JSON object `{ completed, status, completedAt, lastStep, version }` instead of a plain boolean. Existing boolean values are **automatically migrated** on first read.
+- **`lodash-es` removed**: The dependency on `lodash-es` has been removed. Deep merging is now handled natively.
+
+### 🚀 Enhancements
+
+- **`useTour` composable**: New `useTour(name)` composable (auto-imported) for controlling any named tour from outside the component. Exposes `start`, `end`, `skip`, `next`, `prev`, `goTo`, `pause`, `resume`, `reset`, `markPlayed`, `markUnplayed`, `isActive`, `isPaused`, `currentStep`, `totalSteps`, `progress`, `isPlayed`, `lastPlayedAt`, and `completionStatus` ([925084b](https://github.com/BayBreezy/nuxt-tour/commit/925084b))
+- **`transition` prop**: New `transition` prop on `TourConfig` and per-step `TourStep` for tooltip enter/leave animations. Supported values: `'fade'` (default), `'slide-up'`, `'slide-down'`, `'slide-left'`, `'slide-right'` ([1415b38](https://github.com/BayBreezy/nuxt-tour/commit/1415b38))
+- **`saveToLocalStorage` prop**: Controls when tour progress is persisted — `'end'` (default), `'step'` (resume mid-tour on next visit), or `'never'` ([c04d418](https://github.com/BayBreezy/nuxt-tour/commit/c04d418))
+- **`ttl` prop**: New `ttl` (number of days) prop on `TourConfig` to set a time-based expiry on completed tours ([c04d418](https://github.com/BayBreezy/nuxt-tour/commit/c04d418))
+- **`lockScroll` prop**: New `lockScroll` (default `true`) prop to prevent page scrolling while the tour is active ([c04d418](https://github.com/BayBreezy/nuxt-tour/commit/c04d418))
+- **`trapFocus` prop**: New `trapFocus` (default `true`) prop to trap keyboard focus inside the tooltip ([c04d418](https://github.com/BayBreezy/nuxt-tour/commit/c04d418))
+- **`keyboard` prop**: New `keyboard` (default `true`) prop to enable arrow-key / Escape navigation ([c04d418](https://github.com/BayBreezy/nuxt-tour/commit/c04d418))
+- **`scrollBehavior` prop**: New `scrollBehavior` prop (`'jump'` | `'smooth'` | `'none'`, default `'jump'`) to control scroll behaviour between steps ([c04d418](https://github.com/BayBreezy/nuxt-tour/commit/c04d418))
+- **`storagePrefix` module option**: New module-level option to customise the localStorage key prefix (default `"nt"`) ([1f94615](https://github.com/BayBreezy/nuxt-tour/commit/1f94615))
+- **`storageVersion` module option**: New module-level option to force already-played tours to show again when bumped ([1f94615](https://github.com/BayBreezy/nuxt-tour/commit/1f94615))
+- **`onShow` step hook**: Step-level `onShow` callback that can return `false` to abort the step transition ([c04d418](https://github.com/BayBreezy/nuxt-tour/commit/c04d418))
+- **`tour:skip` event**: New emit fired when the user skips the tour ([925084b](https://github.com/BayBreezy/nuxt-tour/commit/925084b))
+- **`tour:step-change` event**: New emit fired on every step change, carrying `{ from, to }` indices ([925084b](https://github.com/BayBreezy/nuxt-tour/commit/925084b))
+- **Storage utilities**: New internal helpers (`readEntry`, `writeEntry`, `clearEntry`, `shouldSkipTour`, `markComplete`, `saveStepProgress`, `getResumeStep`) for consistent localStorage access with migration support ([dc04eaf](https://github.com/BayBreezy/nuxt-tour/commit/dc04eaf))
+- **Streamlined Tour component**: Component restructured with unified slot bindings, improved step transitions, and backdrop sync ([0049d02](https://github.com/BayBreezy/nuxt-tour/commit/0049d02), [1169456](https://github.com/BayBreezy/nuxt-tour/commit/1169456))
+- **Pure CSS stylesheet**: Default styles replaced with a plain CSS file using CSS custom properties (`--nt-*`) on `#nt-tooltip`. No Sass required. ([cb55654](https://github.com/BayBreezy/nuxt-tour/commit/cb55654))
+
+### 🩹 Fixes
+
+- Update tsconfig path to reference the correct directory for Nuxt configuration ([521ce75](https://github.com/BayBreezy/nuxt-tour/commit/521ce75))
+
+### 📖 Documentation
+
+- Integrate Docd for the module's documentation site ([0248dd1](https://github.com/BayBreezy/nuxt-tour/commit/0248dd1))
+- Add contributing guide for project setup and contribution process ([efc866c](https://github.com/BayBreezy/nuxt-tour/commit/efc866c))
+- Add transition examples (`ExTransition`, `ExTransitionPerStep`) ([97bdf5d](https://github.com/BayBreezy/nuxt-tour/commit/97bdf5d), [d6d38d9](https://github.com/BayBreezy/nuxt-tour/commit/d6d38d9))
+- Update README to reflect new module capabilities and features ([d6d06e6](https://github.com/BayBreezy/nuxt-tour/commit/d6d06e6))
+
+### ✅ Tests
+
+- Add tests for multi-step tour and storage functionality ([57e2657](https://github.com/BayBreezy/nuxt-tour/commit/57e2657))
+- Add Vitest configuration for unit testing support ([76bda8b](https://github.com/BayBreezy/nuxt-tour/commit/76bda8b))
+
+### 🤖 CI
+
+- Add CI and release workflows for automated linting, testing, and versioning ([ee0c59a](https://github.com/BayBreezy/nuxt-tour/commit/ee0c59a))
+- Add publish workflow for npm ([c1541fe](https://github.com/BayBreezy/nuxt-tour/commit/c1541fe))
+- Add issue templates for bug reports and feature requests ([6231c52](https://github.com/BayBreezy/nuxt-tour/commit/6231c52))
+- Add missing prepare step in CI workflow ([747023e](https://github.com/BayBreezy/nuxt-tour/commit/747023e))
+- Remove git add and commit steps from release workflow ([3ae326b](https://github.com/BayBreezy/nuxt-tour/commit/3ae326b))
+- Force push release branch and close existing PR before creating a new one ([46c9ea3](https://github.com/BayBreezy/nuxt-tour/commit/46c9ea3))
+
+### 🏡 Chore
+
+- Remove old playground and unused files ([c3f0da7](https://github.com/BayBreezy/nuxt-tour/commit/c3f0da7))
+- Add AGENTS.md for AI agent instructions and repo context ([ba83ad9](https://github.com/BayBreezy/nuxt-tour/commit/ba83ad9))
+- Add `.oxlintrc.json` configuration file for linting setup ([470dbb6](https://github.com/BayBreezy/nuxt-tour/commit/470dbb6))
+- Add configuration file for oxfmt formatting tool ([ce93ffe](https://github.com/BayBreezy/nuxt-tour/commit/ce93ffe))
+- Add VSCode settings for formatting configuration ([bbc7397](https://github.com/BayBreezy/nuxt-tour/commit/bbc7397))
+- Add clean script for removing generated files and dependencies ([a116724](https://github.com/BayBreezy/nuxt-tour/commit/a116724))
+- Update package.json and dependencies ([5245d0f](https://github.com/BayBreezy/nuxt-tour/commit/5245d0f))
+- Update ignorePatterns in oxlint configuration to exclude docs directory ([ffe6708](https://github.com/BayBreezy/nuxt-tour/commit/ffe6708))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.0.40
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.39...v0.0.40)
