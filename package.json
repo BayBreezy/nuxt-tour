@@ -69,7 +69,7 @@
     "@types/node": "^25.6.0",
     "changelogen": "^0.6.2",
     "nuxt": "^4.4.4",
-    "oxfmt": "^0.47.0",
+    "oxfmt": "^0.48.0",
     "oxlint": "^1.62.0",
     "oxlint-tsgolint": "^0.22.1",
     "typescript": "~6.0.3",
