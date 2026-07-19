@@ -71,7 +71,7 @@
     "nuxt": "^4.4.4",
     "oxfmt": "^0.47.0",
     "oxlint": "^1.62.0",
-    "oxlint-tsgolint": "^0.22.1",
+    "oxlint-tsgolint": "^0.25.0",
     "typescript": "~6.0.3",
     "vitest": "^4.1.5",
     "vue-tsc": "^3.2.8"
