@@ -1,5 +1,6 @@
 {
   "name": "docs",
+  "description": "Documentation for the Nuxt Tour module",
   "author": {
     "name": "Behon Baker",
     "email": "behon.baker@yahoo.com",
@@ -21,7 +22,7 @@
   "devDependencies": {
     "@antfu/ni": "latest",
     "@types/node": "latest",
-    "nuxt": "^4.4.4",
+    "nuxt": "^4.5.2",
     "typescript": "^6.0.3",
     "vue": "latest"
   },
