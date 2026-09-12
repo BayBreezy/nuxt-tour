@@ -1,5 +1,5 @@
 ---
-title: "nuxt-tour"
+title: "Nuxt Tour"
 description: "Add interactive guided tours to your Nuxt application with a single component and a composable."
 ---
 
