@@ -80,7 +80,7 @@
     "*.{js,ts,vue,css,mjs,cjs}": "oxfmt --no-error-on-unmatched-pattern",
     "*.{js,jsx,ts,tsx,mjs,cjs}": "nr lint"
   },
-  "packageManager": "bun@1.3.9",
+  "packageManager": "bun@1.4.0",
   "trustedDependencies": [
     "@parcel/watcher",
     "esbuild"
