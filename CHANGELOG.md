@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.1.1
+
+[compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.1.0...v0.1.1)
+
+### 🩹 Fixes
+
+- Correct tsconfig path to extend from the correct directory ([30306c3](https://github.com/BayBreezy/nuxt-tour/commit/30306c3))
+- Correct title casing in index.md ([1ddf4f9](https://github.com/BayBreezy/nuxt-tour/commit/1ddf4f9))
+
+### 🏡 Chore
+
+- Update netlify script for improved build process ([6126d9a](https://github.com/BayBreezy/nuxt-tour/commit/6126d9a))
+- Bump deps ([91cd439](https://github.com/BayBreezy/nuxt-tour/commit/91cd439))
+
+### 🤖 CI
+
+- Update tsconfig path to extend from the correct directory ([4b17cdc](https://github.com/BayBreezy/nuxt-tour/commit/4b17cdc))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.1.0
 
 [compare changes](https://github.com/BayBreezy/nuxt-tour/compare/v0.0.40...v0.1.0)
