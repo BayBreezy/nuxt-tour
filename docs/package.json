@@ -23,13 +23,15 @@
     "@antfu/ni": "latest",
     "@types/node": "latest",
     "node-gyp": "latest",
-    "nuxt": "^4.5.2",
-    "typescript": "^6.0.3",
+    "nuxt": "^4.6.0",
+    "typescript": "6.0.3",
     "vue": "latest"
   },
-  "packageManager": "bun@1.4.0",
+   "overrides": {
+    "mdast-util-to-markdown": "2.1.2"
+  },
+  "packageManager": "bun@1.4.2",
   "trustedDependencies": [
-    "@morev/vue-transitions",
     "@parcel/watcher",
     "better-sqlite3",
     "esbuild",
